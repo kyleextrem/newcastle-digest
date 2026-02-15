@@ -3,11 +3,10 @@ import { Instagram, Twitter, MessageCircle, ArrowUp } from 'lucide-react';
 import ndLogo from '../src/assets/nd-logo.png';
 
 interface FooterProps {
-  setView: (view: string) => void;
+  setView: (view: string, options?: { hash?: string }) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ setView }) => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <footer className="bg-[#1a1611] text-[#faf9f6] py-24 md:py-48 px-4 md:px-8 overflow-hidden relative">
@@ -35,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ setView }) => {
                 { name: 'The Journal', v: 'journal' },
                 { name: 'Subscribe', v: 'subscribe' }
               ].map(link => (
-                <button key={link.name} onClick={() => {setView(link.v); scrollToTop();}} className="text-left font-sans-main text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors">
+                <button key={link.name} onClick={() => setView(link.v, link.v === 'home' && link.name === 'Latest Edition' ? { hash: 'latest' } : undefined)} className="text-left font-sans-main text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors">
                   {link.name}
                 </button>
               ))}
@@ -50,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({ setView }) => {
                 { name: 'Behind the Digest', v: 'behind' },
                 { name: 'Contact', v: 'contact' },
               ].map(link => (
-                <button key={link.name} onClick={() => {setView(link.v); scrollToTop();}} className="text-left font-sans-main text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors">
+                <button key={link.name} onClick={() => setView(link.v)} className="text-left font-sans-main text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors">
                   {link.name}
                 </button>
               ))}
@@ -72,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ setView }) => {
               Built By Digest Studio
             </a>
             <div className="flex space-x-8 font-mono-main text-[10px] uppercase tracking-[0.2em] opacity-40">
-               <button onClick={() => { setView('privacy'); scrollToTop(); }} className="hover:text-[#849bff] transition-colors">
+               <button onClick={() => setView('privacy')} className="hover:text-[#849bff] transition-colors">
                  Privacy & Terms
                </button>
             </div>

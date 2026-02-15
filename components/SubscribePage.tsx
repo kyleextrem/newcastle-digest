@@ -67,13 +67,14 @@ export const SubscribePage: React.FC = () => {
 
           {/* Form wrapper - iframe is cross-origin; aria-label on iframe provides accessibility */}
           <div className="mb-6">
-            <div className="beehiiv-embed-wrap focus-within:ring-2 focus-within:ring-[#849bff]/40 focus-within:ring-offset-2 rounded-[14px] transition-shadow">
+            <div className="beehiiv-embed-wrap">
               <iframe
                 src={BEEHIIV_EMBED_URL}
                 data-test-id="beehiiv-embed"
-                height="64"
+                height="52"
                 frameBorder="0"
                 scrolling="no"
+                style={{ margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
                 title="Subscribe to Newcastle Digest - Enter your email and click Join the Digest"
                 aria-label="Email subscription form"
               />

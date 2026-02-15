@@ -50,13 +50,14 @@ export const Hero: React.FC = () => {
                 <p className="font-sans-main text-white/80 text-sm mb-5">
                   One email a week. No spam, just Newcastle.
                 </p>
-                <div className="beehiiv-embed-wrap bg-[#faf9f6] rounded-xl overflow-hidden border border-white/10">
+                <div className="beehiiv-embed-wrap">
                   <iframe
                     src={BEEHIIV_EMBED_URL}
                     data-test-id="beehiiv-embed"
-                    height="64"
+                    height="52"
                     frameBorder="0"
                     scrolling="no"
+                    style={{ margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
                     title="Subscribe to Newcastle Digest"
                   />
                 </div>
