@@ -81,12 +81,12 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, setView, currentView =
 
       {/* Mobile Menu - solid full-screen overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] bg-[#faf9f6] flex flex-col p-6 sm:p-8" style={{ minHeight: '100dvh' }}>
+        <div className="fixed inset-0 z-[100] bg-[#faf9f6] text-[#251f18] flex flex-col p-6 sm:p-8" style={{ minHeight: '100dvh' }}>
           <div className="flex justify-between items-center mb-16">
             <button onClick={() => { setView('home'); setIsOpen(false); }} className="focus:outline-none">
               <img src={ndLogo} alt="Newcastle Digest" className="h-16 w-auto object-contain" />
             </button>
-            <button onClick={() => setIsOpen(false)} className="p-2">
+            <button onClick={() => setIsOpen(false)} className="p-2 text-[#251f18] hover:opacity-70">
               <X size={32} />
             </button>
           </div>
@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, setView, currentView =
               <button 
                 key={link.name}
                 onClick={() => { setView(link.view, (link as { hash?: string }).hash ? { hash: 'latest' } : undefined); setIsOpen(false); }}
-                className="text-4xl font-sans-main font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors"
+                className="text-4xl font-sans-main font-black uppercase tracking-tighter text-[#251f18] hover:text-[#849bff] transition-colors"
               >
                 {link.name}
               </button>
