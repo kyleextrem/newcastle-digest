@@ -2,7 +2,7 @@ import React from 'react';
 import { ExternalLink } from 'lucide-react';
 
 // Update this single constant when your Beehiiv domain changes — all journal links will follow
-const BEEHIIV_PUB_URL = 'https://www.newcastledigest.com';
+const BEEHIIV_PUB_URL = 'https://newsletter.newcastledigest.com';
 
 const articles = [
   {
@@ -21,7 +21,7 @@ const articles = [
 
 export const StoriesGrid: React.FC = () => {
   return (
-    <section className="bg-[#faf9f6] py-20 md:py-24 px-4 md:px-8">
+    <section className="bg-[#faf9f6] py-14 md:py-24 px-4 sm:px-6 md:px-8">
       <div className="container mx-auto max-w-5xl">
         <div className="mb-16 md:mb-20 text-center">
           <p className="font-mono-main text-xs uppercase tracking-[0.3em] text-[#849bff] mb-3">Editorial</p>
@@ -33,7 +33,7 @@ export const StoriesGrid: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid gap-16 md:gap-20">
+        <div className="grid gap-12 md:gap-20">
           {articles.map((article, i) => (
             <a
               key={i}

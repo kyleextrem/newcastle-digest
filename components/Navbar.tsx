@@ -12,6 +12,15 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, setView, currentView =
   const [isOpen, setIsOpen] = React.useState(false);
   const isDark = currentView === 'work' || currentView === 'contact';
 
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   const links = [
     { name: 'Home', view: 'home' },
     { name: 'Latest Edition', view: 'home', hash: 'latest' },
@@ -70,9 +79,9 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, setView, currentView =
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - solid full-screen overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-[60] bg-[#faf9f6] flex flex-col p-8 animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="fixed inset-0 z-[100] bg-[#faf9f6] flex flex-col p-6 sm:p-8" style={{ minHeight: '100dvh' }}>
           <div className="flex justify-between items-center mb-16">
             <button onClick={() => { setView('home'); setIsOpen(false); }} className="focus:outline-none">
               <img src={ndLogo} alt="Newcastle Digest" className="h-16 w-auto object-contain" />
@@ -81,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, setView, currentView =
               <X size={32} />
             </button>
           </div>
-          <div className="flex flex-col space-y-8 items-center justify-center flex-grow text-center">
+          <div className="flex flex-col space-y-6 sm:space-y-8 items-center justify-center flex-grow text-center py-8">
             {links.map((link) => (
               <button 
                 key={link.name}

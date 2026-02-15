@@ -58,15 +58,19 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
     if (pathname === '/' && window.location.hash === '#latest') {
-      setTimeout(() => document.getElementById('latest')?.scrollIntoView({ behavior: 'smooth' }), 150);
+      setTimeout(() => document.getElementById('latest')?.scrollIntoView({ behavior: 'smooth' }), 200);
     }
   }, [pathname]);
 
   return (
     <div className="min-h-screen font-sans-main flex flex-col overflow-x-hidden bg-[#faf9f6]">
       <Navbar scrolled={scrolled} setView={setView} currentView={currentView} />
-      <main className="flex-grow pt-24">
+      <main className="flex-grow pt-20 md:pt-24">
         <Routes>
           <Route path="/" element={<HomePage setView={setView} />} />
           <Route path="/subscribe" element={<SubscribePage />} />

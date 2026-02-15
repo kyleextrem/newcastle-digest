@@ -21,7 +21,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
       <Hero />
 
       {/* Newcastle imagery */}
-      <section className="py-14 md:py-20 px-4 md:px-8">
+      <section className="py-12 md:py-20 px-4 sm:px-6 md:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {NEWCASTLE_IMAGES.map((img, i) => (
@@ -34,7 +34,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
       </section>
 
       {/* Weekly pillars */}
-      <section className="py-12 md:py-20 px-4 md:px-8">
+      <section className="py-10 md:py-20 px-4 sm:px-6 md:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             <a
