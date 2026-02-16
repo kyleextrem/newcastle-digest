@@ -1,8 +1,10 @@
 /**
  * GET /api/latest-redirect
- * Server-side only: calls /api/latest, reads the returned url, responds with 302.
- * No page render, no client code. Used by rewrite /latest -> this.
+ * Server-side only: calls /api/latest, reads url, 302 to it. No UI.
+ * Rewrite /latest -> this. On any failure, redirect to newsletter homepage.
  */
+const FALLBACK_URL = 'https://newsletter.newcastledigest.com';
+
 interface LatestApiResponse {
   title?: string;
   url?: string;
@@ -10,28 +12,31 @@ interface LatestApiResponse {
   error?: string;
 }
 
+function isValidRedirectUrl(url: unknown): url is string {
+  return typeof url === 'string' && url.length > 0 && !url.includes('/latest');
+}
+
 export async function GET(request: Request) {
-  const origin =
-    (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
-    new URL(request.url).origin;
-  const apiUrl = `${origin}/api/latest`;
+  const host = request.headers.get('host') || new URL(request.url).host;
+  const proto = process.env.VERCEL ? 'https' : 'http';
+  const apiUrl = `${proto}://${host}/api/latest`;
 
   try {
     const res = await fetch(apiUrl, {
       method: 'GET',
       headers: { Accept: 'application/json' },
-      // Ensure we don't follow redirects; we want the JSON
       redirect: 'manual',
+      cache: 'no-store',
     });
 
     if (!res.ok) {
-      return new Response('Could not load latest issue', { status: res.status >= 500 ? 502 : 404 });
+      return redirectToFallback();
     }
 
     const data = (await res.json()) as LatestApiResponse;
 
-    if (!data?.url) {
-      return new Response('No latest issue URL', { status: 404 });
+    if (!isValidRedirectUrl(data?.url)) {
+      return redirectToFallback();
     }
 
     return new Response(null, {
@@ -42,6 +47,16 @@ export async function GET(request: Request) {
       },
     });
   } catch {
-    return new Response('Could not load latest issue', { status: 502 });
+    return redirectToFallback();
   }
+}
+
+function redirectToFallback(): Response {
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: FALLBACK_URL,
+      'Cache-Control': 'public, s-maxage=60',
+    },
+  });
 }
