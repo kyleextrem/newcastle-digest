@@ -1,70 +1,43 @@
 /**
  * GET /api/latest-redirect
- * Fetches the latest published post from Beehiiv and returns 302 to its URL.
- * Used by rewrite /latest -> this; API key and publication ID are server-only.
+ * Server-side only: calls /api/latest, reads the returned url, responds with 302.
+ * No page render, no client code. Used by rewrite /latest -> this.
  */
-const BEEHIIV_API = 'https://api.beehiiv.com/v2';
-
-type Env = {
-  BEEHIIV_API_KEY?: string;
-  BEEHIIV_PUBLICATION_ID?: string;
-};
-
-interface BeehiivPost {
-  id: string;
-  title: string;
-  web_url: string;
-  publish_date: number;
-  status?: string;
+interface LatestApiResponse {
+  title?: string;
+  url?: string;
+  publish_date?: string;
+  error?: string;
 }
 
-interface BeehiivPostsResponse {
-  data: BeehiivPost[];
-  limit: number;
-  page: number;
-  total_results: number;
-  total_pages: number;
-}
-
-export async function GET() {
-  const env = process.env as Env;
-  const apiKey = env.BEEHIIV_API_KEY;
-  const publicationId = env.BEEHIIV_PUBLICATION_ID;
-
-  if (!apiKey || !publicationId) {
-    return new Response('Server configuration error', { status: 500 });
-  }
-
-  const url = new URL(`${BEEHIIV_API}/publications/${publicationId}/posts`);
-  url.searchParams.set('status', 'confirmed');
-  url.searchParams.set('order_by', 'publish_date');
-  url.searchParams.set('direction', 'desc');
-  url.searchParams.set('limit', '1');
+export async function GET(request: Request) {
+  const origin =
+    (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
+    new URL(request.url).origin;
+  const apiUrl = `${origin}/api/latest`;
 
   try {
-    const res = await fetch(url.toString(), {
+    const res = await fetch(apiUrl, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers: { Accept: 'application/json' },
+      // Ensure we don't follow redirects; we want the JSON
+      redirect: 'manual',
     });
 
     if (!res.ok) {
-      return new Response('Could not load latest issue', { status: 502 });
+      return new Response('Could not load latest issue', { status: res.status >= 500 ? 502 : 404 });
     }
 
-    const body = (await res.json()) as BeehiivPostsResponse;
-    const post = body.data?.[0];
+    const data = (await res.json()) as LatestApiResponse;
 
-    if (!post?.web_url) {
-      return new Response('No published post found', { status: 404 });
+    if (!data?.url) {
+      return new Response('No latest issue URL', { status: 404 });
     }
 
     return new Response(null, {
       status: 302,
       headers: {
-        Location: post.web_url,
+        Location: data.url,
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60',
       },
     });
