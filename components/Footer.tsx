@@ -11,11 +11,11 @@ export const Footer: React.FC<FooterProps> = ({ setView }) => {
   return (
     <footer className="bg-[#1a1611] text-[#faf9f6] py-16 md:py-24 lg:py-48 px-4 sm:px-6 md:px-8 overflow-hidden relative">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 lg:gap-24 items-start relative z-10">
-          <div className="col-span-1 lg:col-span-2 space-y-6 md:space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 lg:gap-20 xl:gap-24 items-start relative z-10">
+          <div className="col-span-1 lg:col-span-2 max-w-md lg:max-w-lg space-y-6 md:space-y-8">
             <div className="flex flex-col">
               <img src={ndLogo} alt="Newcastle Digest" className="h-14 md:h-16 lg:h-20 w-auto object-contain mb-4 md:mb-6 opacity-90" />
-               <h2 className="font-sans-main font-black text-4xl sm:text-5xl md:text-6xl lg:text-9xl uppercase tracking-tighter leading-[0.8] mb-6 md:mb-8">
+              <h2 className="font-sans-main font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-tighter leading-[0.85] mb-6 md:mb-8">
                 newcastle digest
               </h2>
               <p className="font-serif-alt italic text-lg md:text-2xl max-w-sm opacity-40">
@@ -24,12 +24,13 @@ export const Footer: React.FC<FooterProps> = ({ setView }) => {
             </div>
           </div>
 
-          <div className="space-y-4 md:space-y-8">
+          <div className="space-y-4 md:space-y-8 lg:pt-0">
             <h4 className="font-mono-main text-[10px] uppercase tracking-[0.3em] text-[#849bff]">Publishing</h4>
             <div className="flex flex-col space-y-4 md:space-y-6">
               {[
                 { name: 'Home', v: 'home' },
                 { name: 'Latest Edition', v: 'home' },
+                { name: 'Previous Newsletters', v: 'previousNewsletters' },
                 { name: 'Experiences', v: 'experiences' },
                 { name: 'The Journal', v: 'journal' },
                 { name: 'Subscribe', v: 'subscribe' }
@@ -41,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ setView }) => {
             </div>
           </div>
 
-          <div className="space-y-4 md:space-y-8">
+          <div className="space-y-4 md:space-y-8 lg:pt-0">
              <h4 className="font-mono-main text-[10px] uppercase tracking-[0.3em] text-[#849bff]">More</h4>
              <div className="flex flex-col space-y-4 md:space-y-6">
               {[

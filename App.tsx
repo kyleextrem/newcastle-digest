@@ -11,6 +11,7 @@ import { SubscribePage } from './components/SubscribePage';
 import { Contact } from './components/Contact';
 import { PrivacyCopyright } from './components/PrivacyCopyright';
 import { LatestRedirect } from './components/LatestRedirect';
+import { PreviousNewsletters } from './components/PreviousNewsletters';
 
 const VIEW_TO_PATH: Record<string, string> = {
   home: '/',
@@ -21,6 +22,7 @@ const VIEW_TO_PATH: Record<string, string> = {
   work: '/work',
   contact: '/contact',
   privacy: '/privacy',
+  previousNewsletters: '/previous-newsletters',
 };
 
 const PATH_TO_VIEW: Record<string, string> = {
@@ -32,6 +34,7 @@ const PATH_TO_VIEW: Record<string, string> = {
   '/work': 'work',
   '/contact': 'contact',
   '/privacy': 'privacy',
+  '/previous-newsletters': 'previousNewsletters',
 };
 
 function AppContent() {
@@ -81,6 +84,7 @@ function AppContent() {
           <Route path="/work" element={<WorkWithUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<PrivacyCopyright />} />
+          <Route path="/previous-newsletters" element={<PreviousNewsletters />} />
           <Route path="/latest" element={<LatestRedirect />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
