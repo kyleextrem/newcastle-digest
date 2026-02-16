@@ -3,8 +3,6 @@ import { Hero } from './Hero';
 import { ExternalLink } from 'lucide-react';
 import { TESTIMONIALS } from '../constants';
 
-const BEEHIIV_PUB_URL = 'https://newsletter.newcastledigest.com';
-
 interface HomePageProps {
   setView?: (view: string) => void;
 }
@@ -140,9 +138,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
                 The latest stories, guides, and curiosities from across the city, delivered every Wednesday.
               </p>
               <a
-                href={BEEHIIV_PUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/latest"
                 className="inline-flex items-center gap-2 bg-[#849bff] text-white px-8 py-4 rounded-full font-mono-main text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#18181e] transition-all"
               >
                 Read the latest issue <ExternalLink className="w-4 h-4" />

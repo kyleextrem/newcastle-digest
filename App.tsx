@@ -10,6 +10,7 @@ import { Experiences } from './components/Experiences';
 import { SubscribePage } from './components/SubscribePage';
 import { Contact } from './components/Contact';
 import { PrivacyCopyright } from './components/PrivacyCopyright';
+import { LatestRedirect } from './components/LatestRedirect';
 
 const VIEW_TO_PATH: Record<string, string> = {
   home: '/',
@@ -80,6 +81,7 @@ function AppContent() {
           <Route path="/work" element={<WorkWithUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<PrivacyCopyright />} />
+          <Route path="/latest" element={<LatestRedirect />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
