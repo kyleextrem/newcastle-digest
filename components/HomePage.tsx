@@ -3,7 +3,7 @@ import { Hero } from './Hero';
 import { ExternalLink } from 'lucide-react';
 import { TESTIMONIALS } from '../constants';
 
-const BEEHIIV_PUB_URL = 'https://www.newcastledigest.com';
+const BEEHIIV_PUB_URL = 'https://newsletter.newcastledigest.com';
 
 interface HomePageProps {
   setView?: (view: string) => void;
@@ -38,7 +38,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             <a
-              href="https://www.newcastledigest.com/p/gig-and-live-music-guide"
+              href="https://newsletter.newcastledigest.com/p/gig-and-live-music-guide"
               target="_blank"
               rel="noopener noreferrer"
               className="group block rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#18181e] text-white p-10 md:p-14 min-h-[320px] md:min-h-[380px] relative transition-transform hover:scale-[1.01]"
@@ -57,7 +57,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
             </a>
 
             <a
-              href="https://www.newcastledigest.com/p/market-guide"
+              href="https://newsletter.newcastledigest.com/p/market-guide"
               target="_blank"
               rel="noopener noreferrer"
               className="group block rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#f5f4f0] text-[#251f18] p-10 md:p-14 min-h-[320px] md:min-h-[380px] relative border border-[#251f18]/06 transition-transform hover:scale-[1.01] hover:shadow-xl"
