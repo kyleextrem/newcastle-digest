@@ -1,16 +1,15 @@
 /**
- * GET /api/issues
- * Lists latest published Beehiiv posts. Uses BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID (server-only). Cached 15 min.
+ * GET /api/beehiiv?type=issues | ?type=latest
+ * - type=issues: list of published Beehiiv posts (cached 15 min)
+ * - type=latest: single latest post { title, url, publish_date } (cached 5 min)
+ * Uses BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID (server-only).
  */
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-const BEEHIIV_API = 'https://api.beehiiv.com/v2';
+import { NextRequest } from 'next/server';
 
-type Env = {
-  BEEHIIV_API_KEY?: string;
-  BEEHIIV_PUBLICATION_ID?: string;
-};
+const BEEHIIV_API = 'https://api.beehiiv.com/v2';
 
 interface BeehiivPost {
   id: string;
@@ -19,6 +18,7 @@ interface BeehiivPost {
   web_url: string;
   publish_date: number;
   slug: string;
+  status?: string;
   thumbnail_url?: string;
   cover_image_url?: string;
   thumbnail_image_url?: string;
@@ -41,7 +41,16 @@ function pickThumbnail(post: BeehiivPost): string | null {
   );
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const type = request.nextUrl.searchParams.get('type');
+
+  if (type !== 'issues' && type !== 'latest') {
+    return new Response(
+      JSON.stringify({ error: 'Missing or invalid query: type=issues or type=latest' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   const apiKey = process.env.BEEHIIV_API_KEY;
   const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
 
@@ -53,10 +62,14 @@ export async function GET() {
   }
 
   const url = new URL(`${BEEHIIV_API}/publications/${publicationId}/posts`);
-  url.searchParams.set('limit', '50');
   url.searchParams.set('status', 'confirmed');
   url.searchParams.set('order_by', 'publish_date');
   url.searchParams.set('direction', 'desc');
+  if (type === 'issues') {
+    url.searchParams.set('limit', '50');
+  } else {
+    url.searchParams.set('limit', '1');
+  }
 
   try {
     const res = await fetch(url.toString(), {
@@ -71,11 +84,34 @@ export async function GET() {
       const text = await res.text();
       return new Response(
         JSON.stringify({ error: 'Beehiiv API error', details: text }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: type === 'latest' ? 502 : 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     const body = (await res.json()) as BeehiivPostsResponse;
+
+    if (type === 'latest') {
+      const post = body.data?.[0];
+      if (!post) {
+        return new Response(
+          JSON.stringify({ error: 'No published post found' }),
+          { status: 404, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      const payload = {
+        title: post.title,
+        url: post.web_url,
+        publish_date: new Date(post.publish_date * 1000).toISOString(),
+      };
+      return new Response(JSON.stringify(payload), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60',
+        },
+      });
+    }
+
     const items = (body.data ?? []).map((post) => ({
       title: post.title ?? '',
       slug: post.slug ?? '',
@@ -92,14 +128,16 @@ export async function GET() {
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'public, s-maxage=900, stale-while-revalidate=300',
-        'X-Route': 'issues',
       },
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     return new Response(
-      JSON.stringify({ error: 'Failed to fetch issues', details: message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({
+        error: type === 'latest' ? 'Failed to fetch latest post' : 'Failed to fetch issues',
+        details: message,
+      }),
+      { status: type === 'latest' ? 502 : 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 }

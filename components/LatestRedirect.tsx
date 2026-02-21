@@ -9,14 +9,14 @@ export function LatestRedirect() {
 
     async function run() {
       try {
-        const apiUrl = `${window.location.origin}/api/latest`;
+        const apiUrl = `${window.location.origin}/api/beehiiv?type=latest`;
         const res = await fetch(apiUrl);
         if (cancelled) return;
 
         const contentType = res.headers.get('content-type') ?? '';
         if (!contentType.includes('application/json')) {
           const text = await res.text();
-          console.error('[LatestRedirect] Non-JSON response from /api/latest:', { status: res.status, contentType, bodyPreview: text.slice(0, 200) });
+          console.error('[LatestRedirect] Non-JSON response from /api/beehiiv?type=latest:', { status: res.status, contentType, bodyPreview: text.slice(0, 200) });
           setStatus('error');
           setMessage('Could not load latest issue');
           return;

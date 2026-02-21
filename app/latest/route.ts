@@ -12,7 +12,7 @@ function isValidRedirectUrl(url: unknown): url is string {
 
 export async function GET(request: NextRequest) {
   const base = request.nextUrl.origin;
-  const apiUrl = `${base}/api/latest`;
+  const apiUrl = `${base}/api/beehiiv?type=latest`;
 
   try {
     const res = await fetch(apiUrl, {

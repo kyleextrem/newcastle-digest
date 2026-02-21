@@ -34,13 +34,13 @@ export const PreviousNewsletters: React.FC = () => {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    const apiUrl = `${window.location.origin}/api/issues`;
+    const apiUrl = `${window.location.origin}/api/beehiiv?type=issues`;
     fetch(apiUrl)
       .then(async (res) => {
         const contentType = res.headers.get('content-type') ?? '';
         if (!contentType.includes('application/json')) {
           const text = await res.text();
-          console.error('[Previous Newsletters] Non-JSON response from /api/issues:', { status: res.status, contentType, bodyPreview: text.slice(0, 200) });
+          console.error('[Previous Newsletters] Non-JSON response from /api/beehiiv?type=issues:', { status: res.status, contentType, bodyPreview: text.slice(0, 200) });
           throw new Error('Could not load archive');
         }
         if (!res.ok) throw new Error('Could not load archive');
