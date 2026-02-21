@@ -2,6 +2,9 @@
  * GET /api/issues
  * Lists latest published Beehiiv posts. Uses BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID (server-only). Cached 15 min.
  */
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const BEEHIIV_API = 'https://api.beehiiv.com/v2';
 
 type Env = {
@@ -89,6 +92,7 @@ export async function GET() {
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'public, s-maxage=900, stale-while-revalidate=300',
+        'X-Route': 'issues',
       },
     });
   } catch (err) {

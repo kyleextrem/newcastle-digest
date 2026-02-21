@@ -2,6 +2,9 @@
  * GET /api/latest
  * Fetches the latest published post from Beehiiv. API key and publication ID are server-only. Cached 5 min.
  */
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const BEEHIIV_API = 'https://api.beehiiv.com/v2';
 
 interface BeehiivPost {
@@ -75,6 +78,7 @@ export async function GET() {
       headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60',
+        'X-Route': 'latest',
       },
     });
   } catch (err) {
