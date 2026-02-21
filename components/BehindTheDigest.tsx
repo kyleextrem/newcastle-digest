@@ -1,5 +1,4 @@
 import React from 'react';
-import ndLogo from '../src/assets/nd-logo.png';
 
 export const BehindTheDigest: React.FC = () => {
   return (
@@ -7,7 +6,7 @@ export const BehindTheDigest: React.FC = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
           <div className="space-y-8">
-            <img src={ndLogo} alt="Newcastle Digest" className="h-20 md:h-24 w-auto object-contain" />
+            <img src="/nd-logo.png" alt="Newcastle Digest" className="h-20 md:h-24 w-auto object-contain" />
             <p className="font-mono-main text-xs uppercase tracking-[0.3em] text-[#849bff]">Behind the Digest</p>
             <h1 className="font-sans-main font-black text-6xl md:text-8xl uppercase leading-[0.8] tracking-tighter text-[#251f18]">
               I'm<br />Kyle.

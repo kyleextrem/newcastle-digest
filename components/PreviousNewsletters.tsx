@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+'use client';
 
-const PAGE_TITLE = 'Previous Newsletters | Newcastle Digest';
-const META_DESCRIPTION =
-  'Browse past editions of Newcastle Digest — a weekly email covering events, food, markets, gigs, and local finds.';
+import React, { useEffect, useState } from 'react';
 
 interface IssueItem {
   title: string;
@@ -31,20 +29,6 @@ export const PreviousNewsletters: React.FC = () => {
   const [issues, setIssues] = useState<IssueItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    document.title = PAGE_TITLE;
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute('content', META_DESCRIPTION);
-    return () => {
-      document.title = 'Newcastle Digest | The best of Newcastle';
-    };
-  }, []);
 
   useEffect(() => {
     let cancelled = false;

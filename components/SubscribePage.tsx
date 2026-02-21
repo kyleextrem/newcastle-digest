@@ -1,6 +1,5 @@
 import React from 'react';
 import { Check } from 'lucide-react';
-import ndLogo from '../src/assets/nd-logo.png';
 
 const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true';
 
@@ -56,7 +55,7 @@ export const SubscribePage: React.FC = () => {
       {/* Right: form panel */}
       <div className="relative w-full md:w-[52%] lg:w-[55%] min-h-[60vh] md:min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 md:px-12 lg:px-20 py-16 md:py-24 bg-[#faf9f6]">
         <div className="w-full max-w-[420px] mx-auto">
-          <img src={ndLogo} alt="Newcastle Digest" className="h-20 md:h-24 w-auto object-contain mb-10" />
+          <img src="/nd-logo.png" alt="Newcastle Digest" className="h-20 md:h-24 w-auto object-contain mb-10" />
 
           <h2 className="font-sans-main font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter leading-[0.9] text-[#251f18] mb-3">
             Join the Digest.

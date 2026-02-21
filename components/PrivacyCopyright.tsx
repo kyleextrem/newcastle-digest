@@ -1,11 +1,10 @@
 import React from 'react';
-import ndLogo from '../src/assets/nd-logo.png';
 
 export const PrivacyCopyright: React.FC = () => {
   return (
     <section className="bg-[#faf9f6] min-h-screen py-20 md:py-28 px-4 md:px-8">
       <div className="container mx-auto max-w-3xl">
-        <img src={ndLogo} alt="Newcastle Digest" className="h-16 md:h-20 w-auto object-contain mb-12" />
+        <img src="/nd-logo.png" alt="Newcastle Digest" className="h-16 md:h-20 w-auto object-contain mb-12" />
         <p className="font-mono-main text-xs uppercase tracking-[0.3em] text-[#849bff] mb-4">Legal</p>
         <h1 className="font-sans-main font-black text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter text-[#251f18] mb-16">
           Privacy & Terms of Use

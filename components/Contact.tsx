@@ -1,6 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ExternalLink, Mail, Phone, Calendar } from 'lucide-react';
-import ndLogo from '../src/assets/nd-logo.png';
 
 const SUBMIT_EVENT_URL = 'https://tally.so/r/wdKJ1N';
 const CAL_URL = 'https://cal.com/kyleextrem';
@@ -51,7 +52,7 @@ export const Contact: React.FC = () => {
             style={{ boxShadow: '0 32px 80px -24px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset' }}
           >
             <div className="absolute top-6 right-6 w-16 h-16 rounded-full border-2 border-[#251f18]/20 flex items-center justify-center overflow-hidden bg-[#faf9f6] p-2">
-              <img src={ndLogo} alt="Newcastle Digest" className="w-full h-full object-contain" />
+              <img src="/nd-logo.png" alt="Newcastle Digest" className="w-full h-full object-contain" />
             </div>
             <div className="p-8 md:p-12 lg:p-14">
               <h2 className="font-sans-main font-black text-2xl md:text-3xl uppercase tracking-tighter mb-2">

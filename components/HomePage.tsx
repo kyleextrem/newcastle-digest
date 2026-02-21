@@ -1,11 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 import { Hero } from './Hero';
 import { ExternalLink } from 'lucide-react';
-import { TESTIMONIALS } from '../constants';
-
-interface HomePageProps {
-  setView?: (view: string) => void;
-}
+import { TESTIMONIALS } from '@/constants';
 
 const NEWCASTLE_IMAGES = [
   { src: '/newcastle/204698-2-c7408bf5-95c7-4b0a-9fbe-778d60820d34.png', alt: 'Newcastle promenade' },
@@ -13,7 +10,7 @@ const NEWCASTLE_IMAGES = [
   { src: '/newcastle/205005-2-379ef717-0a0e-41b2-b8d1-25dce36cc346.png', alt: 'Newcastle bridge' },
 ];
 
-export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
+export const HomePage: React.FC = () => {
   return (
     <>
       <Hero />
@@ -77,13 +74,12 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
       </section>
 
       {/* SPONSORSHIP / WORK WITH US */}
-      {setView && (
-        <section className="py-16 md:py-24 px-4 md:px-8">
-          <div className="container mx-auto max-w-6xl">
-            <button
-              onClick={() => setView('work')}
-              className="group block w-full rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#251f18] text-white p-10 md:p-14 relative transition-transform hover:scale-[1.01] text-left"
-            >
+      <section className="py-16 md:py-24 px-4 md:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <Link
+            href="/work"
+            className="group block w-full rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#251f18] text-white p-10 md:p-14 relative transition-transform hover:scale-[1.01] text-left"
+          >
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_80%_80%,rgba(132,155,255,0.2),transparent_50%)] pointer-events-none" />
               <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-8">
                 <div>
@@ -102,10 +98,9 @@ export const HomePage: React.FC<HomePageProps> = ({ setView }) => {
                   Explore options <ExternalLink className="w-3.5 h-3.5" />
                 </span>
               </div>
-            </button>
-          </div>
-        </section>
-      )}
+          </Link>
+        </div>
+      </section>
 
       {/* Testimonials */}
       <section className="py-16 md:py-24 px-4 md:px-8 bg-[#f5f4f0]">
