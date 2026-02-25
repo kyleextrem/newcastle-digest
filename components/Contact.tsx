@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ExternalLink, Mail, Phone, Calendar } from 'lucide-react';
 
 const SUBMIT_EVENT_URL = 'https://tally.so/r/wdKJ1N';
-const CAL_URL = 'https://cal.com/kyleextrem';
+const CAL_URL = 'https://cal.com/digest';
 const EMAIL = 'kyle@newcastledigest.com';
 
 export const Contact: React.FC = () => {

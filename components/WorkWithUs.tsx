@@ -13,6 +13,7 @@ type Tier = {
 
 const TALLY_INQUIRE_URL = 'https://tally.so/r/wkK8xj';
 const DIGEST_STUDIO_URL = 'https://digeststudio.com.au/';
+const CAL_URL = 'https://cal.com/digest';
 
 const tiers: Tier[] = [
   { 
@@ -148,12 +149,12 @@ export const WorkWithUs: React.FC = () => {
               No complex funnels. Just real Newcastle locals ready to support your business.
             </p>
             <a 
-              href={DIGEST_STUDIO_URL}
+              href={CAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-[#251f18] text-white px-12 py-6 rounded-full font-sans-main font-black uppercase tracking-widest hover:scale-105 transition-all"
             >
-              Contact Kyle @ Digest Studio
+              Book a call
             </a>
           </div>
         </div>
