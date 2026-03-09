@@ -1,6 +1,7 @@
 /**
  * GET /api/beehiiv?type=issues | ?type=latest
  * - type=issues: list of published Beehiiv posts (cached 15 min)
+ *   Optional: &content_tag=blog to filter by content tag "blog"
  * - type=latest: single latest post { title, url, publish_date } (cached 5 min)
  * Uses BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID (server-only).
  */
@@ -67,6 +68,10 @@ export async function GET(request: NextRequest) {
   url.searchParams.set('direction', 'desc');
   if (type === 'issues') {
     url.searchParams.set('limit', '50');
+    const contentTag = request.nextUrl.searchParams.get('content_tag');
+    if (contentTag) {
+      url.searchParams.append('content_tags[]', contentTag);
+    }
   } else {
     url.searchParams.set('limit', '1');
   }

@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <StoriesGrid />;
+  return <StoriesGrid contentTag="blog" />;
 }
