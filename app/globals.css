@@ -38,6 +38,22 @@ html {
   background-color: transparent !important;
 }
 
+/* Tally embed (Send a note) — flexible height for dynamicHeight=1 */
+.tally-embed-wrap {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  background-color: transparent;
+}
+.tally-embed-wrap iframe {
+  display: block !important;
+  width: 100% !important;
+  min-height: 420px;
+  margin: 0 !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

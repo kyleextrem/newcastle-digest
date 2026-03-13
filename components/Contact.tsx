@@ -1,26 +1,14 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { ExternalLink, Mail, Phone, Calendar } from 'lucide-react';
 
 const SUBMIT_EVENT_URL = 'https://tally.so/r/wdKJ1N';
 const CAL_URL = 'https://cal.com/digest';
 const EMAIL = 'kyle@newcastledigest.com';
 
+const TALLY_EMBED_URL =
+  'https://tally.so/embed/zxzkYZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
+
 export const Contact: React.FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(`Message from Newcastle Digest site`);
-    const body = encodeURIComponent(
-      `${message}\n\n---\nFrom: ${name}\nEmail: ${email}`
-    );
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-  };
-
   return (
     <section className="relative bg-[#18181e] text-white min-h-screen py-24 px-4 md:px-8 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(132,155,255,0.12),transparent_50%)] pointer-events-none" />
@@ -61,50 +49,18 @@ export const Contact: React.FC = () => {
               <p className="font-serif-alt italic text-[#251f18]/70 mb-8">
                 We'd love to hear from you. Tell us what you'd like to read, or just say hello.
               </p>
-              <form onSubmit={handleFormSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="contact-name" className="block font-mono-main text-[10px] uppercase tracking-[0.2em] text-[#251f18]/60 mb-2">Your name</label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full bg-transparent border-0 border-b-2 border-[#251f18]/20 pb-2 font-sans-main text-[#251f18] placeholder-[#251f18]/40 focus:border-[#849bff] focus:outline-none transition-colors"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-email" className="block font-mono-main text-[10px] uppercase tracking-[0.2em] text-[#251f18]/60 mb-2">Email address</label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full bg-transparent border-0 border-b-2 border-[#251f18]/20 pb-2 font-sans-main text-[#251f18] placeholder-[#251f18]/40 focus:border-[#849bff] focus:outline-none transition-colors"
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-message" className="block font-mono-main text-[10px] uppercase tracking-[0.2em] text-[#251f18]/60 mb-2">Your message</label>
-                  <textarea
-                    id="contact-message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                    rows={4}
-                    className="w-full bg-transparent border-0 border-b-2 border-[#251f18]/20 pb-2 font-sans-main text-[#251f18] placeholder-[#251f18]/40 focus:border-[#849bff] focus:outline-none transition-colors resize-none"
-                    placeholder="What's on your mind?"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="mt-6 px-8 py-4 rounded-full border-2 border-[#251f18] font-mono-main text-[10px] uppercase tracking-widest text-[#251f18] hover:bg-[#251f18] hover:text-[#faf9f6] transition-all"
-                >
-                  Send message
-                </button>
-              </form>
+              <div className="tally-embed-wrap">
+                <iframe
+                  src={TALLY_EMBED_URL}
+                  width="100%"
+                  height="569"
+                  frameBorder={0}
+                  marginHeight={0}
+                  marginWidth={0}
+                  title="Send a note — contact form"
+                  aria-label="Contact form: name, email, and message"
+                />
+              </div>
             </div>
           </div>
         </div>
