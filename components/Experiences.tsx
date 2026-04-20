@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, MapPin, Heart } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 const EXPERIENCES_URL = 'https://experiences.newcastledigest.com';
 
@@ -9,12 +9,12 @@ export const Experiences: React.FC = () => {
       <div className="container mx-auto max-w-5xl">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center mb-20">
           <div>
-            <p className="font-mono-main text-xs uppercase tracking-[0.3em] text-[#849bff] mb-4">Curated for locals</p>
+            <p className="font-mono-main text-xs uppercase tracking-[0.3em] text-[#849bff] mb-4">Real-world events</p>
             <h1 className="font-sans-main text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.85] tracking-tighter text-[#251f18] mb-6">
               Experiences.
             </h1>
             <p className="font-serif-alt italic text-2xl text-[#251f18]/70 leading-snug mb-8">
-              Hand-picked guides to the places we actually go: neighbourhood guides, date night ideas, and the best of Newcastle in one place.
+              Intimate dinners, local gatherings, and curated nights out — brought to you by Newcastle Digest.
             </p>
             <a
               href={EXPERIENCES_URL}
@@ -22,7 +22,7 @@ export const Experiences: React.FC = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#251f18] text-white px-10 py-5 font-mono-main text-xs uppercase tracking-widest hover:bg-[#849bff] transition-all rounded-full"
             >
-              Explore experiences <ExternalLink className="w-4 h-4" />
+              View past events & join the waitlist <ExternalLink className="w-4 h-4" />
             </a>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -40,27 +40,6 @@ export const Experiences: React.FC = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 text-center md:text-left">
-          <div className="flex flex-col items-center md:items-start gap-4 p-8 rounded-3xl bg-white border border-[#251f18]/5">
-            <div className="w-12 h-12 rounded-full bg-[#849bff]/10 flex items-center justify-center">
-              <MapPin className="w-6 h-6 text-[#849bff]" />
-            </div>
-            <h3 className="font-sans-main text-2xl font-black uppercase tracking-tighter">Neighbourhood guides</h3>
-            <p className="font-serif-alt italic text-[#251f18]/60">
-              Deep dives into Newcastle's suburbs: where to eat, drink, and wander.
-            </p>
-          </div>
-          <div className="flex flex-col items-center md:items-start gap-4 p-8 rounded-3xl bg-white border border-[#251f18]/5">
-            <div className="w-12 h-12 rounded-full bg-[#e07a5f]/10 flex items-center justify-center">
-              <Heart className="w-6 h-6 text-[#e07a5f]" />
-            </div>
-            <h3 className="font-sans-main text-2xl font-black uppercase tracking-tighter">Date night guides</h3>
-            <p className="font-serif-alt italic text-[#251f18]/60">
-              Curated evenings: restaurants, bars, and spots that hit different.
-            </p>
           </div>
         </div>
 
