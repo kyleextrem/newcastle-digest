@@ -16,6 +16,7 @@ const FOOTER_LINKS_MORE = [
   { name: 'Work With Us', href: '/work' },
   { name: 'Behind the Digest', href: '/behind' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Submit an event', href: 'https://tally.so/r/wdKJ1N' },
 ];
 
 export const Footer: React.FC = () => {
