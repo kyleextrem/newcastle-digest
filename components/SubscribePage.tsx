@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 import { Check } from 'lucide-react';
 
 const THANK_YOU_URL = 'https://www.newcastledigest.com/thank-you';
@@ -76,7 +77,12 @@ export const SubscribePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <>
+      <Script
+        src="https://subscribe-forms.beehiiv.com/attribution.js"
+        strategy="afterInteractive"
+      />
+      <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left: value bullets */}
       <div className="order-2 md:order-1 relative w-full md:w-[48%] lg:w-[45%] min-h-[40vh] md:min-h-screen flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-16 py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0">
@@ -180,5 +186,6 @@ export const SubscribePage: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
