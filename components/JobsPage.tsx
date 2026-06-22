@@ -16,14 +16,14 @@ type PricingTier = {
 const WHY_CARDS = [
   {
     eyebrow: 'Newsletter reach',
-    title: 'Real local reach',
-    desc: 'Featured listings go straight into the Newcastle Digest newsletter, read by 7,000+ locals at 60% open rate.',
+    title: 'Guaranteed local eyes',
+    desc: 'Featured listings go straight into the Newcastle Digest newsletter, read by 7,000+ real locals at 60% open rate. Not buried in a feed.',
     dark: true,
   },
   {
     eyebrow: 'Local only',
     title: 'Built for Newcastle',
-    desc: 'Every listing is local — no noise from interstate or remote roles cluttering your search.',
+    desc: 'Every single listing is local. No interstate noise, no remote roles drowning out the role you\'re actually trying to fill.',
     dark: false,
   },
   {
@@ -45,14 +45,14 @@ const PRICING_TIERS: PricingTier[] = [
     id: 'featured',
     title: 'Featured',
     price: '$99',
-    desc: 'Newsletter mention plus 7 days of top placement on the board.',
+    desc: 'Top of board for 30 days, plus a mention in every Newcastle Digest newsletter for 4 weeks running.',
     light: true,
   },
   {
     id: 'premium',
     title: 'Premium',
     price: '$149',
-    desc: 'Newsletter mention, 14 days top placement, and a dedicated Instagram post to our audience.',
+    desc: 'Top of board for 30 days, a mention in every newsletter for 4 weeks running, plus one dedicated Instagram post to our audience.',
   },
 ];
 
@@ -74,11 +74,11 @@ export const JobsPage: React.FC = () => {
                 Newcastle Digest Job Board
               </p>
               <h1 className="font-sans-main font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tighter leading-[0.85] text-[#251f18]">
-                Newcastle&apos;s job board,{' '}
-                <span className="text-[#849bff]">backed by 7,000+ local readers</span>
+                Every listing,{' '}
+                <span className="text-[#849bff]">seen by real Newcastle locals.</span>
               </h1>
               <p className="font-serif-alt italic text-lg md:text-xl text-[#251f18]/55 mt-8 max-w-2xl mx-auto leading-relaxed">
-                Post a role and get seen by Newcastle locals every week — not lost in a sea of national listings.
+                Newcastle&apos;s job board. Every listing reaches real local people, not an algorithm. Backed by 7,000+ readers who actually live here.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
                 <a
@@ -111,10 +111,10 @@ export const JobsPage: React.FC = () => {
               Why post here
             </p>
             <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9] text-[#251f18]">
-              Not another national job board.
+              Built for local, guaranteed to be seen.
             </h2>
             <p className="font-serif-alt italic text-lg md:text-xl text-[#251f18]/55 mt-4 max-w-2xl mx-auto">
-              Thoughtfully built for Newcastle employers who want real local reach — not a pay-to-play auction.
+              No algorithm, no national noise. Just real Newcastle locals seeing your role.
             </p>
           </div>
 
@@ -254,10 +254,10 @@ export const JobsPage: React.FC = () => {
                   Newcastle Digest Job Board
                 </p>
                 <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9]">
-                  Ready to find your next great hire?
+                  Ready for Newcastle to see your next hire?
                 </h2>
                 <p className="font-serif-alt italic text-white/60 mt-4 text-base md:text-lg max-w-xl">
-                  Post your role today and reach thousands of engaged Newcastle locals — thoughtfully, not algorithmically.
+                  Post your role today and reach thousands of engaged Newcastle locals, thoughtfully, not algorithmically.
                 </p>
               </div>
               <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all self-start md:self-auto">

@@ -12,22 +12,22 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: 'How long does my listing stay live?',
     answer:
-      'Every listing stays on the board for 30 days from the date you post. Featured and Premium listings also get top placement for 7 or 14 days respectively, plus a mention in the weekly newsletter.',
+      'Every listing stays on the board for 30 days. Featured and Premium listings get top placement on the board for the full 30 days, not just the first week.',
   },
   {
     question: 'How does the newsletter mention work?',
     answer:
-      'Featured and Premium listings are included in the next Wednesday edition of Newcastle Digest — read by 7,000+ locals with a 60% open rate. Your role appears alongside the week\'s stories and guides, not buried in a classifieds block.',
+      'Featured and Premium listings are mentioned in every Newcastle Digest newsletter for 4 weeks running, read by 7,000+ locals with a 60% open rate each send. Your role appears alongside the week\'s stories and guides, not buried in a classifieds block.',
   },
   {
     question: 'Can I edit my listing after posting?',
     answer:
-      'Yes. Once your listing is live, you\'ll receive a link to manage it. You can update the title, description, and details at any time during the 30-day listing period.',
+      'Not yet through the site itself, but every listing has a quick contact link if you need something changed, and we\'ll sort it for you directly.',
   },
   {
     question: 'What if I just want a free listing?',
     answer:
-      'The free tier is a great place to start. Your role goes live on the job board immediately — no payment required. If you want more reach later, you can upgrade to Featured or Premium at any time.',
+      'The free tier is a great place to start. Your role goes live on the job board immediately, no payment required. If you want more reach later, you can upgrade to Featured or Premium at any time.',
   },
 ];
 

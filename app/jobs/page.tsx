@@ -11,11 +11,11 @@ export const metadata: Metadata = {
     absolute: 'Newcastle Digest Job Board | Reach 7,000+ Local Readers',
   },
   description:
-    'Post a job and get seen by Newcastle locals every week. Featured listings reach 7,000+ newsletter readers at 60% open rate. Free, Featured, and Premium tiers — no recruiter fees.',
+    'Post a job and get seen by Newcastle locals every week. Featured listings reach 7,000+ newsletter readers at 60% open rate. Free, Featured, and Premium tiers. No recruiter fees.',
   openGraph: {
     title: 'Newcastle Digest Job Board | Reach 7,000+ Local Readers',
     description:
-      'Post a job and get seen by Newcastle locals every week. Featured listings reach 7,000+ newsletter readers at 60% open rate. Free, Featured, and Premium tiers — no recruiter fees.',
+      'Post a job and get seen by Newcastle locals every week. Featured listings reach 7,000+ newsletter readers at 60% open rate. Free, Featured, and Premium tiers. No recruiter fees.',
     url: JOBS_URL,
     images: [{ url: JOBS_OG_IMAGE_URL }],
   },
