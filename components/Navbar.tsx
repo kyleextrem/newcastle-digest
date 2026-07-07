@@ -9,16 +9,22 @@ interface NavbarProps {
   pathname: string;
 }
 
-const NAV_LINKS = [
+const NAV_LINKS: { name: string; href: string; external?: boolean }[] = [
   { name: 'Home', href: '/' },
   { name: 'Latest Edition', href: '/#latest' },
   { name: 'Experiences', href: '/experiences' },
+  { name: 'Shop', href: 'https://shop.newcastledigest.com', external: true },
   { name: 'Behind the Digest', href: '/behind' },
   { name: 'The Journal', href: '/journal' },
   { name: 'Work With Us', href: '/work' },
   { name: 'Jobs', href: '/jobs' },
   { name: 'Contact', href: '/contact' },
 ];
+
+const navLinkClass = (isDark: boolean, active: boolean) =>
+  `relative pb-1.5 whitespace-nowrap text-[10px] font-sans-main font-black uppercase tracking-[0.2em] transition-colors hover:text-[#849bff] ${
+    active && isDark ? 'text-white' : active ? 'text-[#251f18]' : isDark ? 'text-white' : 'text-[#251f18]'
+  }`;
 
 export const Navbar: React.FC<NavbarProps> = ({ scrolled, pathname }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -46,13 +52,25 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, pathname }) => {
 
         <div className="hidden lg:flex items-center flex-1 justify-center gap-6 xl:gap-8 min-w-0">
           {NAV_LINKS.map((link) => {
-            const active = pathname === link.href.replace(/#.*/, '') && link.name !== 'Latest Edition';
+            const active = !link.external && pathname === link.href.replace(/#.*/, '') && link.name !== 'Latest Edition';
+            const className = navLinkClass(isDark, active);
+
+            if (link.external) {
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {link.name}
+                </a>
+              );
+            }
+
             return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`relative pb-1.5 whitespace-nowrap text-[10px] font-sans-main font-black uppercase tracking-[0.2em] transition-colors ${isDark ? 'hover:text-[#849bff]' : 'hover:text-[#849bff]'} ${active && isDark ? 'text-white' : active ? 'text-[#251f18]' : isDark ? 'text-white' : 'text-[#251f18]'}`}
-              >
+              <Link key={link.name} href={link.href} className={className}>
                 {link.name}
                 {active && (
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#849bff] rounded-full" />
@@ -90,16 +108,29 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, pathname }) => {
             </button>
           </div>
           <div className="flex flex-col space-y-6 sm:space-y-8 items-center justify-center flex-grow text-center py-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-4xl font-sans-main font-black uppercase tracking-tighter text-[#251f18] hover:text-[#849bff] transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.external ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="text-4xl font-sans-main font-black uppercase tracking-tighter text-[#251f18] hover:text-[#849bff] transition-colors"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-4xl font-sans-main font-black uppercase tracking-tighter text-[#251f18] hover:text-[#849bff] transition-colors"
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
           </div>
         </div>
       )}

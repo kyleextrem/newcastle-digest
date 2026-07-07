@@ -10,6 +10,14 @@ const NEWCASTLE_IMAGES = [
   { src: '/newcastle/205005-2-379ef717-0a0e-41b2-b8d1-25dce36cc346.png', alt: 'Newcastle bridge' },
 ];
 
+const MARKET_TOTE = {
+  name: 'Newcastle Digest Market Tote Bag',
+  price: '$25 AUD',
+  description: 'Carry Newcastle with you. 100% recycled canvas, black ink, made in small runs.',
+  image: 'https://shop.newcastledigest.com/cdn/shop/files/C9960624-9AFC-479A-9852-5AC9468A7B0E.jpg?v=1783320208',
+  url: 'https://shop.newcastledigest.com/products/newcastle-digest-market-tote-bag',
+};
+
 export const HomePage: React.FC = () => {
   return (
     <>
@@ -69,6 +77,43 @@ export const HomePage: React.FC = () => {
                 </span>
               </div>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Digest Provisions */}
+      <section className="py-16 md:py-24 px-4 sm:px-6 md:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <p className="font-mono-main text-[10px] uppercase tracking-[0.25em] text-[#849bff] mb-8">Digest Provisions</p>
+          <div className="rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#f5f4f0] border border-[#251f18]/06 transition-transform hover:scale-[1.005] hover:shadow-xl">
+            <div className="grid md:grid-cols-2">
+              <div className="aspect-square md:aspect-auto bg-[#faf9f6]">
+                <img
+                  src={MARKET_TOTE.image}
+                  alt={MARKET_TOTE.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-10 md:p-14 flex flex-col justify-center">
+                <h2 className="font-sans-main font-black text-3xl md:text-4xl lg:text-5xl uppercase tracking-tighter leading-[0.95] text-[#251f18]">
+                  {MARKET_TOTE.name}
+                </h2>
+                <p className="font-mono-main text-sm uppercase tracking-widest text-[#849bff] mt-4">
+                  {MARKET_TOTE.price}
+                </p>
+                <p className="font-serif-alt italic text-lg text-[#251f18]/55 mt-4 leading-relaxed">
+                  {MARKET_TOTE.description}
+                </p>
+                <a
+                  href={MARKET_TOTE.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 self-start mt-8 bg-[#849bff] text-white px-8 py-4 rounded-full font-mono-main text-[10px] uppercase tracking-widest hover:bg-[#6a7be6] transition-all"
+                >
+                  Shop Now <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
