@@ -8,6 +8,7 @@ import { Footer } from './Footer';
 export function ClientShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const isThankYou = pathname === '/thank-you';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -27,11 +28,11 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen font-sans-main flex flex-col overflow-x-hidden bg-[#faf9f6]">
-      <Navbar scrolled={scrolled} pathname={pathname} />
-      <main className="flex-grow pt-20 md:pt-24">
+      {!isThankYou && <Navbar scrolled={scrolled} pathname={pathname} />}
+      <main className={isThankYou ? 'flex-grow' : 'flex-grow pt-20 md:pt-24'}>
         {children}
       </main>
-      <Footer />
+      {!isThankYou && <Footer />}
     </div>
   );
 }

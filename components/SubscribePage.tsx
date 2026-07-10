@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Script from 'next/script';
 import { Check } from 'lucide-react';
 
-const THANK_YOU_URL = 'https://www.newcastledigest.com/thank-you';
-const BEEHIIV_EMBED_URL = `https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true&redirect_to=${encodeURIComponent(THANK_YOU_URL)}`;
+const THANK_YOU_BASE = '/thank-you';
+const BEEHIIV_EMBED_URL = `https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true&redirect_to=${encodeURIComponent('https://www.newcastledigest.com/thank-you')}`;
 const BEEHIIV_DIRECT_SUBSCRIBE_URL = 'https://newsletter.newcastledigest.com/subscribe';
 
 const BENEFITS = [
@@ -15,18 +15,39 @@ const BENEFITS = [
   'Markets, makers, and where to go this weekend',
 ];
 
+function extractEmail(payload: unknown): string | null {
+  if (!payload || typeof payload !== 'object') return null;
+  const obj = payload as Record<string, unknown>;
+
+  if (typeof obj.email === 'string' && obj.email.includes('@')) return obj.email;
+  if (typeof obj.subscriber_email === 'string' && obj.subscriber_email.includes('@')) {
+    return obj.subscriber_email;
+  }
+
+  if (obj.data && typeof obj.data === 'object') {
+    const data = obj.data as Record<string, unknown>;
+    if (typeof data.email === 'string' && data.email.includes('@')) return data.email;
+  }
+
+  return null;
+}
+
+function buildThankYouUrl(email?: string | null) {
+  if (email) {
+    return `${THANK_YOU_BASE}?email=${encodeURIComponent(email)}`;
+  }
+  return THANK_YOU_BASE;
+}
+
 export const SubscribePage: React.FC = () => {
   const [embedLoaded, setEmbedLoaded] = useState(false);
   const [showFallback, setShowFallback] = useState(false);
-  const hasTrackedLeadRef = useRef(false);
+  const hasRedirectedRef = useRef(false);
 
-  const trackLead = () => {
-    if (hasTrackedLeadRef.current) return;
-    const fbq = (window as Window & { fbq?: (...args: unknown[]) => void }).fbq;
-    if (typeof fbq === 'function') {
-      fbq('track', 'Lead');
-      hasTrackedLeadRef.current = true;
-    }
+  const redirectToThankYou = (email?: string | null) => {
+    if (hasRedirectedRef.current) return;
+    hasRedirectedRef.current = true;
+    window.location.href = buildThankYouUrl(email);
   };
 
   useEffect(() => {
@@ -68,7 +89,8 @@ export const SubscribePage: React.FC = () => {
         payloadText.includes('confirmed');
 
       if (hasSubscribeSignal && hasSuccessSignal) {
-        trackLead();
+        const email = extractEmail(payload);
+        redirectToThankYou(email);
       }
     };
 
@@ -149,7 +171,6 @@ export const SubscribePage: React.FC = () => {
             Join 7,000+ locals who use the Digest to decide where to go each week.
           </p>
 
-          {/* Form wrapper - iframe is cross-origin; aria-label on iframe provides accessibility */}
           <div className="mb-6">
             <div className="beehiiv-embed-wrap">
               <iframe
@@ -166,7 +187,7 @@ export const SubscribePage: React.FC = () => {
             </div>
             {!embedLoaded && showFallback && (
               <a
-                href={`${BEEHIIV_DIRECT_SUBSCRIBE_URL}?redirect_to=${encodeURIComponent(THANK_YOU_URL)}`}
+                href={`${BEEHIIV_DIRECT_SUBSCRIBE_URL}?redirect_to=${encodeURIComponent('https://www.newcastledigest.com/thank-you')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex mt-4 px-6 py-3 rounded-full bg-[#251f18] text-[#faf9f6] font-mono-main text-[10px] uppercase tracking-widest hover:bg-[#849bff] transition-colors"
