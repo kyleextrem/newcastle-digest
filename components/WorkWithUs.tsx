@@ -252,8 +252,9 @@ export const WorkWithUs: React.FC = () => {
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>End of quarter performance report</li>
                 </ul>
               </div>
+              {/* TODO: Replace with Cal.com link for Quarterly Partner */}
               <a
-                href="#" {/* TODO: Replace with Cal.com link for Quarterly Partner */}
+                href="#"
                 className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
               >
                 Book a call
@@ -279,8 +280,9 @@ export const WorkWithUs: React.FC = () => {
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Category exclusivity — no competitor in your category while you hold the spot</li>
                 </ul>
               </div>
+              {/* TODO: Replace with Cal.com link for Yearly Anchor */}
               <a
-                href="#" {/* TODO: Replace with Cal.com link for Yearly Anchor */}
+                href="#"
                 className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
               >
                 Book a call
@@ -295,8 +297,9 @@ export const WorkWithUs: React.FC = () => {
                   Got something bigger in mind? A sponsored dinner series, a launch across every channel we run, a combination of newsletter, events, and Digest Studio? Tell us what you&apos;re building and we&apos;ll put a plan together.
                 </p>
               </div>
+              {/* TODO: Replace with Cal.com link for Custom Engagement */}
               <a
-                href="#" {/* TODO: Replace with Cal.com link for Custom Engagement */}
+                href="#"
                 className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
               >
                 Book a call
