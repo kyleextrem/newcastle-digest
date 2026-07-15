@@ -13,7 +13,7 @@ export const Experiences: React.FC = () => {
             <h1 className="font-sans-main text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.85] tracking-tighter text-[#251f18] mb-6">
               Experiences.
             </h1>
-            <p className="font-serif-alt italic text-2xl text-[#251f18]/70 leading-snug mb-8">
+            <p className="font-sans-main text-2xl text-[#251f18]/70 leading-snug mb-8">
               Intimate dinners, local gatherings, and curated nights out — brought to you by Newcastle Digest.
             </p>
             <a

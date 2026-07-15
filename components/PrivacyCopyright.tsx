@@ -10,7 +10,7 @@ export const PrivacyCopyright: React.FC = () => {
           Privacy & Terms of Use
         </h1>
 
-        <div className="space-y-16 font-serif-alt text-lg leading-relaxed text-[#251f18]/85">
+        <div className="space-y-16 font-sans-main text-lg leading-relaxed text-[#251f18]/85">
           {/* Privacy Policy */}
           <div>
             <h2 className="font-sans-main font-black text-2xl md:text-3xl uppercase tracking-tighter text-[#251f18] mb-6">
@@ -140,7 +140,7 @@ export const PrivacyCopyright: React.FC = () => {
           </div>
         </div>
 
-        <p className="font-serif-alt italic text-[#251f18]/60 mt-16">
+        <p className="font-sans-main text-[#251f18]/60 mt-16">
           Questions? Contact us at kyle@newcastledigest.com
         </p>
       </div>

@@ -46,7 +46,7 @@ export const Contact: React.FC = () => {
               <h2 className="font-sans-main font-black text-2xl md:text-3xl uppercase tracking-tighter mb-2">
                 Send a note
               </h2>
-              <p className="font-serif-alt italic text-[#251f18]/70 mb-8">
+              <p className="font-sans-main text-[#251f18]/70 mb-8">
                 We'd love to hear from you. Tell us what you'd like to read, or just say hello.
               </p>
               <div className="tally-embed-wrap">
@@ -89,7 +89,7 @@ export const Contact: React.FC = () => {
               <h3 className="font-sans-main font-black text-xl md:text-2xl uppercase tracking-tighter mb-3">
                 Submit an event
               </h3>
-              <p className="font-serif-alt italic text-white/70 text-sm md:text-base leading-snug mb-4">
+              <p className="font-sans-main text-white/70 text-sm md:text-base leading-snug mb-4">
                 Have an event coming up? Submit it to be considered for inclusion in the newsletter!
               </p>
               <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
@@ -120,7 +120,7 @@ export const Contact: React.FC = () => {
               <h3 className="font-sans-main font-black text-xl md:text-2xl uppercase tracking-tighter mb-3">
                 Give us a call
               </h3>
-              <p className="font-serif-alt italic text-white/70 text-sm md:text-base leading-snug mb-4">
+              <p className="font-sans-main text-white/70 text-sm md:text-base leading-snug mb-4">
                 Whether you're launching a product, promoting an event, or building brand trust with locals, we're here to help.
               </p>
               <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
@@ -149,7 +149,7 @@ export const Contact: React.FC = () => {
               <h3 className="font-sans-main font-black text-xl md:text-2xl uppercase tracking-tighter mb-3">
                 Email us
               </h3>
-              <p className="font-serif-alt italic text-white/70 text-sm md:text-base leading-snug mb-4">
+              <p className="font-sans-main text-white/70 text-sm md:text-base leading-snug mb-4">
                 Want to send us a hey, hi, hello, or let us know how we're doing? We'd love to hear from you!
               </p>
               <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">

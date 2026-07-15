@@ -56,7 +56,7 @@ export const JobsFAQ: React.FC = () => {
             <div
               className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-6 md:pb-8' : 'max-h-0'}`}
             >
-              <p className="font-serif-alt italic text-lg text-[#251f18]/65 leading-relaxed max-w-3xl">
+              <p className="font-sans-main text-lg text-[#251f18]/65 leading-relaxed max-w-3xl">
                 {item.answer}
               </p>
             </div>

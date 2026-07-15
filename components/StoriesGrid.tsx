@@ -96,14 +96,14 @@ export const StoriesGrid: React.FC<StoriesGridProps> = ({ contentTag }) => {
           <h1 className="font-sans-main text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
             The Journal.
           </h1>
-          <p className="font-serif-alt italic text-xl text-[#251f18]/60 max-w-xl mx-auto leading-snug">
+          <p className="font-sans-main text-xl text-[#251f18]/60 max-w-xl mx-auto leading-snug">
             Stories and guides from across Newcastle. Published on Beehiiv.
           </p>
         </div>
 
         {loading && (
           <div className="flex justify-center py-20">
-            <p className="font-serif-alt italic text-[#251f18]/60">Loading articles…</p>
+            <p className="font-sans-main text-[#251f18]/60">Loading articles…</p>
           </div>
         )}
 
@@ -122,7 +122,7 @@ export const StoriesGrid: React.FC<StoriesGridProps> = ({ contentTag }) => {
 
         {!loading && !error && articles.length === 0 && contentTag && (
           <div className="text-center py-20">
-            <p className="font-serif-alt italic text-[#251f18]/60">No blog articles yet.</p>
+            <p className="font-sans-main text-[#251f18]/60">No blog articles yet.</p>
           </div>
         )}
 
@@ -149,7 +149,7 @@ export const StoriesGrid: React.FC<StoriesGridProps> = ({ contentTag }) => {
                       <h2 className="font-sans-main text-4xl md:text-5xl font-black uppercase tracking-tighter leading-[0.9] text-[#251f18] group-hover:text-[#849bff] transition-colors">
                         {article.title}
                       </h2>
-                      <p className="font-serif-alt italic text-lg text-[#251f18]/60 leading-snug">
+                      <p className="font-sans-main text-lg text-[#251f18]/60 leading-snug">
                         {article.desc}
                       </p>
                     </div>

@@ -34,7 +34,7 @@ export const HeroBento: React.FC = () => {
                 <h3 className="font-sans-main text-2xl md:text-3xl font-black uppercase tracking-tighter mb-2">
                   Weekly Trivia
                 </h3>
-                <p className="font-serif-alt italic text-white/90 text-sm md:text-base leading-snug">
+                <p className="font-sans-main text-white/90 text-sm md:text-base leading-snug">
                   Win vouchers to local spots by guessing the hidden landmark.
                 </p>
               </div>
@@ -54,7 +54,7 @@ export const HeroBento: React.FC = () => {
                 <h3 className="font-sans-main text-2xl md:text-3xl font-black uppercase tracking-tighter mb-2">
                   Weekend Gig Guide
                 </h3>
-                <p className="font-serif-alt italic text-white/90 text-sm md:text-base leading-snug">
+                <p className="font-sans-main text-white/90 text-sm md:text-base leading-snug">
                   Who's playing where. Updated every Friday.
                 </p>
               </div>

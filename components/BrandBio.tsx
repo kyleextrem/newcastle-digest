@@ -15,14 +15,14 @@ export const BrandBio: React.FC = () => {
                <p className="font-mono-main text-xs uppercase tracking-[0.2em] text-[#251f18]/60">
                  What you'll get in your inbox:
                </p>
-               <ul className="font-serif-alt text-xl md:text-2xl space-y-4 text-[#251f18]/80 list-disc pl-5">
+               <ul className="font-sans-main text-xl md:text-2xl space-y-4 text-[#251f18]/80 list-disc pl-5">
                  <li><span className="font-bold text-[#251f18]">Tuesday:</span> An original story about local people, places, history, and happenings.</li>
                  <li><span className="font-bold text-[#251f18]">Thursday:</span> A huge list of things to do in the Newcastle area this weekend.</li>
                  <li><span className="font-bold text-[#251f18]">Monthly:</span> A Plan Ahead guide for the upcoming month.</li>
                </ul>
             </div>
             
-            <div className="font-serif-alt text-xl md:text-2xl italic leading-relaxed text-[#251f18]/80 border-l border-[#849bff]/20 pl-8">
+            <div className="font-sans-main text-xl md:text-2xl italic leading-relaxed text-[#251f18]/80 border-l border-[#849bff]/20 pl-8">
               "Newcastle is more than just a coal port; it's a thriving community of artists, surfers, and innovators. Our mission is to tell the stories that usually go unheard."
             </div>
           </div>

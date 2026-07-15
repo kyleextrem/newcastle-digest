@@ -71,14 +71,14 @@ export const PreviousNewsletters: React.FC = () => {
           <h1 className="font-sans-main text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-none mb-6">
             Previous Newsletters
           </h1>
-          <p className="font-serif-alt italic text-xl text-[#251f18]/70 max-w-xl mx-auto leading-snug">
+          <p className="font-sans-main text-xl text-[#251f18]/70 max-w-xl mx-auto leading-snug">
             Catch up on past editions of Newcastle Digest.
           </p>
         </header>
 
         {loading && (
           <div className="flex justify-center py-20">
-            <p className="font-serif-alt italic text-[#251f18]/60">Loading editions…</p>
+            <p className="font-sans-main text-[#251f18]/60">Loading editions…</p>
           </div>
         )}
 
@@ -97,7 +97,7 @@ export const PreviousNewsletters: React.FC = () => {
 
         {!loading && !error && issues.length === 0 && (
           <div className="text-center py-20">
-            <p className="font-serif-alt italic text-[#251f18]/60">No past editions yet.</p>
+            <p className="font-sans-main text-[#251f18]/60">No past editions yet.</p>
           </div>
         )}
 
@@ -136,7 +136,7 @@ export const PreviousNewsletters: React.FC = () => {
                     {issue.title}
                   </h2>
                   {issue.subtitle && (
-                    <p className="font-serif-alt italic text-[#251f18]/60 text-sm leading-snug line-clamp-2">
+                    <p className="font-sans-main text-[#251f18]/60 text-sm leading-snug line-clamp-2">
                       {issue.subtitle}
                     </p>
                   )}

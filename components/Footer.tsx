@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
               <h2 className="font-sans-main font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-tighter leading-[0.85] mb-6 md:mb-8">
                 newcastle digest
               </h2>
-              <p className="font-serif-alt italic text-lg md:text-2xl max-w-sm opacity-40">
+              <p className="font-sans-main text-lg md:text-2xl max-w-sm opacity-40">
                 Independently curated for the thousands of locals who call Newcastle, NSW home.
               </p>
             </div>

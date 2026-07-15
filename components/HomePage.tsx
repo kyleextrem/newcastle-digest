@@ -52,7 +52,7 @@ export const HomePage: React.FC = () => {
                 <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9] mt-auto">
                   The Gig Guide.
                 </h2>
-                <p className="font-serif-alt italic text-white/60 mt-4 text-lg">A complete guide to the shows worth leaving the house for. Updated weekly.</p>
+                <p className="font-sans-main text-white/60 mt-4 text-lg">A complete guide to the shows worth leaving the house for. Updated weekly.</p>
                 <span className="inline-flex items-center gap-2 mt-6 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
                   View guide <ExternalLink className="w-3.5 h-3.5" />
                 </span>
@@ -71,7 +71,7 @@ export const HomePage: React.FC = () => {
                 <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9] text-[#251f18] mt-auto">
                   Local Markets.
                 </h2>
-                <p className="font-serif-alt italic text-[#251f18]/55 mt-4 text-lg">From growers markets to design stalls — discover what's on before the weekend arrives.</p>
+                <p className="font-sans-main text-[#251f18]/55 mt-4 text-lg">From growers markets to design stalls — discover what's on before the weekend arrives.</p>
                 <span className="inline-flex items-center gap-2 mt-6 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
                   View guide <ExternalLink className="w-3.5 h-3.5" />
                 </span>
@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
                 <p className="font-mono-main text-sm uppercase tracking-widest text-[#849bff] mt-4">
                   {MARKET_TOTE.price}
                 </p>
-                <p className="font-serif-alt italic text-lg text-[#251f18]/55 mt-4 leading-relaxed">
+                <p className="font-sans-main text-lg text-[#251f18]/55 mt-4 leading-relaxed">
                   {MARKET_TOTE.description}
                 </p>
                 <a
@@ -135,7 +135,7 @@ export const HomePage: React.FC = () => {
                   <p className="font-sans-main text-white/90 mt-4 text-lg max-w-xl leading-snug">
                     Connect your brand with one of Newcastle's fastest-growing local audiences.
                   </p>
-                  <p className="font-serif-alt italic text-white/60 mt-2 text-base">
+                  <p className="font-sans-main text-white/60 mt-2 text-base">
                     Thoughtful placements. Engaged readers. Real local reach.
                   </p>
                 </div>
@@ -154,7 +154,7 @@ export const HomePage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {TESTIMONIALS.map((t, i) => (
               <blockquote key={i} className="text-center">
-                <p className="font-serif-alt italic text-xl md:text-2xl text-[#251f18]/85 leading-relaxed mb-4">
+                <p className="font-sans-main text-xl md:text-2xl text-[#251f18]/85 leading-relaxed mb-4">
                   "{t.quote}"
                 </p>
                 <cite className="font-mono-main text-[10px] uppercase tracking-widest text-[#251f18]/50 not-italic block mt-2">{t.attribution}</cite>
@@ -174,7 +174,7 @@ export const HomePage: React.FC = () => {
               <h2 className="font-sans-main font-black text-5xl md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.9] mb-6">
                 This week in Newcastle.
               </h2>
-              <p className="font-serif-alt italic text-xl text-white/70 leading-relaxed mb-10">
+              <p className="font-sans-main text-xl text-white/70 leading-relaxed mb-10">
                 The latest stories, guides, and curiosities from across the city, delivered every Wednesday.
               </p>
               <a
@@ -194,7 +194,7 @@ export const HomePage: React.FC = () => {
               </div>
               <div className="absolute -bottom-4 left-6 right-6 md:left-8 md:right-auto md:max-w-[220px] bg-white rounded-2xl p-5 shadow-xl text-[#251f18]">
                 <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#251f18]/60 mb-1">New edition</p>
-                <p className="font-serif-alt italic text-[#251f18]">Every Wednesday morning</p>
+                <p className="font-sans-main text-[#251f18]">Every Wednesday morning</p>
               </div>
             </div>
           </div>

@@ -77,7 +77,7 @@ export const JobsPage: React.FC = () => {
                 Every listing,{' '}
                 <span className="text-[#849bff]">seen by real Newcastle locals.</span>
               </h1>
-              <p className="font-serif-alt italic text-lg md:text-xl text-[#251f18]/55 mt-8 max-w-2xl mx-auto leading-relaxed">
+              <p className="font-sans-main text-lg md:text-xl text-[#251f18]/55 mt-8 max-w-2xl mx-auto leading-relaxed">
                 Newcastle&apos;s job board. Every listing reaches real local people, not an algorithm. Backed by 7,000+ readers who actually live here.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
@@ -113,7 +113,7 @@ export const JobsPage: React.FC = () => {
             <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9] text-[#251f18]">
               Built for local, guaranteed to be seen.
             </h2>
-            <p className="font-serif-alt italic text-lg md:text-xl text-[#251f18]/55 mt-4 max-w-2xl mx-auto">
+            <p className="font-sans-main text-lg md:text-xl text-[#251f18]/55 mt-4 max-w-2xl mx-auto">
               No algorithm, no national noise. Just real Newcastle locals seeing your role.
             </p>
           </div>
@@ -147,7 +147,7 @@ export const JobsPage: React.FC = () => {
                     {card.title}
                   </h3>
                   <p
-                    className={`font-serif-alt italic mt-4 text-base md:text-lg ${
+                    className={`font-sans-main mt-4 text-base md:text-lg ${
                       card.dark ? 'text-white/60' : 'text-[#251f18]/55'
                     }`}
                   >
@@ -171,7 +171,7 @@ export const JobsPage: React.FC = () => {
             <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9]">
               Straightforward tiers.
             </h2>
-            <p className="font-serif-alt italic text-lg md:text-xl text-white/50 mt-4 max-w-2xl mx-auto">
+            <p className="font-sans-main text-lg md:text-xl text-white/50 mt-4 max-w-2xl mx-auto">
               Start free, upgrade when you want more reach. No hidden fees, no recruiter commissions.
             </p>
           </div>
@@ -198,7 +198,7 @@ export const JobsPage: React.FC = () => {
                     {tier.title}
                   </h3>
                   <p
-                    className={`font-serif-alt italic text-lg md:text-xl ${
+                    className={`font-sans-main text-lg md:text-xl ${
                       tier.light ? 'text-white/80' : 'text-white/40'
                     }`}
                   >
@@ -256,7 +256,7 @@ export const JobsPage: React.FC = () => {
                 <h2 className="font-sans-main font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9]">
                   Ready for Newcastle to see your next hire?
                 </h2>
-                <p className="font-serif-alt italic text-white/60 mt-4 text-base md:text-lg max-w-xl">
+                <p className="font-sans-main text-white/60 mt-4 text-base md:text-lg max-w-xl">
                   Post your role today and reach thousands of engaged Newcastle locals, thoughtfully, not algorithmically.
                 </p>
               </div>

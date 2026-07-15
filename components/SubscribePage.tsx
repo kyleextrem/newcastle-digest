@@ -125,7 +125,7 @@ export const SubscribePage: React.FC = () => {
             <br />
             <span className="text-[#849bff]">In your inbox.</span>
           </h1>
-          <p className="hidden md:block font-serif-alt italic text-lg md:text-xl text-white/80 leading-relaxed mb-2">
+          <p className="hidden md:block font-sans-main text-lg md:text-xl text-white/80 leading-relaxed mb-2">
             Events, openings, food, markets, and local finds — curated into one email every Wednesday.
           </p>
           <p className="hidden md:block font-mono-main text-[10px] uppercase tracking-[0.2em] text-white/60 mb-12">
@@ -158,7 +158,7 @@ export const SubscribePage: React.FC = () => {
             <br />
             <span className="text-[#849bff]">In your inbox.</span>
           </h1>
-          <p className="md:hidden font-serif-alt italic text-lg text-[#251f18]/80 leading-relaxed mb-6">
+          <p className="md:hidden font-sans-main text-lg text-[#251f18]/80 leading-relaxed mb-6">
             Events, openings, food, markets, and local finds — curated into one email every Wednesday.
           </p>
 
@@ -197,7 +197,7 @@ export const SubscribePage: React.FC = () => {
             )}
           </div>
 
-          <p className="font-serif-alt italic text-sm text-[#251f18]/70 mb-3">
+          <p className="font-sans-main text-sm text-[#251f18]/70 mb-3">
             No algorithms. Just the best of the city, once a week.
           </p>
 

@@ -35,7 +35,7 @@ export const Hero: React.FC = () => {
               <br />
               <span className="text-[#849bff]">delivered directly to you.</span>
             </h1>
-            <p className="font-serif-alt italic text-lg md:text-xl text-[#251f18]/55 mt-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="font-sans-main text-lg md:text-xl text-[#251f18]/55 mt-8 max-w-2xl mx-auto leading-relaxed">
               Food, events, openings, culture, and local finds — thoughtfully curated into one weekly email.
             </p>
           </div>

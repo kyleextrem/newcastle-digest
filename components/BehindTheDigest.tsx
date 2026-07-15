@@ -11,9 +11,9 @@ export const BehindTheDigest: React.FC = () => {
             <h1 className="font-sans-main font-black text-6xl md:text-8xl uppercase leading-[0.8] tracking-tighter text-[#251f18]">
               I'm<br />Kyle.
             </h1>
-            <p className="font-serif-alt italic text-2xl text-[#251f18]/60">Founder, Newcastle Digest</p>
+            <p className="font-sans-main text-2xl text-[#251f18]/60">Founder, Newcastle Digest</p>
 
-            <div className="space-y-6 font-serif-alt text-xl leading-relaxed text-[#251f18]/80">
+            <div className="space-y-6 font-sans-main text-xl leading-relaxed text-[#251f18]/80">
               <p>
                 Newcastle Digest started because I wanted a simple way to see what was happening across the city: what was on, what looked good, and what was actually worth leaving the house for.
               </p>

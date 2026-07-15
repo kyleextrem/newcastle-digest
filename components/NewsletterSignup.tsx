@@ -13,7 +13,7 @@ export const NewsletterSignup: React.FC = () => {
             <h2 className="font-serif-main text-5xl md:text-7xl lowercase italic mb-6 text-[#849bff]">
               Contact
             </h2>
-            <p className="font-serif-alt text-xl md:text-2xl text-[#251f18]/80 mb-4">
+            <p className="font-sans-main text-xl md:text-2xl text-[#251f18]/80 mb-4">
               Suggestions, partnerships, or general enquiries.
             </p>
             <p className="font-mono-main text-[10px] uppercase tracking-widest opacity-60">
@@ -26,7 +26,7 @@ export const NewsletterSignup: React.FC = () => {
               <label className="block font-mono-main text-[10px] uppercase tracking-widest opacity-60">Your Name</label>
               <input 
                 type="text" 
-                className="w-full border-b border-[#251f18]/20 py-4 focus:outline-none focus:border-[#849bff] transition-colors font-serif-alt text-xl italic" 
+                className="w-full border-b border-[#251f18]/20 py-4 focus:outline-none focus:border-[#849bff] transition-colors font-sans-main text-xl italic" 
                 placeholder="Full name"
               />
             </div>
@@ -34,14 +34,14 @@ export const NewsletterSignup: React.FC = () => {
               <label className="block font-mono-main text-[10px] uppercase tracking-widest opacity-60">Email Address</label>
               <input 
                 type="email" 
-                className="w-full border-b border-[#251f18]/20 py-4 focus:outline-none focus:border-[#849bff] transition-colors font-serif-alt text-xl italic" 
+                className="w-full border-b border-[#251f18]/20 py-4 focus:outline-none focus:border-[#849bff] transition-colors font-sans-main text-xl italic" 
                 placeholder="Email address"
               />
             </div>
             <div className="space-y-4">
               <label className="block font-mono-main text-[10px] uppercase tracking-widest opacity-60">Message</label>
               <textarea 
-                className="w-full border-b border-[#251f18]/20 py-4 focus:outline-none focus:border-[#849bff] transition-colors font-serif-alt text-xl italic resize-none" 
+                className="w-full border-b border-[#251f18]/20 py-4 focus:outline-none focus:border-[#849bff] transition-colors font-sans-main text-xl italic resize-none" 
                 rows={3}
                 placeholder="How can we help?"
               />
