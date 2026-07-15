@@ -8,9 +8,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'serif-main': ['Instrument Serif', 'serif'],
+        'serif-main': ['Georgia', 'serif'],
         'serif-alt': ['EB Garamond', 'serif'],
         'sans-main': ['DM Sans', 'sans-serif'],
+        'sans-display': ['Montserrat', 'sans-serif'],
         'mono-main': ['Fira Mono', 'monospace'],
       },
     },
