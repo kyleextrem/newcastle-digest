@@ -128,7 +128,7 @@ export const WorkWithUs: React.FC = () => {
                 <ul className="space-y-2 text-sm text-white/50 font-sans-main">
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Feature Ad</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout across 4–5 editions</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Instagram post (Social Media+ included)</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Instagram post</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Priority scheduling</li>
                 </ul>
               </div>
@@ -152,7 +152,6 @@ export const WorkWithUs: React.FC = () => {
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Feature Ad, your choice of edition</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout in every edition that month (4–5 editions)</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Priority scheduling</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Social Media+ available as add-on ($200/mo)</li>
                 </ul>
               </div>
               <a
