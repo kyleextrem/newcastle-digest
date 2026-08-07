@@ -1,6 +1,23 @@
 'use client';
 
 import { useState } from 'react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { GripVertical } from 'lucide-react';
 import type { InterestItem } from '../constants';
 import { DEFAULT_INTERESTS } from '../constants';
@@ -9,29 +26,60 @@ interface StepRankProps {
   onNext: (orderedInterests: InterestItem[]) => void;
 }
 
+function SortableItem({ item, index }: { item: InterestItem; index: number }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <li
+      ref={setNodeRef}
+      style={style}
+      className={`flex cursor-grab items-center gap-4 rounded-[20px] border border-[#251f18]/06 bg-white px-4 py-4 shadow-sm transition-shadow active:cursor-grabbing ${
+        isDragging ? 'shadow-md ring-2 ring-[#849bff]/30 z-10' : ''
+      }`}
+      {...attributes}
+      {...listeners}
+    >
+      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#849bff]/15 font-mono-main text-xs font-bold text-[#849bff]">
+        {index + 1}
+      </span>
+      <span className="text-xl" aria-hidden>
+        {item.emoji}
+      </span>
+      <span className="flex-1 font-sans-main text-sm font-bold text-[#251f18] sm:text-base">
+        {item.label}
+      </span>
+      <GripVertical className="h-5 w-5 flex-shrink-0 text-[#251f18]/25" aria-hidden />
+    </li>
+  );
+}
+
 export function StepRank({ onNext }: StepRankProps) {
   const [items, setItems] = useState<InterestItem[]>(DEFAULT_INTERESTS);
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
 
-  const handleDragStart = (index: number) => {
-    setDragIndex(index);
-  };
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
-  const handleDragOver = (e: React.DragEvent, index: number) => {
-    e.preventDefault();
-    if (dragIndex === null || dragIndex === index) return;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
     setItems((prev) => {
-      const next = [...prev];
-      const [moved] = next.splice(dragIndex, 1);
-      next.splice(index, 0, moved);
-      return next;
+      const oldIndex = prev.findIndex((item) => item.id === active.id);
+      const newIndex = prev.findIndex((item) => item.id === over.id);
+      return arrayMove(prev, oldIndex, newIndex);
     });
-    setDragIndex(index);
-  };
-
-  const handleDragEnd = () => {
-    setDragIndex(null);
   };
 
   return (
@@ -48,31 +96,19 @@ export function StepRank({ onNext }: StepRankProps) {
         </p>
       </div>
 
-      <ul className="mb-10 w-full max-w-lg space-y-3">
-        {items.map((item, index) => (
-          <li
-            key={item.id}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={(e) => handleDragOver(e, index)}
-            onDragEnd={handleDragEnd}
-            className={`flex cursor-grab items-center gap-4 rounded-[20px] border border-[#251f18]/06 bg-white px-4 py-4 shadow-sm transition-shadow active:cursor-grabbing ${
-              dragIndex === index ? 'shadow-md ring-2 ring-[#849bff]/30' : ''
-            }`}
-          >
-            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#849bff]/15 font-mono-main text-xs font-bold text-[#849bff]">
-              {index + 1}
-            </span>
-            <span className="text-xl" aria-hidden>
-              {item.emoji}
-            </span>
-            <span className="flex-1 font-sans-main text-sm font-bold text-[#251f18] sm:text-base">
-              {item.label}
-            </span>
-            <GripVertical className="h-5 w-5 flex-shrink-0 text-[#251f18]/25" aria-hidden />
-          </li>
-        ))}
-      </ul>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+          <ul className="mb-10 w-full max-w-lg space-y-3">
+            {items.map((item, index) => (
+              <SortableItem key={item.id} item={item} index={index} />
+            ))}
+          </ul>
+        </SortableContext>
+      </DndContext>
 
       <button
         type="button"
