@@ -17,7 +17,7 @@ const WHY_CARDS = [
   {
     eyebrow: 'Newsletter reach',
     title: 'Guaranteed local eyes',
-    desc: 'Featured listings go straight into the Newcastle Digest newsletter, read by 7,000+ real locals at 60% open rate. Not buried in a feed.',
+    desc: 'Featured listings go straight into the Newcastle Digest newsletter, read by 7,500+ real locals at 60% open rate. Not buried in a feed.',
     dark: true,
   },
   {
@@ -78,7 +78,7 @@ export const JobsPage: React.FC = () => {
                 <span className="text-[#849bff]">seen by real Newcastle locals.</span>
               </h1>
               <p className="font-sans-main text-lg md:text-xl text-[#251f18]/55 mt-8 max-w-2xl mx-auto leading-relaxed">
-                Newcastle&apos;s job board. Every listing reaches real local people, not an algorithm. Backed by 7,000+ readers who actually live here.
+                Newcastle&apos;s job board. Every listing reaches real local people, not an algorithm. Backed by 7,500+ readers who actually live here.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
                 <a

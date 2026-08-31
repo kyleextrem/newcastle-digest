@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 const HOME_URL = 'https://www.newcastledigest.com';
 const OG_IMAGE_URL = `${HOME_URL}/nd-logo.png`;
 const HOME_DESCRIPTION =
-  'Newcastle Digest is a free weekly newsletter read by 7,000+ locals. Food, events, openings and culture — curated and delivered every Wednesday.';
+  'Newcastle Digest is a free weekly newsletter read by 7,500+ locals. Food, events, openings and culture — curated and delivered every Wednesday.';
 
 export const metadata: Metadata = {
   title: 'Newcastle Digest | The best of Newcastle',

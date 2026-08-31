@@ -8,14 +8,14 @@ const WORK_OG_IMAGE_URL =
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Partner With Newcastle Digest | Reach 7,000+ Engaged Newcastle Locals',
+    absolute: 'Partner With Newcastle Digest | Reach 7,500+ Engaged Newcastle Locals',
   },
   description:
-    'Advertise with Newcastle Digest — Newcastle\'s fastest-growing local newsletter. Sponsored placements, shoutouts, and event partnerships for local businesses. 60% open rate, 7,000+ subscribers.',
+    'Advertise with Newcastle Digest — Newcastle\'s fastest-growing local newsletter. Sponsored placements, shoutouts, and event partnerships for local businesses. 60% open rate, 7,500+ subscribers.',
   openGraph: {
-    title: 'Partner With Newcastle Digest | Reach 7,000+ Engaged Newcastle Locals',
+    title: 'Partner With Newcastle Digest | Reach 7,500+ Engaged Newcastle Locals',
     description:
-      'Advertise with Newcastle Digest — Newcastle\'s fastest-growing local newsletter. Sponsored placements, shoutouts, and event partnerships for local businesses. 60% open rate, 7,000+ subscribers.',
+      'Advertise with Newcastle Digest — Newcastle\'s fastest-growing local newsletter. Sponsored placements, shoutouts, and event partnerships for local businesses. 60% open rate, 7,500+ subscribers.',
     url: WORK_URL,
     images: [{ url: WORK_OG_IMAGE_URL }],
   },

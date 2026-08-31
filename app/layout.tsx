@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: '%s | Newcastle Digest',
   },
   description:
-    'Food, events, openings, culture, and local finds — thoughtfully curated into one weekly email. Read by 7,000+ Newcastle locals.',
+    'Food, events, openings, culture, and local finds — thoughtfully curated into one weekly email. Read by 7,500+ Newcastle locals.',
   openGraph: {
     title: 'Newcastle Digest | The best of Newcastle',
     description: 'The best of Newcastle, delivered directly to you. One weekly email.',

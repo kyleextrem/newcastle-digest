@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
           <div className="w-full max-w-5xl mx-auto mb-14 md:mb-16">
             <div className="inline-block h-px w-12 bg-[#849bff]/40 mb-8" aria-hidden />
             <p className="font-mono-main text-[10px] uppercase tracking-[0.35em] text-[#251f18]/50 mb-6">
-              Read by 7,000+ Newcastle locals.
+              Read by 7,500+ Newcastle locals.
             </p>
             <h1 className="font-sans-main font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem] uppercase tracking-tighter leading-[0.82]">
               <span className="text-[#251f18]">The best of Newcastle,</span>

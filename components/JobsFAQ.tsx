@@ -17,7 +17,7 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: 'How does the newsletter mention work?',
     answer:
-      'Featured and Premium listings are mentioned in every Newcastle Digest newsletter for 4 weeks running, read by 7,000+ locals with a 60% open rate each send. Your role appears alongside the week\'s stories and guides, not buried in a classifieds block.',
+      'Featured and Premium listings are mentioned in every Newcastle Digest newsletter for 4 weeks running, read by 7,500+ locals with a 60% open rate each send. Your role appears alongside the week\'s stories and guides, not buried in a classifieds block.',
   },
   {
     question: 'Can I edit my listing after posting?',

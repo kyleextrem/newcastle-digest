@@ -118,7 +118,7 @@ export const SubscribePage: React.FC = () => {
         </div>
         <div className="relative z-10 max-w-lg">
           <p className="hidden md:block font-mono-main text-[10px] uppercase tracking-[0.35em] text-[#849bff] mb-8">
-            Read by 7,000+ Newcastle locals.
+            Read by 7,500+ Newcastle locals.
           </p>
           <h1 className="hidden md:block font-sans-main font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.88] mb-6 md:mb-8 text-white">
             The best of Newcastle.
@@ -151,7 +151,7 @@ export const SubscribePage: React.FC = () => {
       <div className="order-1 md:order-2 relative w-full md:w-[52%] lg:w-[55%] min-h-[60vh] md:min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 md:px-12 lg:px-20 py-16 md:py-24 bg-[#faf9f6]">
         <div className="w-full max-w-[420px] mx-auto">
           <p className="md:hidden font-mono-main text-[10px] uppercase tracking-[0.35em] text-[#849bff] mb-5">
-            Read by 7,000+ Newcastle locals.
+            Read by 7,500+ Newcastle locals.
           </p>
           <h1 className="md:hidden font-sans-main font-black text-4xl sm:text-5xl uppercase tracking-tighter leading-[0.9] text-[#251f18] mb-4">
             The best of Newcastle.
@@ -168,7 +168,7 @@ export const SubscribePage: React.FC = () => {
             Join the Digest.
           </h2>
           <p className="hidden md:block font-sans-main text-base font-medium text-[#251f18] mb-6">
-            Join 7,000+ locals who use the Digest to decide where to go each week.
+            Join 7,500+ locals who use the Digest to decide where to go each week.
           </p>
 
           <div className="mb-6">

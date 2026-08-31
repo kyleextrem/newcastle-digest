@@ -12,7 +12,7 @@ export const WorkWithUs: React.FC = () => {
         {/* Hero */}
         <div className="bg-[#0a0f1e] rounded-[40px] px-8 md:px-16 py-16 md:py-24 mb-16">
           <h1 className="font-sans-display text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight max-w-4xl">
-            Newcastle Digest reaches 7,000+ locals every Wednesday morning.
+            Newcastle Digest reaches 7,500+ locals every Wednesday morning.
           </h1>
           <p className="font-sans-main text-xl md:text-2xl text-white/70 mt-6 max-w-3xl">
             We don&apos;t sell ad space. We tell our readers what&apos;s worth their time, and sometimes that&apos;s your business.
@@ -21,7 +21,7 @@ export const WorkWithUs: React.FC = () => {
           {/* Stat strip */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-14 pt-10 border-t border-white/10">
             <div>
-              <p className="font-sans-display text-3xl md:text-4xl font-bold text-[#a78bfa]">7,000+</p>
+              <p className="font-sans-display text-3xl md:text-4xl font-bold text-[#a78bfa]">7,500+</p>
               <p className="font-mono-main text-[10px] uppercase tracking-widest text-white/50 mt-2">Subscribers</p>
             </div>
             <div>
@@ -56,7 +56,7 @@ export const WorkWithUs: React.FC = () => {
           <div className="space-y-4">
             <h3 className="font-sans-main text-2xl font-bold text-white">Not an ad network</h3>
             <p className="font-sans-main text-lg text-white/60 leading-relaxed">
-              We&apos;re a local voice 7,000 people chose to let into their inbox. When we mention a business, it reads like a recommendation, because that&apos;s what it is.
+              We&apos;re a local voice 7,500 people chose to let into their inbox. When we mention a business, it reads like a recommendation, because that&apos;s what it is.
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export const WorkWithUs: React.FC = () => {
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Header image supplied or sourced by us</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Your logo + &ldquo;Brought to you by [Business]&rdquo; branding</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>CTA button with your link</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Delivered to 7,000+ subscribers</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Delivered to 7,500+ subscribers</li>
                 </ul>
               </div>
               <a
@@ -251,7 +251,7 @@ export const WorkWithUs: React.FC = () => {
               Beyond the newsletter
             </h2>
             <p className="font-sans-main text-xl md:text-2xl text-white/60 leading-relaxed mb-10">
-              Sponsorship gets your business seen by 7,000 locals. Digest Studio builds what happens after they click. A site, content, or SEO built to actually convert. Same team, same understanding of this market, different job.
+              Sponsorship gets your business seen by 7,500 locals. Digest Studio builds what happens after they click. A site, content, or SEO built to actually convert. Same team, same understanding of this market, different job.
             </p>
             <a
               href="https://digeststudio.com.au/services"
@@ -312,7 +312,7 @@ export const WorkWithUs: React.FC = () => {
         {/* Closing section */}
         <div className="mt-24 text-center max-w-3xl mx-auto">
           <h2 className="font-sans-display text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-            7,000 locals open this newsletter more than half the time it lands.
+            7,500 locals open this newsletter more than half the time it lands.
           </h2>
           <p className="font-sans-main text-xl md:text-2xl text-white/60 mb-10">
             That&apos;s the audience your business could be in front of next Wednesday.

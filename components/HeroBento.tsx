@@ -66,7 +66,7 @@ export const HeroBento: React.FC = () => {
             <div className="flex flex-wrap gap-x-8 gap-y-2 font-sans-main font-black text-3xl md:text-4xl tracking-tighter">
               <span>60%</span>
               <span>10%</span>
-              <span className="text-[#849bff]">7k+</span>
+              <span className="text-[#849bff]">7.5k+</span>
             </div>
             <p className="font-mono-main text-[10px] uppercase tracking-[0.2em] text-white/50 mt-4">
               Open rate · Click rate · Locals
