@@ -15,7 +15,7 @@ const NAV_LINKS: { name: string; href: string; external?: boolean }[] = [
   { name: 'Experiences', href: '/experiences' },
   { name: 'Shop', href: 'https://shop.newcastledigest.com', external: true },
   { name: 'Behind the Digest', href: '/behind' },
-  { name: 'The Journal', href: '/journal' },
+  { name: 'Journal', href: '/journal' },
   { name: 'Work With Us', href: '/work' },
   { name: 'Jobs', href: '/jobs' },
   { name: 'Contact', href: '/contact' },

@@ -1,5 +1,8 @@
 import { HomePage } from '@/components/HomePage';
 import type { Metadata } from 'next';
+import { getRecentPosts } from '@/lib/sanity';
+
+export const revalidate = 3600;
 
 const HOME_URL = 'https://www.newcastledigest.com';
 const OG_IMAGE_URL = `${HOME_URL}/nd-logo.png`;
@@ -26,14 +29,16 @@ const newsMediaOrganizationJsonLd = {
   areaServed: 'Newcastle, NSW, Australia',
 };
 
-export default function Page() {
+export default async function Page() {
+  const journalPosts = await getRecentPosts();
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(newsMediaOrganizationJsonLd) }}
       />
-      <HomePage />
+      <HomePage journalPosts={journalPosts} />
     </>
   );
 }

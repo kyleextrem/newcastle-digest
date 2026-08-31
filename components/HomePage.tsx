@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Hero } from './Hero';
 import { ExternalLink } from 'lucide-react';
 import { TESTIMONIALS } from '@/constants';
+import { JournalSection } from './JournalSection';
+import type { JournalPost } from '@/lib/sanity';
 
 const NEWCASTLE_IMAGES = [
   { src: '/newcastle/204698-2-c7408bf5-95c7-4b0a-9fbe-778d60820d34.png', alt: 'Newcastle promenade' },
@@ -18,7 +20,9 @@ const MARKET_TOTE = {
   url: 'https://shop.newcastledigest.com/products/newcastle-digest-market-tote-bag',
 };
 
-export const HomePage: React.FC = () => {
+export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
+  journalPosts = [],
+}) => {
   return (
     <>
       <Hero />
@@ -146,6 +150,8 @@ export const HomePage: React.FC = () => {
           </Link>
         </div>
       </section>
+
+      <JournalSection posts={journalPosts} />
 
       {/* Testimonials */}
       <section className="py-16 md:py-24 px-4 md:px-8 bg-[#f5f4f0]">

@@ -8,7 +8,7 @@ const FOOTER_LINKS_PUBLISHING = [
   { name: 'Latest Edition', href: '/#latest' },
   { name: 'Previous Newsletters', href: '/previous-newsletters' },
   { name: 'Experiences', href: '/experiences' },
-  { name: 'The Journal', href: '/journal' },
+  { name: 'Journal', href: '/journal' },
   { name: 'Subscribe', href: '/subscribe' },
 ];
 
