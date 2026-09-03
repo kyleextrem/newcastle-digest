@@ -44,10 +44,8 @@ export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
       <section className="py-10 md:py-20 px-4 sm:px-6 md:px-8">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            <a
-              href="https://newsletter.newcastledigest.com/p/gig-and-live-music-guide"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/journal/newcastle-gig-guide"
               className="group block rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#18181e] text-white p-10 md:p-14 min-h-[320px] md:min-h-[380px] relative transition-transform hover:scale-[1.01]"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-[#849bff]/25 via-transparent to-transparent pointer-events-none" />
@@ -58,15 +56,13 @@ export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
                 </h2>
                 <p className="font-sans-main text-white/60 mt-4 text-lg">A complete guide to the shows worth leaving the house for. Updated weekly.</p>
                 <span className="inline-flex items-center gap-2 mt-6 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
-                  View guide <ExternalLink className="w-3.5 h-3.5" />
+                  View guide →
                 </span>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="https://newsletter.newcastledigest.com/p/market-guide"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/journal/newcastle-markets-guide"
               className="group block rounded-[32px] md:rounded-[40px] overflow-hidden bg-[#f5f4f0] text-[#251f18] p-10 md:p-14 min-h-[320px] md:min-h-[380px] relative border border-[#251f18]/06 transition-transform hover:scale-[1.01] hover:shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-[#849bff]/08 via-transparent to-transparent pointer-events-none" />
@@ -77,10 +73,10 @@ export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
                 </h2>
                 <p className="font-sans-main text-[#251f18]/55 mt-4 text-lg">From growers markets to design stalls — discover what's on before the weekend arrives.</p>
                 <span className="inline-flex items-center gap-2 mt-6 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
-                  View guide <ExternalLink className="w-3.5 h-3.5" />
+                  View guide →
                 </span>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
