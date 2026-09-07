@@ -30,10 +30,10 @@ export const Hero: React.FC = () => {
             <p className="font-mono-main text-[10px] uppercase tracking-[0.35em] text-[#251f18]/50 mb-6">
               Read by 7,500+ Newcastle locals.
             </p>
-            <h1 className="font-sans-main font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem] uppercase tracking-tighter leading-[0.82]">
-              <span className="text-[#251f18]">What's On in Newcastle NSW,</span>
-              <br />
-              <span className="text-[#849bff]">Every Week</span>
+            <h1 className="font-sans-main font-black text-[clamp(2.5rem,6.6vw,6rem)] uppercase tracking-tight leading-[0.88]">
+              <span className="text-[#251f18] block">What's On in</span>
+              <span className="text-[#251f18] block">Newcastle NSW,</span>
+              <span className="text-[#849bff] block">Every Week</span>
             </h1>
             <p className="font-sans-main text-xl md:text-2xl text-[#251f18] mt-8 max-w-2xl mx-auto leading-snug">
               The best of Newcastle, <span className="text-[#849bff]">delivered directly to you.</span>

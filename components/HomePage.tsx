@@ -56,7 +56,7 @@ export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
                 </h2>
                 <p className="font-sans-main text-white/60 mt-4 text-lg">A complete guide to the shows worth leaving the house for. Updated weekly.</p>
                 <span className="inline-flex items-center gap-2 mt-6 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
-                  View guide →
+                  Newcastle Gig Guide →
                 </span>
               </div>
             </Link>
@@ -73,7 +73,7 @@ export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
                 </h2>
                 <p className="font-sans-main text-[#251f18]/55 mt-4 text-lg">From growers markets to design stalls. Discover what's on before the weekend arrives.</p>
                 <span className="inline-flex items-center gap-2 mt-6 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
-                  View guide →
+                  Newcastle Markets Guide →
                 </span>
               </div>
             </Link>
@@ -179,12 +179,20 @@ export const HomePage: React.FC<{ journalPosts?: JournalPost[] }> = ({
               <p className="font-sans-main text-xl text-white/70 leading-relaxed mb-10">
                 The latest stories, guides, and curiosities from across the city, delivered every Wednesday.
               </p>
-              <a
-                href="/latest"
-                className="inline-flex items-center gap-2 bg-[#849bff] text-white px-8 py-4 rounded-full font-mono-main text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#18181e] transition-all"
-              >
-                Read the latest issue <ExternalLink className="w-4 h-4" />
-              </a>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+                <a
+                  href="/latest"
+                  className="inline-flex items-center gap-2 bg-[#849bff] text-white px-8 py-4 rounded-full font-mono-main text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#18181e] transition-all"
+                >
+                  Read the latest issue <ExternalLink className="w-4 h-4" />
+                </a>
+                <Link
+                  href="/previous-newsletters"
+                  className="font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] hover:opacity-70"
+                >
+                  Browse previous editions
+                </Link>
+              </div>
             </div>
             <div className="relative">
               <div className="rounded-[32px] overflow-hidden bg-[#222228] aspect-[4/5] max-w-md mx-auto lg:mx-0 shadow-2xl">

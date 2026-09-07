@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export const BehindTheDigest: React.FC = () => {
   return (
@@ -24,7 +25,22 @@ export const BehindTheDigest: React.FC = () => {
                 What began as a personal email has grown into a weekly read for thousands of locals who want to stay in the loop and make the most of the city.
               </p>
               <p>
-                That's still the focus today: helping people discover what's happening around them and feel more connected to where they live.
+                That&apos;s still the focus today: helping people discover what&apos;s happening around them and feel more connected to where they live.
+              </p>
+              <p>
+                You can{' '}
+                <Link href="/subscribe" className="text-[#849bff] underline underline-offset-2 hover:opacity-70">
+                  subscribe to the weekly email
+                </Link>
+                , read the{' '}
+                <Link href="/journal" className="text-[#849bff] underline underline-offset-2 hover:opacity-70">
+                  Newcastle Digest Journal
+                </Link>
+                , or{' '}
+                <Link href="/previous-newsletters" className="text-[#849bff] underline underline-offset-2 hover:opacity-70">
+                  browse previous editions
+                </Link>
+                .
               </p>
             </div>
 

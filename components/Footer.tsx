@@ -2,22 +2,27 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { INSTAGRAM_URL } from '@/lib/site';
 
 const FOOTER_LINKS_PUBLISHING = [
   { name: 'Home', href: '/' },
-  { name: 'Latest Edition', href: '/#latest' },
   { name: 'Previous Newsletters', href: '/previous-newsletters' },
-  { name: 'Experiences', href: '/experiences' },
   { name: 'Journal', href: '/journal' },
   { name: 'Subscribe', href: '/subscribe' },
+  { name: 'Experiences', href: '/experiences' },
 ];
 
-const FOOTER_LINKS_MORE = [
+const FOOTER_LINKS_MORE: {
+  name: string;
+  href: string;
+  external?: boolean;
+}[] = [
   { name: 'Work With Us', href: '/work' },
   { name: 'Jobs', href: '/jobs' },
   { name: 'Behind the Digest', href: '/behind' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Submit an event', href: 'https://tally.so/r/wdKJ1N' },
+  { name: 'Submit an event', href: 'https://tally.so/r/wdKJ1N', external: true },
+  { name: 'Instagram', href: INSTAGRAM_URL, external: true },
 ];
 
 export const Footer: React.FC = () => {
@@ -55,15 +60,27 @@ export const Footer: React.FC = () => {
           <div className="space-y-4 md:space-y-8 lg:pt-0">
             <h4 className="font-mono-main text-[10px] uppercase tracking-[0.3em] text-[#849bff]">More</h4>
             <div className="flex flex-col space-y-4 md:space-y-6">
-              {FOOTER_LINKS_MORE.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-left font-sans-main text-2xl md:text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {FOOTER_LINKS_MORE.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-left font-sans-main text-2xl md:text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="text-left font-sans-main text-2xl md:text-3xl font-black uppercase tracking-tighter hover:text-[#849bff] transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ export function JournalSection({ posts }: { posts: JournalPost[] }) {
             href="/journal"
             className="font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] transition-opacity hover:opacity-70"
           >
-            Read all →
+            Newcastle Digest Journal →
           </Link>
         </div>
 
@@ -30,7 +30,7 @@ export function JournalSection({ posts }: { posts: JournalPost[] }) {
               href="/journal"
               className="mt-6 inline-block font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] transition-opacity hover:opacity-70"
             >
-              Visit The Journal →
+            Visit the Journal →
             </Link>
           </div>
         ) : (

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { EditorialLink, EditorialLinks } from '@/components/EditorialLinks';
 import { NewsletterEditionBody } from '@/components/NewsletterEditionBody';
 import { NewsletterSubscribeCta } from '@/components/NewsletterSubscribeCta';
 import {
@@ -101,6 +102,9 @@ export default async function NewsletterEditionPage({ params }: PageProps) {
     edition.subtitle
   );
   const canonicalUrl = `${SITE_URL}/previous-newsletters/${edition.slug}`;
+  const haystack = `${edition.title} ${edition.html}`;
+  const mentionsGigs = /gig|live music|concert/i.test(haystack);
+  const mentionsMarkets = /market/i.test(haystack);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -169,6 +173,24 @@ export default async function NewsletterEditionPage({ params }: PageProps) {
           )}
 
           <NewsletterEditionBody html={edition.html} />
+
+          <EditorialLinks>
+            This weekly edition sits alongside the{' '}
+            <EditorialLink href="/journal">Newcastle Digest Journal</EditorialLink>
+            {mentionsGigs || mentionsMarkets ? '. See ' : '.'}
+            {mentionsGigs ? (
+              <EditorialLink href="/journal/newcastle-gig-guide">
+                this week&apos;s Newcastle Gig Guide
+              </EditorialLink>
+            ) : null}
+            {mentionsGigs && mentionsMarkets ? ' and the ' : null}
+            {mentionsMarkets ? (
+              <EditorialLink href="/journal/newcastle-markets-guide">
+                Newcastle Markets Guide
+              </EditorialLink>
+            ) : null}
+            {mentionsGigs || mentionsMarkets ? '.' : null}
+          </EditorialLinks>
 
           <div className="mt-16 md:mt-20">
             <NewsletterSubscribeCta />

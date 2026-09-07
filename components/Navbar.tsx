@@ -3,23 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { NAV_LINKS, isNavLinkActive } from '@/lib/navigation';
 
 interface NavbarProps {
   scrolled: boolean;
   pathname: string;
 }
-
-const NAV_LINKS: { name: string; href: string; external?: boolean }[] = [
-  { name: 'Home', href: '/' },
-  { name: 'Latest Edition', href: '/#latest' },
-  { name: 'Experiences', href: '/experiences' },
-  { name: 'Shop', href: 'https://shop.newcastledigest.com', external: true },
-  { name: 'Behind the Digest', href: '/behind' },
-  { name: 'Journal', href: '/journal' },
-  { name: 'Work With Us', href: '/work' },
-  { name: 'Jobs', href: '/jobs' },
-  { name: 'Contact', href: '/contact' },
-];
 
 const navLinkClass = (isDark: boolean, active: boolean) =>
   `relative pb-1.5 whitespace-nowrap text-[10px] font-sans-main font-black uppercase tracking-[0.2em] transition-colors hover:text-[#849bff] ${
@@ -52,7 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, pathname }) => {
 
         <div className="hidden lg:flex items-center flex-1 justify-center gap-6 xl:gap-8 min-w-0">
           {NAV_LINKS.map((link) => {
-            const active = !link.external && pathname === link.href.replace(/#.*/, '') && link.name !== 'Latest Edition';
+            const active = !link.external && isNavLinkActive(link.href, pathname);
             const className = navLinkClass(isDark, active);
 
             if (link.external) {

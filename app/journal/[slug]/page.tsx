@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { EditorialLink, EditorialLinks } from '@/components/EditorialLinks'
 import { JournalCard } from '@/components/JournalCard'
 import { JournalPortableText } from '@/components/JournalPortableText'
 import {
@@ -77,7 +79,7 @@ export default async function JournalArticlePage({ params }: PageProps) {
     notFound()
   }
 
-  const related = await getRelatedPosts(slug)
+  const related = await getRelatedPosts(slug, post.category?.slug)
   const coverUrl = post.coverImage
     ? urlFor(post.coverImage).width(1600).height(900).fit('crop').url()
     : null
@@ -98,6 +100,14 @@ export default async function JournalArticlePage({ params }: PageProps) {
       )}
 
       <div className="px-4 py-12 sm:px-6 md:px-8 md:py-16">
+        <div className="container mx-auto max-w-3xl">
+          <Link
+            href="/journal"
+            className="mb-8 inline-block font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] hover:opacity-70"
+          >
+            ← Newcastle Digest Journal
+          </Link>
+        </div>
         <div className="container mx-auto max-w-3xl text-center">
           {post.category?.title && (
             <p className="mb-4 font-mono-main text-[10px] uppercase tracking-[0.25em] text-[#849bff]">
@@ -122,6 +132,46 @@ export default async function JournalArticlePage({ params }: PageProps) {
             <JournalPortableText value={post.body} />
           </div>
         )}
+
+        {slug === 'newcastle-gig-guide' ? (
+          <EditorialLinks>
+            This guide is updated each Wednesday from the weekly email.{' '}
+            <EditorialLink href="/previous-newsletters">
+              Browse previous Newcastle Digest editions
+            </EditorialLink>
+            , or see this week&apos;s{' '}
+            <EditorialLink href="/journal/newcastle-markets-guide">
+              Newcastle Markets Guide
+            </EditorialLink>
+            .
+          </EditorialLinks>
+        ) : null}
+
+        {slug === 'newcastle-markets-guide' ? (
+          <EditorialLinks>
+            This guide is updated each Wednesday from the weekly email.{' '}
+            <EditorialLink href="/previous-newsletters">
+              Browse previous Newcastle Digest editions
+            </EditorialLink>
+            , or see this week&apos;s{' '}
+            <EditorialLink href="/journal/newcastle-gig-guide">
+              Newcastle Gig Guide
+            </EditorialLink>
+            .
+          </EditorialLinks>
+        ) : null}
+
+        {post.category?.slug === 'guides' ? (
+          <EditorialLinks>
+            More local stories and weekly guides live in the{' '}
+            <EditorialLink href="/journal">Newcastle Digest Journal</EditorialLink>
+            . For past weekly emails,{' '}
+            <EditorialLink href="/previous-newsletters">
+              browse previous Newcastle Digest editions
+            </EditorialLink>
+            .
+          </EditorialLinks>
+        ) : null}
       </div>
 
       {related.length > 0 && (

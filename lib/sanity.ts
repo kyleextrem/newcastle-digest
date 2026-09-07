@@ -98,7 +98,7 @@ export const sitemapPostsQuery = `*[_type == "post" && defined(slug.current) && 
   "lastModified": coalesce(_updatedAt, publishedAt)
 }`
 
-export const relatedPostsQuery = `*[_type == "post" && defined(slug.current) && defined(publishedAt) && slug.current != $slug] | order(publishedAt desc)[0...3] {
+export const relatedPostsQuery = `*[_type == "post" && defined(slug.current) && defined(publishedAt) && slug.current != $slug] | order(select(category->slug.current == $categorySlug => 0, 1) asc, publishedAt desc)[0...3] {
   ${postFields}
 }`
 
@@ -154,10 +154,10 @@ export async function getSitemapPosts(): Promise<SitemapPost[]> {
   }
 }
 
-export async function getRelatedPosts(slug: string): Promise<JournalPost[]> {
+export async function getRelatedPosts(slug: string, categorySlug?: string): Promise<JournalPost[]> {
   if (!projectId) return []
   try {
-    return await client.fetch(relatedPostsQuery, { slug })
+    return await client.fetch(relatedPostsQuery, { slug, categorySlug: categorySlug ?? '' })
   } catch {
     return []
   }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import Script from 'next/script';
 import { Check } from 'lucide-react';
 
@@ -8,11 +9,31 @@ const THANK_YOU_BASE = '/thank-you';
 const BEEHIIV_EMBED_URL = `https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true&redirect_to=${encodeURIComponent('https://www.newcastledigest.com/thank-you')}`;
 const BEEHIIV_DIRECT_SUBSCRIBE_URL = 'https://newsletter.newcastledigest.com/subscribe';
 
-const BENEFITS = [
-  'Trusted by thousands of Newcastle locals',
-  'Stories, guides, and curiosities from across the city',
-  'Gig guide: who\'s playing where, every week',
-  'Markets, makers, and where to go this weekend',
+const BENEFITS: { text: React.ReactNode; key: string }[] = [
+  { key: 'trusted', text: 'Trusted by thousands of Newcastle locals' },
+  { key: 'stories', text: 'Stories, guides, and curiosities from across the city' },
+  {
+    key: 'gigs',
+    text: (
+      <>
+        <Link href="/journal/newcastle-gig-guide" className="underline underline-offset-2 hover:opacity-70">
+          Newcastle Gig Guide
+        </Link>
+        : who&apos;s playing where, every week
+      </>
+    ),
+  },
+  {
+    key: 'markets',
+    text: (
+      <>
+        <Link href="/journal/newcastle-markets-guide" className="underline underline-offset-2 hover:opacity-70">
+          Newcastle Markets Guide
+        </Link>
+        : makers, and where to go this weekend
+      </>
+    ),
+  },
 ];
 
 function extractEmail(payload: unknown): string | null {
@@ -135,12 +156,12 @@ export const SubscribePage: React.FC = () => {
             Why locals read the Digest
           </p>
           <ul className="space-y-4">
-            {BENEFITS.map((line, i) => (
-              <li key={i} className="flex items-start gap-3 font-sans-main text-sm md:text-base text-white/90">
+            {BENEFITS.map((item) => (
+              <li key={item.key} className="flex items-start gap-3 font-sans-main text-sm md:text-base text-white/90">
                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#849bff]/30 flex items-center justify-center mt-0.5">
                   <Check className="w-3 h-3 text-[#849bff]" strokeWidth={3} />
                 </span>
-                {line}
+                {item.text}
               </li>
             ))}
           </ul>

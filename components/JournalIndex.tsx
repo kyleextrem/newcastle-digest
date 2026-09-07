@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { JournalCard } from './JournalCard'
 import type { JournalPost } from '@/lib/sanity'
 
@@ -30,7 +31,14 @@ export function JournalIndex({ posts }: { posts: JournalPost[] }) {
             The Journal
           </h1>
           <p className="mx-auto max-w-xl font-sans-main text-lg leading-snug text-[#251f18]/60 md:text-xl">
-            Stories, guides and dispatches from Newcastle.
+            Stories, guides and dispatches from Newcastle. For the weekly email,{' '}
+            <Link
+              href="/previous-newsletters"
+              className="text-[#849bff] underline underline-offset-2 transition-opacity hover:opacity-70"
+            >
+              browse previous editions
+            </Link>
+            .
           </p>
         </div>
 

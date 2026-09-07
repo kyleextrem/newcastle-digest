@@ -17,7 +17,19 @@ export const PreviousNewsletters: React.FC<{ issues: NewsletterEditionSummary[] 
             Previous Newsletters
           </h1>
           <p className="font-sans-main text-xl text-[#251f18]/70 max-w-xl mx-auto leading-snug">
-            Catch up on past editions of Newcastle Digest.
+            Catch up on past editions of Newcastle Digest. Live music and weekend markets also live in the{' '}
+            <Link href="/journal" className="text-[#849bff] underline underline-offset-2 hover:opacity-70">
+              Newcastle Digest Journal
+            </Link>
+            .
+          </p>
+          <p className="mt-4">
+            <Link
+              href="/subscribe"
+              className="font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] hover:opacity-70"
+            >
+              Subscribe to the weekly email
+            </Link>
           </p>
         </header>
 
