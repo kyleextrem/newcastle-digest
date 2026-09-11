@@ -114,7 +114,33 @@ export const WorkWithUs: React.FC = () => {
               </a>
             </div>
 
-            {/* Card 3: Launch Package */}
+            {/* Card 3: Sponsored Journal Article */}
+            <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
+              <div>
+                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$400 / one-off</p>
+                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Sponsored Journal Article</h3>
+                <p className="font-sans-main text-base text-white/60 mb-6">
+                  A full editorial piece about your business published permanently on the Newcastle Digest Journal. Written in our voice, SEO optimised, and promoted to our 7,500 subscribers in that week&apos;s edition.
+                </p>
+                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>400-600 word editorial article written by Newcastle Digest</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Published permanently at newcastledigest.com/journal</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Promoted in that week&apos;s newsletter edition</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>SEO optimised with your business name and location</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Includes one backlink to your website</li>
+                </ul>
+              </div>
+              <a
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
+              >
+                Book a call
+              </a>
+            </div>
+
+            {/* Card 4: Launch Package */}
             <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
               <div>
                 <span className="inline-block font-mono-main text-[9px] uppercase tracking-widest text-white/90 px-3 py-1 rounded-full bg-[#a78bfa]/20 text-[#a78bfa] mb-3">
@@ -128,7 +154,7 @@ export const WorkWithUs: React.FC = () => {
                 <ul className="space-y-2 text-sm text-white/50 font-sans-main">
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Feature Ad</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout across 4–5 editions</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Instagram post</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Sponsored Journal article, permanently published on the Newcastle Digest website</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Priority scheduling</li>
                 </ul>
               </div>
@@ -140,7 +166,7 @@ export const WorkWithUs: React.FC = () => {
               </a>
             </div>
 
-            {/* Card 4: Monthly Partner */}
+            {/* Card 5: Monthly Partner */}
             <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
               <div>
                 <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$500 / month</p>
@@ -194,7 +220,33 @@ export const WorkWithUs: React.FC = () => {
               </a>
             </div>
 
-            {/* Card 2: Yearly Anchor */}
+            {/* Card 2: Category Sponsorship */}
+            <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
+              <div>
+                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Category Sponsorship</h3>
+                <p className="font-sans-main text-base text-white/60 mb-6">
+                  Own a content category across the Newcastle Digest newsletter and Journal for a month. Your brand sits alongside every article we publish and every newsletter section in that category.
+                </p>
+                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Logo and one-line description on all Journal articles in your chosen category</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Sponsor callout in the matching newsletter section each week</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Categories available: Food, Markets, Events, Gigs</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>One sponsor per category, no competitors</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Runs for a full calendar month</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Price: $300 / month</li>
+                </ul>
+              </div>
+              <a
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
+              >
+                Book a call
+              </a>
+            </div>
+
+            {/* Card 3: Yearly Anchor */}
             <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
               <div>
                 <span className="inline-block font-mono-main text-[9px] uppercase tracking-widest px-3 py-1 rounded-full bg-[#a78bfa]/20 text-[#a78bfa] mb-3">
@@ -207,8 +259,7 @@ export const WorkWithUs: React.FC = () => {
                 <ul className="space-y-2 text-sm text-white/50 font-sans-main">
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>12x Feature Ads, one per month</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout in every edition, all year</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>12x native Instagram posts</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>One editorial feature, a proper written piece in the main newsletter body</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>One sponsored Journal article, permanently published on the Newcastle Digest website and promoted in that month&apos;s newsletter edition</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Quarterly performance reports</li>
                   <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Category exclusivity. No competitor in your category while you hold the spot</li>
                 </ul>
@@ -223,7 +274,7 @@ export const WorkWithUs: React.FC = () => {
               </a>
             </div>
 
-            {/* Card 3: Custom Engagement */}
+            {/* Card 4: Custom Engagement */}
             <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
               <div>
                 <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Custom Engagement</h3>
