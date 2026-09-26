@@ -2,6 +2,36 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor, type JournalPost } from '@/lib/sanity'
 
+function postHref(post: JournalPost): string {
+  switch (post.section) {
+    case 'getaways':
+      return `/getaways/${post.slug}`
+    case 'journal':
+    case null:
+    case undefined:
+      return `/journal/${post.slug}`
+    default: {
+      const unreachable: never = post.section
+      return unreachable
+    }
+  }
+}
+
+function postEyebrow(post: JournalPost): string | undefined {
+  switch (post.section) {
+    case 'getaways':
+      return post.destination?.title
+    case 'journal':
+    case null:
+    case undefined:
+      return post.category?.title
+    default: {
+      const unreachable: never = post.section
+      return unreachable
+    }
+  }
+}
+
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-AU', {
     day: 'numeric',
@@ -14,10 +44,12 @@ export function JournalCard({ post }: { post: JournalPost }) {
   const imageUrl = post.coverImage
     ? urlFor(post.coverImage).width(800).height(450).fit('crop').url()
     : null
+  const href = postHref(post)
+  const eyebrow = postEyebrow(post)
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-[24px] bg-white shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] transition-transform hover:scale-[1.01]">
-      <Link href={`/journal/${post.slug}`} className="block">
+      <Link href={href} className="block">
         <div className="relative aspect-video overflow-hidden rounded-t-[24px] bg-[#f5f4f0]">
           {imageUrl ? (
             <Image
@@ -38,13 +70,13 @@ export function JournalCard({ post }: { post: JournalPost }) {
       </Link>
 
       <div className="flex flex-1 flex-col p-6 md:p-7">
-        {post.category?.title && (
+        {eyebrow && (
           <p className="mb-3 font-mono-main text-[10px] uppercase tracking-[0.2em] text-[#849bff]">
-            {post.category.title}
+            {eyebrow}
           </p>
         )}
 
-        <Link href={`/journal/${post.slug}`}>
+        <Link href={href}>
           <h3 className="font-sans-main text-xl font-black uppercase tracking-tighter leading-tight text-[#251f18] transition-colors group-hover:text-[#849bff] md:text-2xl">
             {post.title}
           </h3>
@@ -66,7 +98,7 @@ export function JournalCard({ post }: { post: JournalPost }) {
             </time>
           )}
           <Link
-            href={`/journal/${post.slug}`}
+            href={href}
             className="font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] transition-opacity hover:opacity-70"
           >
             Read more →

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExternalLink, Mail, Phone, Calendar } from 'lucide-react';
 
-const SUBMIT_EVENT_URL = 'https://tally.so/r/wdKJ1N';
+const SUBMIT_EVENT_URL = 'https://events.newcastledigest.com/submit';
 const CAL_URL = 'https://cal.com/digest';
 const EMAIL = 'kyle@newcastledigest.com';
 
@@ -90,7 +90,7 @@ export const Contact: React.FC = () => {
                 Submit an event
               </h3>
               <p className="font-sans-main text-white/70 text-sm md:text-base leading-snug mb-4">
-                Have an event coming up? Submit it to be considered for inclusion in the newsletter!
+                Have an event coming up? Submit it to the Newcastle Digest Events Directory.
               </p>
               <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
                 Submit event <ExternalLink className="w-3.5 h-3.5" />

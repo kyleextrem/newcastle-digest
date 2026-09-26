@@ -7,6 +7,8 @@ import { INSTAGRAM_URL } from '@/lib/site';
 const FOOTER_LINKS_PUBLISHING = [
   { name: 'Home', href: '/' },
   { name: 'Previous Newsletters', href: '/previous-newsletters' },
+  { name: 'Getaways', href: '/getaways' },
+  { name: 'Events', href: '/events' },
   { name: 'Journal', href: '/journal' },
   { name: 'Subscribe', href: '/subscribe' },
   { name: 'Experiences', href: '/experiences' },
@@ -21,7 +23,7 @@ const FOOTER_LINKS_MORE: {
   { name: 'Jobs', href: '/jobs' },
   { name: 'Behind the Digest', href: '/behind' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Submit an event', href: 'https://tally.so/r/wdKJ1N', external: true },
+  { name: 'Submit an event', href: 'https://events.newcastledigest.com/submit', external: true },
   { name: 'Instagram', href: INSTAGRAM_URL, external: true },
 ];
 

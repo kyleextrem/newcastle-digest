@@ -19,17 +19,79 @@ export const post = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'section',
+      title: 'Section',
+      type: 'string',
+      description: 'Journal is the default. Leave this blank on existing Newcastle Digest stories. Choose Getaways for travel stories.',
+      initialValue: 'journal',
+      options: {
+        list: [
+          { title: 'Journal', value: 'journal' },
+          { title: 'Getaways', value: 'getaways' },
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (value == null || value === '') return true
+          if (value === 'journal' || value === 'getaways') return true
+          return 'Choose Journal or Getaways'
+        }),
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'updatedAt',
+      title: 'Updated At',
+      type: 'datetime',
+      description: 'Optional. Shown on the article when you want to mark a revision.',
+      hidden: ({ document }) => document?.section !== 'getaways',
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',
       to: [{ type: 'category' }],
-      validation: (Rule) => Rule.required(),
+      hidden: ({ document }) => document?.section === 'getaways',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const section = (context.document as { section?: string } | undefined)?.section
+          if (section === 'getaways') return true
+          return value ? true : 'Category is required for Journal posts'
+        }),
+    }),
+    defineField({
+      name: 'destination',
+      title: 'Destination',
+      type: 'reference',
+      to: [{ type: 'destination' }],
+      description: 'Where this getaway goes. Create a destination only when a story needs it.',
+      hidden: ({ document }) => document?.section !== 'getaways',
+    }),
+    defineField({
+      name: 'tripType',
+      title: 'Trip type',
+      type: 'string',
+      description: 'Optional. Describes the kind of trip.',
+      hidden: ({ document }) => document?.section !== 'getaways',
+      options: {
+        list: [
+          { title: 'Weekend trips', value: 'weekend-trips' },
+          { title: 'Hotels', value: 'hotels' },
+          { title: 'Food & drink', value: 'food-drink' },
+          { title: 'Road trips', value: 'road-trips' },
+          { title: 'Things to do', value: 'things-to-do' },
+          { title: 'Itineraries', value: 'itineraries' },
+          { title: 'Couples', value: 'couples' },
+          { title: 'Family', value: 'family' },
+          { title: 'Luxury', value: 'luxury' },
+          { title: 'Budget', value: 'budget' },
+        ],
+      },
     }),
     defineField({
       name: 'author',
@@ -143,11 +205,14 @@ export const post = defineType({
       title: 'title',
       author: 'author.name',
       media: 'coverImage',
+      section: 'section',
     },
-    prepare({ title, author, media }) {
+    prepare({ title, author, media, section }) {
+      const sectionLabel = section === 'getaways' ? 'Getaways' : 'Journal'
+      const byline = author ? `by ${author}` : ''
       return {
         title,
-        subtitle: author ? `by ${author}` : '',
+        subtitle: [sectionLabel, byline].filter(Boolean).join(' · '),
         media,
       }
     },

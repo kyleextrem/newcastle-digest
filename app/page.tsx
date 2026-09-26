@@ -1,6 +1,6 @@
 import { HomePage } from '@/components/HomePage';
 import type { Metadata } from 'next';
-import { getRecentPosts } from '@/lib/sanity';
+import { getLatestGetaway, getRecentPosts } from '@/lib/sanity';
 import { SITE_URL, OPEN_GRAPH_WEBSITE } from '@/lib/site';
 
 export const revalidate = 3600;
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const journalPosts = await getRecentPosts();
+  const [journalPosts, latestGetaway] = await Promise.all([getRecentPosts(), getLatestGetaway()]);
 
-  return <HomePage journalPosts={journalPosts} />;
+  return <HomePage journalPosts={journalPosts} latestGetaway={latestGetaway} />;
 }
