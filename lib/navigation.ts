@@ -10,7 +10,7 @@ export const NAV_LINKS: NavLink[] = [
   { name: 'Latest Edition', href: '/previous-newsletters' },
   { name: 'Experiences', href: '/experiences' },
   { name: 'Shop', href: 'https://shop.newcastledigest.com', external: true },
-  { name: 'Behind the Digest', href: '/behind' },
+  { name: 'Events', href: '/events' },
   { name: 'Journal', href: '/journal' },
   { name: 'Work With Us', href: '/work' },
   { name: 'Jobs', href: '/jobs' },
