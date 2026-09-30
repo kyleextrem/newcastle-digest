@@ -84,6 +84,22 @@ const components: PortableTextComponents = {
         </figure>
       )
     },
+    mapEmbed: ({ value }) => {
+      if (!value?.query) return null
+      const encodedQuery = encodeURIComponent(value.query)
+      return (
+        <figure className="my-10">
+          <iframe
+            title={value.title || 'Map'}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            src={`https://www.google.com/maps?q=${encodedQuery}&output=embed`}
+            className="h-64 w-full rounded-[24px] border-0 md:h-80"
+            allowFullScreen
+          />
+        </figure>
+      )
+    },
   },
 }
 
