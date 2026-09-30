@@ -179,6 +179,38 @@ export const post = defineType({
             }),
           ],
         }),
+        defineArrayMember({
+          name: 'mapEmbed',
+          title: 'Map Embed',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              description: 'Optional title for the map (used as iframe title for accessibility)',
+            }),
+            defineField({
+              name: 'query',
+              title: 'Query',
+              type: 'string',
+              description: 'Cafe name + address to search for on Google Maps',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              query: 'query',
+            },
+            prepare({ title, query }) {
+              return {
+                title: title || 'Map Embed',
+                subtitle: query || 'No query set',
+              }
+            },
+          },
+        }),
       ],
       validation: (Rule) => Rule.required(),
     }),
