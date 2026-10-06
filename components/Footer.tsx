@@ -100,6 +100,9 @@ export const Footer: React.FC = () => {
             <a href="https://digeststudio.com.au" target="_blank" rel="noopener noreferrer" className="font-mono-main text-[10px] uppercase tracking-[0.2em] opacity-60 hover:text-[#849bff] hover:opacity-100 transition-colors">
               Built By Digest Studio
             </a>
+            <Link href="/support" className="font-mono-main text-[10px] uppercase tracking-[0.2em] opacity-40 hover:text-[#849bff] transition-colors">
+              Support Newcastle Digest
+            </Link>
             <Link href="/privacy" className="font-mono-main text-[10px] uppercase tracking-[0.2em] opacity-40 hover:text-[#849bff] transition-colors">
               Privacy & Terms
             </Link>
