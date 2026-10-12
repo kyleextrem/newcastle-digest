@@ -70,23 +70,29 @@ export const WorkWithUs: React.FC = () => {
             {/* Card 1: Featured Event */}
             <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
               <div>
-                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$150 / one-off</p>
+                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$49 AUD</p>
                 <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Featured Event</h3>
                 <p className="font-sans-main text-base text-white/60 mb-6">
-                  A quick mention for something time-bound. An opening, a market, a one-night event.
+                  More visibility for your event across Newcastle Digest, from approval until it finishes. It is still reviewed before it is published.
                 </p>
                 <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>40–60 word listing-style mention</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Runs in a grouped &ldquo;What&apos;s On&rdquo; style callout</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Uses your own event flyer or image</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Inline link, no dedicated CTA button</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Featured badge in the Events Directory</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Placement on the Featured Events page</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Promotional image and copy</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>A link to tickets, booking, or more info</li>
+                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Featured placement in the weekly newsletter while the listing is active</li>
                 </ul>
+                <p className="font-sans-main text-sm text-white/40 mt-4">
+                  Featured does not guarantee approval or publication.
+                </p>
               </div>
               <a
-                href="https://buy.stripe.com/fZu4gA0v32sze0Ma98afS03"
+                href="https://events.newcastledigest.com/feature"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
               >
-                Buy now
+                Get featured
               </a>
             </div>
 
