@@ -13,7 +13,7 @@ import {
 } from '@/lib/sanity'
 import { SITE_NAME } from '@/lib/site'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs()
