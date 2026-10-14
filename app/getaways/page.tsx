@@ -173,6 +173,7 @@ export default async function GetawaysPage() {
       <section className="px-4 py-16 sm:px-6 md:px-8 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <NewsletterSubscribeCta
+            location="getaways"
             eyebrow="Newcastle Digest"
             title="Want more places to go?"
             description="Get the best of Newcastle, plus our favourite places to escape to."

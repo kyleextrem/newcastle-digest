@@ -193,7 +193,7 @@ export default async function NewsletterEditionPage({ params }: PageProps) {
           </EditorialLinks>
 
           <div className="mt-16 md:mt-20">
-            <NewsletterSubscribeCta />
+            <NewsletterSubscribeCta location="previous_newsletter" />
           </div>
 
           <div className="mt-10 text-center">

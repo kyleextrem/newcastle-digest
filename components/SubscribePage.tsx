@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Script from 'next/script';
 import { Check } from 'lucide-react';
+import { useBeehiivSubscribeSuccess } from '@/hooks/useBeehiivSubscribeSuccess';
+import { beehiivDirectSubscribeUrl, beehiivEmbedUrl } from '@/lib/beehiiv-embed';
 
-const THANK_YOU_BASE = '/thank-you';
-const BEEHIIV_EMBED_URL = `https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true&redirect_to=${encodeURIComponent('https://www.newcastledigest.com/thank-you')}`;
-const BEEHIIV_DIRECT_SUBSCRIBE_URL = 'https://newsletter.newcastledigest.com/subscribe';
+const SUBSCRIBE_LOCATION = 'subscribe_page';
 
 const BENEFITS: { text: React.ReactNode; key: string }[] = [
   { key: 'trusted', text: 'Trusted by thousands of Newcastle locals' },
@@ -36,40 +36,10 @@ const BENEFITS: { text: React.ReactNode; key: string }[] = [
   },
 ];
 
-function extractEmail(payload: unknown): string | null {
-  if (!payload || typeof payload !== 'object') return null;
-  const obj = payload as Record<string, unknown>;
-
-  if (typeof obj.email === 'string' && obj.email.includes('@')) return obj.email;
-  if (typeof obj.subscriber_email === 'string' && obj.subscriber_email.includes('@')) {
-    return obj.subscriber_email;
-  }
-
-  if (obj.data && typeof obj.data === 'object') {
-    const data = obj.data as Record<string, unknown>;
-    if (typeof data.email === 'string' && data.email.includes('@')) return data.email;
-  }
-
-  return null;
-}
-
-function buildThankYouUrl(email?: string | null) {
-  if (email) {
-    return `${THANK_YOU_BASE}?email=${encodeURIComponent(email)}`;
-  }
-  return THANK_YOU_BASE;
-}
-
 export const SubscribePage: React.FC = () => {
   const [embedLoaded, setEmbedLoaded] = useState(false);
   const [showFallback, setShowFallback] = useState(false);
-  const hasRedirectedRef = useRef(false);
-
-  const redirectToThankYou = (email?: string | null) => {
-    if (hasRedirectedRef.current) return;
-    hasRedirectedRef.current = true;
-    window.location.href = buildThankYouUrl(email);
-  };
+  useBeehiivSubscribeSuccess(SUBSCRIBE_LOCATION);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -79,44 +49,6 @@ export const SubscribePage: React.FC = () => {
     return () => {
       window.clearTimeout(timeout);
     };
-  }, []);
-
-  useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      if (!event.origin || !event.origin.includes('beehiiv.com')) return;
-
-      let payload: unknown = event.data;
-      if (typeof payload === 'string') {
-        try {
-          payload = JSON.parse(payload);
-        } catch {
-          // Keep raw string payload if not JSON
-        }
-      }
-
-      const payloadText =
-        typeof payload === 'string'
-          ? payload.toLowerCase()
-          : JSON.stringify(payload ?? '').toLowerCase();
-
-      const hasSubscribeSignal =
-        payloadText.includes('subscribe') ||
-        payloadText.includes('subscription') ||
-        payloadText.includes('beehiiv');
-      const hasSuccessSignal =
-        payloadText.includes('success') ||
-        payloadText.includes('submitted') ||
-        payloadText.includes('complete') ||
-        payloadText.includes('confirmed');
-
-      if (hasSubscribeSignal && hasSuccessSignal) {
-        const email = extractEmail(payload);
-        redirectToThankYou(email);
-      }
-    };
-
-    window.addEventListener('message', onMessage);
-    return () => window.removeEventListener('message', onMessage);
   }, []);
 
   return (
@@ -195,7 +127,7 @@ export const SubscribePage: React.FC = () => {
           <div className="mb-6">
             <div className="beehiiv-embed-wrap">
               <iframe
-                src={BEEHIIV_EMBED_URL}
+                src={beehiivEmbedUrl(SUBSCRIBE_LOCATION)}
                 data-test-id="beehiiv-embed"
                 height="52"
                 frameBorder="0"
@@ -208,7 +140,7 @@ export const SubscribePage: React.FC = () => {
             </div>
             {!embedLoaded && showFallback && (
               <a
-                href={`${BEEHIIV_DIRECT_SUBSCRIBE_URL}?redirect_to=${encodeURIComponent('https://www.newcastledigest.com/thank-you')}`}
+                href={beehiivDirectSubscribeUrl(SUBSCRIBE_LOCATION)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex mt-4 px-6 py-3 rounded-full bg-[#251f18] text-[#faf9f6] font-mono-main text-[10px] uppercase tracking-widest hover:bg-[#849bff] transition-colors"

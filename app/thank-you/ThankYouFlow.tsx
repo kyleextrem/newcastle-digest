@@ -1,7 +1,15 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { sanitizePageLocation, trackSignUp } from '@/lib/analytics';
+import {
+  hasTrackedSignup,
+  markSignupTracked,
+  markSubscribed,
+  readPendingEmail,
+  rememberPendingEmail,
+} from '@/lib/subscriber-session';
 import { ProgressDots } from './components/ProgressDots';
 import { StepWelcome } from './components/StepWelcome';
 import { StepPostcode } from './components/StepPostcode';
@@ -25,12 +33,40 @@ function updateSubscriberProfile(email: string, postcode: string, topTags: strin
   });
 }
 
+function stripEmailFromAddressBar() {
+  const current = window.location.href;
+  const sanitized = sanitizePageLocation(current);
+  if (sanitized === current) return;
+  const url = new URL(sanitized);
+  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
 export function ThankYouFlow() {
   const searchParams = useSearchParams();
-  const email = searchParams.get('email')?.trim().toLowerCase() ?? null;
+  const [email, setEmail] = useState<string | null>(null);
+  const reportedSignup = useRef(false);
 
   const [step, setStep] = useState(0);
   const [postcode, setPostcode] = useState('');
+
+  useLayoutEffect(() => {
+    const legacyEmail = searchParams.get('email');
+    const src = searchParams.get('src');
+    rememberPendingEmail(legacyEmail);
+    const resolved = readPendingEmail(legacyEmail);
+    setEmail(resolved);
+    stripEmailFromAddressBar();
+
+    if (!reportedSignup.current && !hasTrackedSignup()) {
+      reportedSignup.current = true;
+      trackSignUp({ method: 'beehiiv_redirect', location: src || 'unknown' });
+      markSignupTracked();
+    }
+
+    if (resolved || src) {
+      markSubscribed();
+    }
+  }, [searchParams]);
 
   const goToStep = useCallback((next: number) => {
     setStep(next);

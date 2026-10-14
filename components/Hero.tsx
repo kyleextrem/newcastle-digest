@@ -1,8 +1,20 @@
-import React from 'react';
+'use client';
 
-const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true';
+import React, { useEffect, useState } from 'react';
+import { useBeehiivSubscribeSuccess } from '@/hooks/useBeehiivSubscribeSuccess';
+import { beehiivEmbedUrl } from '@/lib/beehiiv-embed';
+import { isSubscribed } from '@/lib/subscriber-session';
+
+const HERO_LOCATION = 'homepage';
 
 export const Hero: React.FC = () => {
+  const [showForm, setShowForm] = useState(true);
+  useBeehiivSubscribeSuccess(HERO_LOCATION);
+
+  useEffect(() => {
+    setShowForm(!isSubscribed());
+  }, []);
+
   return (
     <section className="relative w-full min-h-[88vh] md:min-h-[90vh] flex items-center overflow-hidden">
       {/* Layered background */}
@@ -43,33 +55,34 @@ export const Hero: React.FC = () => {
             </p>
           </div>
 
-          {/* Subscribe module - full width like Work With Us, form centred inside */}
-          <div className="w-full">
-            <div className="relative w-full rounded-[32px] md:rounded-[40px] bg-[#251f18] text-white p-10 md:p-14 shadow-[0_20px_50px_-16px_rgba(37,31,24,0.25)] flex justify-center">
-              <div className="w-full max-w-md text-center">
-                <p className="font-mono-main text-[10px] uppercase tracking-[0.25em] text-[#849bff] mb-3">
-                  Get the digest
-                </p>
-                <p className="font-sans-main text-white/80 text-sm mb-5">
-                  Every Wednesday. No spam, just Newcastle.
-                </p>
-                <div className="beehiiv-embed-wrap">
-                  <iframe
-                    src={BEEHIIV_EMBED_URL}
-                    data-test-id="beehiiv-embed"
-                    height="52"
-                    frameBorder="0"
-                    scrolling="no"
-                    style={{ margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
-                    title="Subscribe to Newcastle Digest"
-                  />
+          {showForm ? (
+            <div className="w-full">
+              <div className="relative w-full rounded-[32px] md:rounded-[40px] bg-[#251f18] text-white p-10 md:p-14 shadow-[0_20px_50px_-16px_rgba(37,31,24,0.25)] flex justify-center">
+                <div className="w-full max-w-md text-center">
+                  <p className="font-mono-main text-[10px] uppercase tracking-[0.25em] text-[#849bff] mb-3">
+                    Get the digest
+                  </p>
+                  <p className="font-sans-main text-white/80 text-sm mb-5">
+                    Every Wednesday. No spam, just Newcastle.
+                  </p>
+                  <div className="beehiiv-embed-wrap">
+                    <iframe
+                      src={beehiivEmbedUrl(HERO_LOCATION)}
+                      data-test-id="beehiiv-embed"
+                      height="52"
+                      frameBorder="0"
+                      scrolling="no"
+                      style={{ margin: 0, borderRadius: 0, backgroundColor: 'transparent' }}
+                      title="Subscribe to Newcastle Digest"
+                    />
+                  </div>
+                  <p className="font-mono-main text-[9px] uppercase tracking-widest text-white/45 mt-4">
+                    Free. No spam. Unsubscribe anytime.
+                  </p>
                 </div>
-                <p className="font-mono-main text-[9px] uppercase tracking-widest text-white/45 mt-4">
-                  Free. No spam. Unsubscribe anytime.
-                </p>
               </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </section>
