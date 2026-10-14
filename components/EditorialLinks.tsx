@@ -19,6 +19,14 @@ export function EditorialLink({
   href: string;
   children: ReactNode;
 }) {
+  if (href.startsWith('http://') || href.startsWith('https://')) {
+    return (
+      <a href={href} className={LINK_CLASS} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    );
+  }
+
   return (
     <Link href={href} className={LINK_CLASS}>
       {children}

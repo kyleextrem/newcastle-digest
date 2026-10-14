@@ -3,6 +3,7 @@ export const SITE_NAME = 'Newcastle Digest';
 export const DEFAULT_TITLE = "Newcastle Digest | What's On in Newcastle NSW";
 export const DEFAULT_DESCRIPTION =
   "Newcastle Digest is Newcastle's independent weekly guide to what's happening across Newcastle, NSW, covering events, food, live music, sport, culture, history and local stories.";
+export const LOGO_IMAGE = '/nd-logo.png';
 export const DEFAULT_OG_IMAGE = '/nd-logo.png';
 export const INSTAGRAM_URL = 'https://www.instagram.com/newcastledigest/';
 
@@ -17,7 +18,7 @@ export const newsMediaOrganizationJsonLd = {
   '@type': 'NewsMediaOrganization',
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
+  logo: `${SITE_URL}${LOGO_IMAGE}`,
   description: DEFAULT_DESCRIPTION,
   areaServed: 'Newcastle, NSW, Australia',
   sameAs: [INSTAGRAM_URL],

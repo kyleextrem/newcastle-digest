@@ -11,6 +11,7 @@ import {
   listPublicEditions,
 } from '@/lib/beehiiv';
 import { OPEN_GRAPH_WEBSITE, SITE_NAME, SITE_URL } from '@/lib/site';
+import { articleJsonLd, breadcrumbJsonLd } from '@/lib/structured-data';
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -106,30 +107,28 @@ export default async function NewsletterEditionPage({ params }: PageProps) {
   const mentionsGigs = /gig|live music|concert/i.test(haystack);
   const mentionsMarkets = /market/i.test(haystack);
 
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+  const articleSchema = articleJsonLd({
     headline: edition.title,
-    description: description || undefined,
+    description,
     datePublished: edition.publishedAt || undefined,
-    mainEntityOfPage: canonicalUrl,
-    image: edition.thumbnailUrl || `${SITE_URL}/nd-logo.png`,
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: SITE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/nd-logo.png`,
-      },
-    },
-  };
+    image: edition.thumbnailUrl || undefined,
+    canonicalUrl,
+  });
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Previous Newsletters', url: `${SITE_URL}/previous-newsletters` },
+    { name: edition.title, url: canonicalUrl },
+  ]);
 
   return (
     <article className="bg-[#faf9f6] min-h-screen">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <div className="px-4 py-14 sm:px-6 md:px-8 md:py-24">
         <div className="container mx-auto max-w-3xl">

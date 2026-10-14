@@ -13,6 +13,7 @@ import {
   urlFor,
 } from '@/lib/sanity'
 import { SITE_NAME, SITE_URL } from '@/lib/site'
+import { articleJsonLd, breadcrumbJsonLd } from '@/lib/structured-data'
 
 export const revalidate = 3600
 
@@ -115,48 +116,31 @@ export default async function GetawayArticlePage({ params }: PageProps) {
   const typeLabel = tripTypeLabel(post.tripType)
   const updated = showUpdated(post.publishedAt, post.updatedAt)
 
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+  const articleSchema = articleJsonLd({
     headline: post.title,
-    description: description || undefined,
-    datePublished: post.publishedAt || undefined,
-    ...(updated && post.updatedAt ? { dateModified: post.updatedAt } : {}),
-    mainEntityOfPage: canonicalUrl,
-    image: coverUrl || `${SITE_URL}/nd-logo.png`,
-    ...(post.author?.name
-      ? { author: { '@type': 'Person', name: post.author.name } }
-      : {}),
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: SITE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/nd-logo.png`,
-      },
-    },
-  }
+    description,
+    datePublished: post.publishedAt,
+    dateModified: post._updatedAt || post.updatedAt,
+    image: coverUrl || undefined,
+    authorName: post.author?.name,
+    canonicalUrl,
+  })
 
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Getaways', item: `${SITE_URL}/getaways` },
-      { '@type': 'ListItem', position: 3, name: post.title, item: canonicalUrl },
-    ],
-  }
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Getaways', url: `${SITE_URL}/getaways` },
+    { name: post.title, url: canonicalUrl },
+  ])
 
   return (
     <article className="bg-[#faf9f6]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {coverUrl ? (
