@@ -61,6 +61,7 @@ export type JournalPost = {
   slug: string
   section?: ContentSection | null
   publishedAt: string
+  _updatedAt?: string
   updatedAt?: string
   excerpt: string
   seoTitle?: string
@@ -84,6 +85,7 @@ const postFields = `
   "slug": slug.current,
   "section": select(section == "getaways" => "getaways", "journal"),
   publishedAt,
+  _updatedAt,
   updatedAt,
   excerpt,
   seoTitle,

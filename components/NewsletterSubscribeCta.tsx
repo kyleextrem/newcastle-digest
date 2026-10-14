@@ -1,16 +1,30 @@
-import React from 'react';
+'use client';
 
-const BEEHIIV_EMBED_URL = 'https://embeds.beehiiv.com/e1030bd0-e867-42b4-b64e-c3b75defc0d9?slim=true';
+import React, { useEffect, useState } from 'react';
+import { beehiivEmbedUrl } from '@/lib/beehiiv-embed';
+import { isSubscribed } from '@/lib/subscriber-session';
+import { useBeehiivSubscribeSuccess } from '@/hooks/useBeehiivSubscribeSuccess';
 
 export function NewsletterSubscribeCta({
+  location,
   eyebrow = 'Get the digest',
   title,
   description = 'Every Wednesday. No spam, just Newcastle.',
 }: {
+  location: string
   eyebrow?: string
   title?: string
   description?: string
 }) {
+  const [visible, setVisible] = useState(true);
+  useBeehiivSubscribeSuccess(location);
+
+  useEffect(() => {
+    setVisible(!isSubscribed());
+  }, []);
+
+  if (!visible) return null;
+
   return (
     <div className="relative w-full rounded-[32px] md:rounded-[40px] bg-[#251f18] text-white p-10 md:p-14 shadow-[0_20px_50px_-16px_rgba(37,31,24,0.25)] flex justify-center">
       <div className="w-full max-w-md text-center">
@@ -27,7 +41,7 @@ export function NewsletterSubscribeCta({
         </p>
         <div className="beehiiv-embed-wrap">
           <iframe
-            src={BEEHIIV_EMBED_URL}
+            src={beehiivEmbedUrl(location)}
             data-test-id="beehiiv-embed"
             height="52"
             frameBorder="0"
