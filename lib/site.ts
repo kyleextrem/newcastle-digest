@@ -4,7 +4,7 @@ export const DEFAULT_TITLE = "Newcastle Digest | What's On in Newcastle NSW";
 export const DEFAULT_DESCRIPTION =
   "Newcastle Digest is Newcastle's independent weekly guide to what's happening across Newcastle, NSW, covering events, food, live music, sport, culture, history and local stories.";
 export const LOGO_IMAGE = '/nd-logo.png';
-export const DEFAULT_OG_IMAGE = '/nd-logo.png';
+export const DEFAULT_OG_IMAGE = '/opengraph-image';
 export const INSTAGRAM_URL = 'https://www.instagram.com/newcastledigest/';
 
 export const OPEN_GRAPH_WEBSITE = {
