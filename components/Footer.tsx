@@ -9,6 +9,7 @@ const FOOTER_LINKS_PUBLISHING = [
   { name: 'Previous Newsletters', href: '/previous-newsletters' },
   { name: 'Getaways', href: '/getaways' },
   { name: 'Events', href: '/events' },
+  { name: 'Shop', href: '/shop' },
   { name: 'Journal', href: '/journal' },
   { name: 'Subscribe', href: '/subscribe' },
   { name: 'Experiences', href: '/experiences' },

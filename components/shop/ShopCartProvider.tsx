@@ -1,6 +1,8 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { ShoppingBag } from 'lucide-react';
 import { previewCart } from '@/app/shop/actions';
 import { CartDrawer } from '@/components/shop/CartDrawer';
 import {
@@ -14,6 +16,8 @@ import {
   type CartItem,
   type CartPreview,
 } from '@/lib/shop-display';
+
+export const SHOP_HEADER_CART_SLOT_ID = 'shop-header-cart';
 
 type ShopCartContextValue = {
   items: CartItem[];
@@ -124,18 +128,8 @@ export function ShopCartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ShopCartContext.Provider value={value}>
-      <div className="bg-[#faf9f6]">
-        <div className="container mx-auto flex max-w-6xl justify-end px-4 pt-6 sm:px-6 md:px-8">
-          <button
-            type="button"
-            onClick={openCart}
-            className="rounded-full border border-[#251f18] px-5 py-2.5 font-sans-main text-[10px] font-black uppercase tracking-[0.2em] text-[#251f18] transition-colors hover:border-[#849bff] hover:text-[#849bff]"
-          >
-            Cart{ready && count > 0 ? ` (${count})` : ''}
-          </button>
-        </div>
-        {children}
-      </div>
+      <ShopHeaderCartButton count={ready ? count : 0} onOpen={openCart} />
+      {children}
       <CartDrawer
         open={open}
         items={items}
@@ -146,5 +140,36 @@ export function ShopCartProvider({ children }: { children: React.ReactNode }) {
         onRemove={removeItem}
       />
     </ShopCartContext.Provider>
+  );
+}
+
+function ShopHeaderCartButton({ count, onOpen }: { count: number; onOpen: () => void }) {
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    setSlot(document.getElementById(SHOP_HEADER_CART_SLOT_ID));
+  }, []);
+
+  if (!slot) {
+    return null;
+  }
+
+  const label = count > 0 ? `Cart, ${count} ${count === 1 ? 'item' : 'items'}` : 'Cart';
+
+  return createPortal(
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={label}
+      className="relative inline-flex h-10 w-10 cursor-pointer items-center justify-center text-[#251f18] transition-colors hover:text-[#849bff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#849bff]"
+    >
+      <ShoppingBag size={22} strokeWidth={1.75} aria-hidden="true" />
+      {count > 0 ? (
+        <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#849bff] px-1 font-mono-main text-[9px] leading-none text-white">
+          {count > 9 ? '9+' : count}
+        </span>
+      ) : null}
+    </button>,
+    slot,
   );
 }

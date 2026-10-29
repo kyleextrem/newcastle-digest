@@ -18,7 +18,7 @@ const MARKET_TOTE = {
   price: '$25 AUD',
   description: 'Carry Newcastle with you. 100% recycled canvas, black ink, made in small runs.',
   image: 'https://shop.newcastledigest.com/cdn/shop/files/C9960624-9AFC-479A-9852-5AC9468A7B0E.jpg?v=1783320208',
-  url: 'https://shop.newcastledigest.com/products/newcastle-digest-market-tote-bag',
+  url: '/shop/newcastle-digest-market-tote-bag',
 };
 
 export const HomePage: React.FC<{
@@ -106,14 +106,13 @@ export const HomePage: React.FC<{
                 <p className="font-sans-main text-lg text-[#251f18]/55 mt-4 leading-relaxed">
                   {MARKET_TOTE.description}
                 </p>
-                <a
+                <Link
                   href={MARKET_TOTE.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 self-start mt-8 bg-[#849bff] text-white px-8 py-4 rounded-full font-mono-main text-[10px] uppercase tracking-widest hover:bg-[#6a7be6] transition-all"
                 >
-                  Shop Now <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+                  Shop now
+                  <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </div>
           </div>

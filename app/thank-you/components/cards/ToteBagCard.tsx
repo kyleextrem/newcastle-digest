@@ -1,7 +1,6 @@
+import Link from 'next/link';
 import { ShoppingBag } from 'lucide-react';
 import { LinkCard } from './LinkCard';
-
-const TOTE_URL = 'https://shop.newcastledigest.com/products/newcastle-digest-market-tote-bag';
 
 export function ToteBagCard() {
   return (
@@ -10,14 +9,12 @@ export function ToteBagCard() {
       heading="Market Tote Bag"
       description="Carry Newcastle with you. $25."
     >
-      <a
-        href={TOTE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href="/shop/newcastle-digest-market-tote-bag"
         className="inline-flex font-mono-main text-[9px] uppercase tracking-widest text-[#849bff] transition-colors hover:text-[#6a7be6]"
       >
         Shop now
-      </a>
+      </Link>
     </LinkCard>
   );
 }

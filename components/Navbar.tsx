@@ -69,7 +69,8 @@ export const Navbar: React.FC<NavbarProps> = ({ scrolled, pathname }) => {
           })}
         </div>
 
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div id="shop-header-cart" className="empty:hidden flex items-center" />
           <Link
             href="/subscribe"
             className={`px-6 py-3 md:px-8 md:py-3.5 text-[10px] font-sans-main font-black uppercase tracking-[0.2em] transition-all rounded-full shadow-lg ${isDark ? 'bg-[#251f18] text-white hover:bg-white hover:text-[#251f18]' : 'bg-[#849bff] text-white hover:bg-[#6a7be6]'}`}

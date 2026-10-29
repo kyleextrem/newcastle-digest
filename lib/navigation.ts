@@ -9,7 +9,7 @@ export const NAV_LINKS: NavLink[] = [
   { name: 'Home', href: '/' },
   { name: 'Latest Edition', href: '/previous-newsletters' },
   { name: 'Experiences', href: '/experiences' },
-  { name: 'Shop', href: 'https://shop.newcastledigest.com', external: true },
+  { name: 'Shop', href: '/shop' },
   { name: 'Events', href: '/events' },
   { name: 'Journal', href: '/journal' },
   { name: 'Work With Us', href: '/work' },
@@ -23,5 +23,9 @@ export function isNavLinkActive(href: string, pathname: string): boolean {
   }
 
   const path = href.replace(/#.*/, '');
+  if (path === '/shop' && pathname.startsWith('/shop/admin')) {
+    return false;
+  }
+
   return pathname === path || pathname.startsWith(`${path}/`);
 }
