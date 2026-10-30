@@ -1,145 +1,61 @@
 /**
  * POST /api/beehiiv/subscriber
- * Updates a subscriber's postcode custom field and/or tags.
- * Body: { email: string, postcode?: string, tags?: string[] }
+ * Partially updates postcode, runs_business, interests, and/or top-three tags.
+ * Body: { email, postcode?, runs_business?: "yes" | "no", interests?: string[], tags?: string[] }
  */
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-import { NextRequest } from 'next/server';
+import {
+  handleSubscriberUpdate,
+  readBeehiivResponse,
+  type BeehiivClient,
+} from '@/lib/beehiiv-subscriber';
 
 const BEEHIIV_API = 'https://api.beehiiv.com/v2';
 
-interface SubscriberRequest {
-  email?: string;
-  postcode?: string;
-  tags?: string[];
-}
-
-interface BeehiivSubscription {
-  id: string;
-  email: string;
-}
-
-async function beehiivFetch(path: string, options: RequestInit = {}) {
-  const apiKey = process.env.BEEHIIV_API_KEY;
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
-
-  if (!apiKey || !publicationId) {
-    throw new Error('Server configuration error');
-  }
-
-  const res = await fetch(`${BEEHIIV_API}${path}`, {
-    ...options,
+function json(body: unknown, status: number) {
+  return new Response(JSON.stringify(body), {
+    status,
     headers: {
-      Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      ...options.headers,
+      'Cache-Control': 'no-store',
     },
   });
-
-  return res;
 }
 
-function getPublicationId() {
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
-  if (!publicationId) {
-    throw new Error('Server configuration error');
-  }
-  return publicationId;
+function createBeehiivClient(apiKey: string): BeehiivClient {
+  return async (call) => {
+    const res = await fetch(`${BEEHIIV_API}${call.path}`, {
+      method: call.method,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        Accept: 'application/json',
+        ...(call.body === undefined ? {} : { 'Content-Type': 'application/json' }),
+      },
+      body: call.body === undefined ? undefined : JSON.stringify(call.body),
+    });
+    return readBeehiivResponse(res.status, await res.text());
+  };
 }
 
-export async function POST(request: NextRequest) {
-  let body: SubscriberRequest;
+export async function POST(request: Request) {
+  let body: unknown;
   try {
-    body = (await request.json()) as SubscriberRequest;
+    body = await request.json();
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: 'Invalid JSON body' }, 400);
   }
 
-  const email = body.email?.trim().toLowerCase();
-  if (!email) {
-    return new Response(JSON.stringify({ error: 'Email is required' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  const apiKey = process.env.BEEHIIV_API_KEY?.trim();
+  const publicationId = process.env.BEEHIIV_PUBLICATION_ID?.trim();
+  if (!apiKey || !publicationId) {
+    return json({ error: 'Server configuration error' }, 500);
   }
 
-  try {
-    const publicationId = getPublicationId();
-
-    if (body.postcode?.trim()) {
-      const res = await beehiivFetch(
-        `/publications/${publicationId}/subscriptions/by_email/${encodeURIComponent(email)}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify({
-            custom_fields: [{ name: 'postcode', value: body.postcode.trim() }],
-          }),
-        }
-      );
-
-      if (!res.ok) {
-        const text = await res.text();
-        return new Response(
-          JSON.stringify({ error: 'Failed to update postcode', details: text }),
-          { status: res.status, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-    }
-
-    if (body.tags && body.tags.length > 0) {
-      const getRes = await beehiivFetch(
-        `/publications/${publicationId}/subscriptions/by_email/${encodeURIComponent(email)}`
-      );
-
-      if (!getRes.ok) {
-        const text = await getRes.text();
-        return new Response(
-          JSON.stringify({ error: 'Subscriber not found', details: text }),
-          { status: getRes.status, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-
-      const subscriptionBody = (await getRes.json()) as { data: BeehiivSubscription };
-      const subscriptionId = subscriptionBody.data?.id;
-
-      if (!subscriptionId) {
-        return new Response(JSON.stringify({ error: 'Subscriber not found' }), {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-
-      const tagRes = await beehiivFetch(
-        `/publications/${publicationId}/subscriptions/${subscriptionId}/tags`,
-        {
-          method: 'POST',
-          body: JSON.stringify({ tags: body.tags }),
-        }
-      );
-
-      if (!tagRes.ok) {
-        const text = await tagRes.text();
-        return new Response(
-          JSON.stringify({ error: 'Failed to add tags', details: text }),
-          { status: tagRes.status, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-    }
-
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    return new Response(JSON.stringify({ error: message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  const result = await handleSubscriberUpdate(body, {
+    publicationId,
+    client: createBeehiivClient(apiKey),
+  });
+  return json(result.body, result.status);
 }
