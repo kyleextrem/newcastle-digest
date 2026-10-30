@@ -3,11 +3,13 @@
 import { useState } from 'react';
 
 interface StepPostcodeProps {
+  initialPostcode: string;
+  onChange: (postcode: string) => void;
   onNext: (postcode: string) => void;
 }
 
-export function StepPostcode({ onNext }: StepPostcodeProps) {
-  const [postcode, setPostcode] = useState('');
+export function StepPostcode({ initialPostcode, onChange, onNext }: StepPostcodeProps) {
+  const [postcode, setPostcode] = useState(initialPostcode);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +31,10 @@ export function StepPostcode({ onNext }: StepPostcodeProps) {
           type="text"
           inputMode="numeric"
           value={postcode}
-          onChange={(e) => setPostcode(e.target.value)}
+          onChange={(e) => {
+            setPostcode(e.target.value);
+            onChange(e.target.value);
+          }}
           placeholder="2300"
           autoFocus
           className="w-full border-b-2 border-[#251f18]/15 bg-transparent py-4 text-center font-sans-main text-5xl font-black tracking-tight text-[#251f18] placeholder:text-[#251f18]/20 focus:border-[#849bff] focus:outline-none sm:text-6xl"

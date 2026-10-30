@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { sanitizePageLocation, trackSignUp } from '@/lib/analytics';
 import {
@@ -10,27 +10,33 @@ import {
   readPendingEmail,
   rememberPendingEmail,
 } from '@/lib/subscriber-session';
+import {
+  createSubmitGate,
+  defaultThankYouProgress,
+  endScreenAudience,
+  orderedInterestIds,
+  readThankYouProgress,
+  requestForSave,
+  runProfileSave,
+  saveSubscriberProfile,
+  writeThankYouProgress,
+  type SaveKey,
+  type ThankYouProgress,
+} from '@/lib/thank-you-profile';
+import { DEFAULT_INTERESTS, type InterestItem } from './constants';
 import { ProgressDots } from './components/ProgressDots';
 import { StepWelcome } from './components/StepWelcome';
+import { StepBusiness } from './components/StepBusiness';
 import { StepPostcode } from './components/StepPostcode';
 import { StepRank } from './components/StepRank';
 import { StepEndScreen } from './components/StepEndScreen';
-import type { InterestItem } from './constants';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
-function updateSubscriberProfile(email: string, postcode: string, topTags: string[]) {
-  fetch('/api/beehiiv/subscriber', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email,
-      postcode: postcode || undefined,
-      tags: topTags,
-    }),
-  }).catch(() => {
-    // Fail silently, no loading state shown to user
-  });
+function interestsFromIds(ids: readonly string[]): InterestItem[] {
+  const ordered = orderedInterestIds(ids);
+  const byId = new Map(DEFAULT_INTERESTS.map((item) => [item.id, item]));
+  return ordered.map((id) => byId.get(id)).filter((item): item is InterestItem => item !== undefined);
 }
 
 function stripEmailFromAddressBar() {
@@ -43,19 +49,29 @@ function stripEmailFromAddressBar() {
 
 export function ThankYouFlow() {
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState<string | null>(null);
+  const [progress, setProgress] = useState<ThankYouProgress>(defaultThankYouProgress);
+  const progressRef = useRef(progress);
+  const emailRef = useRef<string | null>(null);
+  const gateRef = useRef(createSubmitGate());
   const reportedSignup = useRef(false);
-
-  const [step, setStep] = useState(0);
-  const [postcode, setPostcode] = useState('');
+  const hydrated = useRef(false);
 
   useLayoutEffect(() => {
     const legacyEmail = searchParams.get('email');
     const src = searchParams.get('src');
     rememberPendingEmail(legacyEmail);
     const resolved = readPendingEmail(legacyEmail);
-    setEmail(resolved);
+    emailRef.current = resolved;
     stripEmailFromAddressBar();
+
+    if (!hydrated.current) {
+      const stored = readThankYouProgress();
+      if (stored) {
+        progressRef.current = stored;
+        setProgress(stored);
+      }
+      hydrated.current = true;
+    }
 
     if (!reportedSignup.current && !hasTrackedSignup()) {
       reportedSignup.current = true;
@@ -68,32 +84,104 @@ export function ThankYouFlow() {
     }
   }, [searchParams]);
 
-  const goToStep = useCallback((next: number) => {
-    setStep(next);
-    window.scrollTo(0, 0);
-  }, []);
+  function patchProgress(patch: Partial<ThankYouProgress>) {
+    const next = { ...progressRef.current, ...patch };
+    progressRef.current = next;
+    writeThankYouProgress(next);
+    setProgress(next);
+    if (patch.step !== undefined) window.scrollTo(0, 0);
+  }
 
-  const handlePostcodeNext = (value: string) => {
-    setPostcode(value);
-    goToStep(2);
-  };
-
-  const handleRankNext = (orderedInterests: InterestItem[]) => {
-    if (email) {
-      const topTags = orderedInterests.slice(0, 3).map((item) => item.tag);
-      updateSubscriberProfile(email, postcode, topTags);
+  async function settle(key: SaveKey, snapshot: ThankYouProgress) {
+    const outcome = await runProfileSave(
+      key,
+      requestForSave(key, snapshot, emailRef.current),
+      gateRef.current,
+      saveSubscriberProfile,
+    );
+    if (outcome === 'missing-email') patchProgress({ missingEmail: true });
+    if (outcome === 'failed' && !progressRef.current.failed.includes(key)) {
+      patchProgress({ failed: [...progressRef.current.failed, key] });
     }
-    goToStep(3);
-  };
+    if (outcome === 'saved') {
+      patchProgress({ failed: progressRef.current.failed.filter((item) => item !== key) });
+    }
+  }
+
+  function chooseBusiness(choice: 'yes' | 'no' | 'skip') {
+    if (progressRef.current.step !== 1) return;
+    patchProgress({ step: 2, business: choice });
+    if (choice === 'yes' || choice === 'no') {
+      void settle('business', progressRef.current);
+    }
+  }
+
+  function finishPostcode(value: string) {
+    if (progressRef.current.step !== 2) return;
+    patchProgress({ step: 3, postcode: value.trim() });
+    void settle('postcode', progressRef.current);
+  }
+
+  function finishRank(items: InterestItem[]) {
+    if (progressRef.current.step !== 3) return;
+    patchProgress({ step: 4, interestIds: items.map((item) => item.id) });
+    void settle('ranking', progressRef.current);
+  }
+
+  async function retryFailed() {
+    const keys = [...progressRef.current.failed];
+    for (const key of keys) {
+      await settle(key, progressRef.current);
+    }
+  }
+
+  const rankedItems = interestsFromIds(progress.interestIds);
 
   return (
     <div className="min-h-screen bg-[#faf9f6]">
-      <ProgressDots currentStep={step} totalSteps={TOTAL_STEPS} />
+      <ProgressDots currentStep={progress.step} totalSteps={TOTAL_STEPS} />
+      {progress.missingEmail || progress.failed.length > 0 ? (
+        <div className="px-6 pb-2 text-center">
+          {progress.missingEmail ? (
+            <p className="font-sans-main text-sm text-[#251f18]/65">
+              We don&apos;t have your email, so this wasn&apos;t saved.
+            </p>
+          ) : null}
+          {progress.failed.length > 0 ? (
+            <p className="mt-1 font-sans-main text-sm text-[#251f18]/65">
+              We couldn&apos;t save that.{' '}
+              <button
+                type="button"
+                onClick={() => void retryFailed()}
+                className="font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] hover:text-[#6a7be6]"
+              >
+                Try again
+              </button>
+            </p>
+          ) : null}
+        </div>
+      ) : null}
 
-      {step === 0 && <StepWelcome onNext={() => goToStep(1)} />}
-      {step === 1 && <StepPostcode onNext={handlePostcodeNext} />}
-      {step === 2 && <StepRank onNext={handleRankNext} />}
-      {step === 3 && <StepEndScreen />}
+      {progress.step === 0 && <StepWelcome onNext={() => {
+        if (progressRef.current.step !== 0) return;
+        patchProgress({ step: 1 });
+      }} />}
+      {progress.step === 1 && <StepBusiness onChoose={chooseBusiness} />}
+      {progress.step === 2 && (
+        <StepPostcode
+          initialPostcode={progress.postcode}
+          onChange={(postcode) => patchProgress({ postcode })}
+          onNext={finishPostcode}
+        />
+      )}
+      {progress.step === 3 && (
+        <StepRank
+          initialItems={rankedItems}
+          onChange={(items) => patchProgress({ interestIds: items.map((item) => item.id) })}
+          onNext={finishRank}
+        />
+      )}
+      {progress.step === 4 && <StepEndScreen audience={endScreenAudience(progress.business)} />}
     </div>
   );
 }

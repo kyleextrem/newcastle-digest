@@ -20,9 +20,10 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical } from 'lucide-react';
 import type { InterestItem } from '../constants';
-import { DEFAULT_INTERESTS } from '../constants';
 
 interface StepRankProps {
+  initialItems: InterestItem[];
+  onChange: (orderedInterests: InterestItem[]) => void;
   onNext: (orderedInterests: InterestItem[]) => void;
 }
 
@@ -59,8 +60,8 @@ function SortableItem({ item, index }: { item: InterestItem; index: number }) {
   );
 }
 
-export function StepRank({ onNext }: StepRankProps) {
-  const [items, setItems] = useState<InterestItem[]>(DEFAULT_INTERESTS);
+export function StepRank({ initialItems, onChange, onNext }: StepRankProps) {
+  const [items, setItems] = useState<InterestItem[]>(initialItems);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -78,7 +79,9 @@ export function StepRank({ onNext }: StepRankProps) {
     setItems((prev) => {
       const oldIndex = prev.findIndex((item) => item.id === active.id);
       const newIndex = prev.findIndex((item) => item.id === over.id);
-      return arrayMove(prev, oldIndex, newIndex);
+      const next = arrayMove(prev, oldIndex, newIndex);
+      onChange(next);
+      return next;
     });
   };
 
