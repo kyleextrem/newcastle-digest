@@ -52,7 +52,7 @@ export function StepWelcome({ onNext }: StepWelcomeProps) {
         Thanks for subscribing.
       </h1>
       <p className="mt-6 max-w-lg font-sans-main text-base leading-relaxed text-[#251f18]/65 sm:text-lg">
-        You&apos;ve just joined 7,300+ Newcastle locals. Every Wednesday we drop the best of
+        You&apos;ve just joined 7,600+ Newcastle locals. Every Wednesday we drop the best of
         what&apos;s on, where to eat, and what&apos;s happening around town. Now, a couple of quick
         things while you&apos;re here.
       </p>
