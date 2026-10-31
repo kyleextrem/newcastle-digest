@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Hero } from './Hero';
 import { ExternalLink } from 'lucide-react';
+import { Hero } from './Hero';
 import { TESTIMONIALS } from '@/constants';
 import { GetawaysHomeModule } from './GetawaysHomeModule';
 import { JournalSection } from './JournalSection';
@@ -134,14 +134,11 @@ export const HomePage: React.FC<{
                     Partner with the Digest.
                   </h2>
                   <p className="font-sans-main text-white/90 mt-4 text-lg max-w-xl leading-snug">
-                    Connect your brand with one of Newcastle's fastest-growing local audiences.
-                  </p>
-                  <p className="font-sans-main text-white/60 mt-2 text-base">
-                    Thoughtful placements. Engaged readers. Real local reach.
+                    Put your business in front of locals who read Newcastle Digest every week.
                   </p>
                 </div>
                 <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all self-start md:self-auto">
-                  Explore options <ExternalLink className="w-3.5 h-3.5" />
+                  Explore advertising options
                 </span>
               </div>
           </Link>

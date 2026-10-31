@@ -20,10 +20,10 @@ const BUSINESS_CARDS: EndCard[] = [
   {
     title: 'Reach Newcastle locals',
     description: 'Advertise in Newcastle Digest through newsletter sponsorships, event promotions and other placements.',
-    href: 'https://tally.so/r/wkK8xj',
-    label: 'Get in touch',
+    href: '/work',
+    label: 'See options',
     icon: <Megaphone className="h-4 w-4" strokeWidth={2} />,
-    external: true,
+    external: false,
   },
   {
     title: 'Post a local job',

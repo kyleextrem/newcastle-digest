@@ -17,7 +17,7 @@ const navLinkClass = (isDark: boolean, active: boolean) =>
 
 export const Navbar: React.FC<NavbarProps> = ({ scrolled, pathname }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const isDark = pathname === '/work' || pathname === '/contact';
+  const isDark = pathname === '/contact';
 
   React.useEffect(() => {
     if (isOpen) {

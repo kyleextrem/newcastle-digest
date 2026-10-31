@@ -1,387 +1,245 @@
+'use client';
 
-import React from 'react';
+import { useCallback, useState } from 'react';
+import { AdvertisingEnquiryForm, AdvertisingEnquiryModal } from '@/components/advertising/EnquiryForm';
+import { EditorialExamples } from '@/components/advertising/EditorialExamples';
+import { FEATURED_EVENT_URL, type AdvertisingPackage } from '@/lib/advertising';
 
-const CAL_URL = 'https://cal.com/digest';
+const SHELL = 'mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8';
+const PRIMARY =
+  'inline-flex items-center justify-center rounded-full bg-[#849bff] px-6 py-3 font-mono-main text-[10px] uppercase tracking-widest text-white transition-colors hover:bg-[#251f18] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#849bff]';
+const PRIMARY_ON_DARK =
+  'inline-flex items-center justify-center rounded-full bg-[#849bff] px-6 py-3 font-mono-main text-[10px] uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-[#251f18] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#849bff]';
 
-export const WorkWithUs: React.FC = () => {
+export function WorkWithUs() {
+  const [openPackage, setOpenPackage] = useState<AdvertisingPackage | null>(null);
+  const closeEnquiry = useCallback(() => setOpenPackage(null), []);
+
   return (
-    <section className="relative bg-[#18181e] text-white min-h-screen py-24 px-4 md:px-8 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(132,155,255,0.12),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_50%,rgba(132,155,255,0.08),transparent_50%)] pointer-events-none" />
-      <div className="container mx-auto relative z-10">
-        {/* Hero */}
-        <div className="bg-[#0a0f1e] rounded-[40px] px-8 md:px-16 py-16 md:py-24 mb-16">
-          <h1 className="font-sans-display text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight max-w-4xl">
-            Newcastle Digest reaches 7,500+ locals every Wednesday morning.
-          </h1>
-          <p className="font-sans-main text-xl md:text-2xl text-white/70 mt-6 max-w-3xl">
-            We don&apos;t sell ad space. We tell our readers what&apos;s worth their time, and sometimes that&apos;s your business.
-          </p>
+    <div className="bg-[#faf9f6] text-[#251f18]">
+      <header className={`${SHELL} pb-2 pt-8 md:pb-4 md:pt-12`}>
+        <p className="font-mono-main text-[11px] uppercase tracking-[0.28em] text-[#849bff]">
+          Advertise with Newcastle Digest
+        </p>
+        <h1 className="mt-4 font-sans-main text-[2.75rem] font-black tracking-tight text-[#251f18] sm:text-6xl lg:text-[4.25rem] lg:leading-[0.92]">
+          Newcastle is reading.
+          <span className="mt-1 block">Get your business in front of it.</span>
+        </h1>
+        <p className="mt-5 max-w-2xl font-sans-main text-lg leading-relaxed text-[#251f18]/75 md:text-xl">
+          Reach local readers through Newcastle Digest, the weekly newsletter covering what&apos;s happening around town.
+        </p>
+        <a
+          href="#advertising"
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-[#849bff] px-7 py-3.5 font-sans-main text-sm font-bold text-white transition-colors hover:bg-[#251f18] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#849bff]"
+        >
+          Explore advertising options
+        </a>
+        <dl className="mt-8 grid grid-cols-1 border-y border-[#251f18]/15 sm:grid-cols-3">
+          <Stat value="7,500+" label="Subscribers" />
+          <Stat value="60%" label="Average open rate" />
+          <Stat value="Wednesday" label="Weekly publication" />
+        </dl>
+      </header>
 
-          {/* Stat strip */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-14 pt-10 border-t border-white/10">
-            <div>
-              <p className="font-sans-display text-3xl md:text-4xl font-bold text-[#a78bfa]">7,500+</p>
-              <p className="font-mono-main text-[10px] uppercase tracking-widest text-white/50 mt-2">Subscribers</p>
-            </div>
-            <div>
-              <p className="font-sans-display text-3xl md:text-4xl font-bold text-[#a78bfa]">60%</p>
-              <p className="font-mono-main text-[10px] uppercase tracking-widest text-white/50 mt-2">Open Rate</p>
-            </div>
-            <div>
-              <p className="font-sans-display text-3xl md:text-4xl font-bold text-[#a78bfa]">10–12%</p>
-              <p className="font-mono-main text-[10px] uppercase tracking-widest text-white/50 mt-2">Click-through</p>
-            </div>
-            <div>
-              <p className="font-sans-display text-3xl md:text-4xl font-bold text-[#a78bfa]">Wed AM</p>
-              <p className="font-mono-main text-[10px] uppercase tracking-widest text-white/50 mt-2">Inbox delivery</p>
-            </div>
-          </div>
+      <section id="examples" className={`${SHELL} scroll-mt-28 pb-12 md:pb-16`} aria-labelledby="examples-heading">
+        <h2 id="examples-heading" className="max-w-3xl font-sans-main text-3xl font-black tracking-tight md:text-5xl">
+          See how we feature local businesses.
+        </h2>
+        <EditorialExamples />
+      </section>
+
+      <section id="advertising" className={`${SHELL} scroll-mt-28 border-t border-[#251f18]/15 py-12 md:py-16`} aria-labelledby="advertising-heading">
+        <h2 id="advertising-heading" className="max-w-3xl font-sans-main text-3xl font-black tracking-tight md:text-5xl">
+          Advertise with Newcastle Digest
+        </h2>
+        <p className="mt-4 max-w-2xl font-sans-main text-lg leading-relaxed text-[#251f18]/70">
+          Whether you&apos;re promoting something new or want to share your business with more locals, we have a few ways to help.
+        </p>
+        <div className="mt-8 border-t border-[#251f18]/15">
+          <ProductRow
+            name="Newsletter Feature"
+            price="$250"
+            points={[
+              'One sponsored feature in a Wednesday newsletter',
+              '80–120 words written by Newcastle Digest',
+              'Image, branding and link to the advertiser',
+            ]}
+            onEnquire={() => setOpenPackage('newsletter-feature')}
+          />
+          <ProductRow
+            name="Sponsored Article"
+            price="$400"
+            points={[
+              'Dedicated 400–600-word Journal article',
+              "Published on Newcastle Digest's website",
+              'Promoted in one newsletter',
+              'Backlink to the advertiser',
+            ]}
+            onEnquire={() => setOpenPackage('sponsored-article')}
+          />
+          <ProductRow
+            name="Launch Package"
+            price="$600"
+            points={[
+              'Four-week campaign',
+              'One sponsored newsletter feature',
+              'Supporter recognition across 4–5 editions',
+              'One sponsored Journal article',
+              'Priority scheduling',
+            ]}
+            onEnquire={() => setOpenPackage('launch-package')}
+          />
         </div>
-
-        {/* Why this works */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="space-y-4">
-            <h3 className="font-sans-main text-2xl font-bold text-white">Trust beats an ad</h3>
-            <p className="font-sans-main text-lg text-white/60 leading-relaxed">
-              A caption you paid for gets two seconds of attention before someone scrolls past. A feature in Newcastle Digest sits in an inbox until it&apos;s actually read, because people signed up wanting to know what&apos;s happening locally, not to see an ad.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <h3 className="font-sans-main text-2xl font-bold text-white">Who this works for</h3>
-            <p className="font-sans-main text-lg text-white/60 leading-relaxed">
-              New openings that need a launch crowd. Events that need bums on seats. Local businesses that want to stay in front of people who already care what&apos;s happening in this city.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <h3 className="font-sans-main text-2xl font-bold text-white">Not an ad network</h3>
-            <p className="font-sans-main text-lg text-white/60 leading-relaxed">
-              We&apos;re a local voice 7,500 people chose to let into their inbox. When we mention a business, it reads like a recommendation, because that&apos;s what it is.
-            </p>
-          </div>
-        </div>
-
-        {/* Choose your placement */}
-        <div id="pricing" className="mb-16">
-          <h2 className="font-sans-display text-4xl md:text-5xl font-bold text-white tracking-tight mb-10">
-            Choose your placement
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1: Featured Event */}
-            <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
-              <div>
-                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$49 AUD</p>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Featured Event</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  More visibility for your event across Newcastle Digest, from approval until it finishes. It is still reviewed before it is published.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Featured badge in the Events Directory</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Placement on the Featured Events page</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Promotional image and copy</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>A link to tickets, booking, or more info</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Featured placement in the weekly newsletter while the listing is active</li>
-                </ul>
-                <p className="font-sans-main text-sm text-white/40 mt-4">
-                  Featured does not guarantee approval or publication.
-                </p>
-              </div>
-              <a
-                href="https://events.newcastledigest.com/feature"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
-              >
-                Get featured
-              </a>
-            </div>
-
-            {/* Card 2: Single Placement */}
-            <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
-              <div>
-                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$250 / one-off</p>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Single Placement</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  A one-off sponsored feature inside one Wednesday edition, written in our voice.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>80–120 words custom-written copy</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Header image supplied or sourced by us</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Your logo + &ldquo;Brought to you by [Business]&rdquo; branding</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>CTA button with your link</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Delivered to 7,500+ subscribers</li>
-                </ul>
-              </div>
-              <a
-                href="https://buy.stripe.com/bJecN62Db3wD8Gs3KKafS02"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
-              >
-                Buy now
-              </a>
-            </div>
-
-            {/* Card 3: Sponsored Journal Article */}
-            <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
-              <div>
-                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$400 / one-off</p>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Sponsored Journal Article</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  A full editorial piece about your business published permanently on the Newcastle Digest Journal. Written in our voice, SEO optimised, and promoted to our 7,500 subscribers in that week&apos;s edition.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>400-600 word editorial article written by Newcastle Digest</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Published permanently at newcastledigest.com/journal</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Promoted in that week&apos;s newsletter edition</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>SEO optimised with your business name and location</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Includes one backlink to your website</li>
-                </ul>
-              </div>
-              <a
-                href={CAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
-              >
-                Book a call
-              </a>
-            </div>
-
-            {/* Card 4: Launch Package */}
-            <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
-              <div>
-                <span className="inline-block font-mono-main text-[9px] uppercase tracking-widest text-white/90 px-3 py-1 rounded-full bg-[#a78bfa]/20 text-[#a78bfa] mb-3">
-                  Best for launches
-                </span>
-                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$600 / 4 weeks</p>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Launch Package</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  Everything a new business needs for a proper local launch: feature ad, ongoing presence, and social reach, bundled together.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Feature Ad</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout across 4–5 editions</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Sponsored Journal article, permanently published on the Newcastle Digest website</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Priority scheduling</li>
-                </ul>
-              </div>
-              <a
-                href="https://buy.stripe.com/fZueVe3Hf6IP4qcepoafS01"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
-              >
-                Buy now
-              </a>
-            </div>
-
-            {/* Card 5: Monthly Partner */}
-            <div className="bg-[#0a0f1e] rounded-[32px] p-8 flex flex-col justify-between border border-white/5">
-              <div>
-                <p className="font-mono-main text-[10px] uppercase tracking-widest text-[#a78bfa] mb-4">$500 / month</p>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Monthly Partner</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  A month of consistent presence. One feature plus your name in front of readers every week.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>1x Feature Ad, your choice of edition</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout in every edition that month (4–5 editions)</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Priority scheduling</li>
-                </ul>
-              </div>
-              <a
-                href="https://buy.stripe.com/aFa7sMb9H4AHbSE1CCafS04"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
-              >
-                Buy now
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* For ongoing partners */}
-        <div className="mb-16">
-          <h2 className="font-sans-display text-4xl md:text-5xl font-bold text-white tracking-tight mb-10">
-            For ongoing partners
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Quarterly Partner */}
-            <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
-              <div>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Quarterly Partner</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  Three months of deep integration. A feature every month, your name in every edition across the quarter, and a report showing exactly what it delivered.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>3x Feature Ads, one per month</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout in every edition across the quarter (12–13 editions)</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Priority scheduling across the full quarter</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>End of quarter performance report</li>
-                </ul>
-              </div>
-              <a
-                href={CAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
-              >
-                Book a call
-              </a>
-            </div>
-
-            {/* Card 2: Category Sponsorship */}
-            <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
-              <div>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Category Sponsorship</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  Own a content category across the Newcastle Digest newsletter and Journal for a month. Your brand sits alongside every article we publish and every newsletter section in that category.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Logo and one-line description on all Journal articles in your chosen category</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Sponsor callout in the matching newsletter section each week</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Categories available: Food, Markets, Events, Gigs</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>One sponsor per category, no competitors</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Runs for a full calendar month</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Price: $300 / month</li>
-                </ul>
-              </div>
-              <a
-                href={CAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
-              >
-                Book a call
-              </a>
-            </div>
-
-            {/* Card 3: Yearly Anchor */}
-            <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
-              <div>
-                <span className="inline-block font-mono-main text-[9px] uppercase tracking-widest px-3 py-1 rounded-full bg-[#a78bfa]/20 text-[#a78bfa] mb-3">
-                  Flagship
-                </span>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Yearly Anchor</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  One business per category, locked in for the year.
-                </p>
-                <ul className="space-y-2 text-sm text-white/50 font-sans-main">
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>12x Feature Ads, one per month</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Supporter callout in every edition, all year</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>One sponsored Journal article, permanently published on the Newcastle Digest website and promoted in that month&apos;s newsletter edition</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Quarterly performance reports</li>
-                  <li className="flex items-start gap-2"><span className="text-[#a78bfa] mt-0.5">•</span>Category exclusivity. No competitor in your category while you hold the spot</li>
-                </ul>
-              </div>
-              <a
-                href={CAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
-              >
-                Book a call
-              </a>
-            </div>
-
-            {/* Card 4: Custom Engagement */}
-            <div className="bg-[#a78bfa]/10 rounded-[32px] p-8 flex flex-col justify-between border border-[#a78bfa]/20">
-              <div>
-                <h3 className="font-sans-display text-2xl font-bold text-white mb-3">Custom Engagement</h3>
-                <p className="font-sans-main text-base text-white/60 mb-6">
-                  Got something bigger in mind? A sponsored dinner series, a launch across every channel we run, a combination of newsletter, events, and Digest Studio? Tell us what you&apos;re building and we&apos;ll put a plan together.
-                </p>
-              </div>
-              <a
-                href={CAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 block w-full text-center py-3 rounded-full font-mono-main text-[10px] uppercase tracking-widest bg-[#a78bfa] text-white hover:bg-[#a78bfa]/80 transition-all"
-              >
-                Book a call
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Beyond the newsletter */}
-        <div className="mb-16 border-t border-white/10 pt-16">
-          <div className="max-w-3xl">
-            <p className="font-mono-main text-[10px] uppercase tracking-[0.3em] text-[#a78bfa] mb-4">Digest Studio</p>
-            <h2 className="font-sans-display text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">
-              Beyond the newsletter
-            </h2>
-            <p className="font-sans-main text-xl md:text-2xl text-white/60 leading-relaxed mb-10">
-              Sponsorship gets your business seen by 7,500 locals. Digest Studio builds what happens after they click. A site, content, or SEO built to actually convert. Same team, same understanding of this market, different job.
-            </p>
-            <a
-              href="https://digeststudio.com.au/services"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-8 py-4 rounded-full font-sans-main font-bold text-sm uppercase tracking-widest bg-white text-[#18181e] hover:bg-white/90 transition-all"
-            >
-              See what Digest Studio builds
-            </a>
-          </div>
-        </div>
-
-        {/* How it works */}
-        <div className="mb-16">
-          <h2 className="font-sans-display text-4xl md:text-5xl font-bold text-white tracking-tight mb-8">
-            How it works
-          </h2>
-          <div className="divide-y divide-white/10 border-t border-b border-white/10">
-            <details className="group py-5">
-              <summary className="flex items-center justify-between cursor-pointer list-none font-sans-main text-base md:text-lg text-white/80 font-medium">
-                <span>Supply your assets, we write the copy</span>
-                <span className="text-[#a78bfa] text-xl transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="font-sans-main text-base text-white/50 mt-3 leading-relaxed max-w-3xl">
-                You supply your logo, image, offer and link. We write the copy in our voice. No briefs, no back and forth.
-              </p>
-            </details>
-            <details className="group py-5">
-              <summary className="flex items-center justify-between cursor-pointer list-none font-sans-main text-base md:text-lg text-white/80 font-medium">
-                <span>Lead time</span>
-                <span className="text-[#a78bfa] text-xl transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="font-sans-main text-base text-white/50 mt-3 leading-relaxed max-w-3xl">
-                7 days minimum lead time for a Feature Ad.
-              </p>
-            </details>
-            <details className="group py-5">
-              <summary className="flex items-center justify-between cursor-pointer list-none font-sans-main text-base md:text-lg text-white/80 font-medium">
-                <span>Billing periods</span>
-                <span className="text-[#a78bfa] text-xl transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="font-sans-main text-base text-white/50 mt-3 leading-relaxed max-w-3xl">
-                Monthly and quarterly partners book at the start of each billing period.
-              </p>
-            </details>
-            <details className="group py-5">
-              <summary className="flex items-center justify-between cursor-pointer list-none font-sans-main text-base md:text-lg text-white/80 font-medium">
-                <span>Pricing flexibility</span>
-                <span className="text-[#a78bfa] text-xl transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="font-sans-main text-base text-white/50 mt-3 leading-relaxed max-w-3xl">
-                One-off and monthly rates are fixed. Annual partners have some flexibility, particularly for early sign-ons.
-              </p>
-            </details>
-          </div>
-        </div>
-
-        {/* Closing section */}
-        <div className="mt-24 text-center max-w-3xl mx-auto">
-          <h2 className="font-sans-display text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-            7,500 locals open this newsletter more than half the time it lands.
-          </h2>
-          <p className="font-sans-main text-xl md:text-2xl text-white/60 mb-10">
-            That&apos;s the audience your business could be in front of next Wednesday.
-          </p>
-          <a
-            href="#pricing"
-            className="inline-block px-8 py-4 rounded-full font-mono-main text-[10px] uppercase tracking-widest border border-[#a78bfa] text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white transition-all"
+        <p className="mt-8 font-sans-main text-base leading-relaxed text-[#251f18]/75">
+          Promoting an event?{' '}
+          <a href={FEATURED_EVENT_URL} className="font-bold text-[#251f18] underline decoration-[#849bff] underline-offset-4">
+            Featured Event listings are $49.
+          </a>{' '}
+          The listing is still reviewed, and featured does not guarantee it will be published.
+        </p>
+        <p className="mt-4 font-sans-main text-base leading-relaxed text-[#251f18]/75">
+          Planning something larger or unusual?{' '}
+          <button
+            type="button"
+            onClick={() => setOpenPackage('campaigns')}
+            className="font-bold text-[#251f18] underline decoration-[#849bff] underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#849bff]"
           >
-            See pricing
-          </a>
+            Enquire about a custom campaign.
+          </button>
+        </p>
+      </section>
+
+      <section id="partnerships" className="scroll-mt-28 bg-[#251f18] text-[#faf9f6]" aria-labelledby="partnerships-heading">
+        <div className={`${SHELL} py-12 md:py-16`}>
+          <h2 id="partnerships-heading" className="max-w-3xl font-sans-main text-3xl font-black tracking-tight md:text-5xl">
+            Become a Newcastle Digest partner
+          </h2>
+          <p className="mt-4 max-w-2xl font-sans-main text-lg leading-relaxed text-white/70">
+            Keep your business in front of local readers with regular advertising or exclusive sponsorship.
+          </p>
+          <div className="mt-8 border-t border-white/15">
+            <ProductRow
+              tone="dark"
+              name="Category Sponsorship"
+              price="$300"
+              priceSuffix="/month"
+              summary="Exclusive sponsorship of one content category for a calendar month: Food, Markets, Events or Gigs."
+              points={[
+                'Business logo and a one-line description on relevant Journal articles',
+                'Sponsorship recognition in the corresponding weekly newsletter section',
+                'Category exclusivity during the sponsorship period',
+              ]}
+              onEnquire={() => setOpenPackage('category-sponsorship')}
+            />
+            <ProductRow
+              tone="dark"
+              name="Monthly Partner"
+              price="$500"
+              priceSuffix="/month"
+              points={[
+                'One dedicated newsletter feature in an edition chosen by the advertiser',
+                'Supporter recognition in every edition during that month',
+                'Priority scheduling',
+              ]}
+              onEnquire={() => setOpenPackage('monthly-partner')}
+            />
+          </div>
+          <div className="mt-2 flex flex-col gap-5 border-t border-white/15 pt-8 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-xl">
+              <h3 className="font-sans-main text-2xl font-black tracking-tight">Quarterly and annual partnerships</h3>
+              <p className="mt-2 font-sans-main text-base leading-relaxed text-white/75">
+                Longer arrangements are available, with pricing on enquiry.
+              </p>
+            </div>
+            <button type="button" onClick={() => setOpenPackage('partnership')} className={`${PRIMARY_ON_DARK} w-full shrink-0 md:w-auto`}>
+              Enquire about a longer partnership
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="enquire" className={`${SHELL} scroll-mt-28 py-12 md:py-16`} aria-labelledby="enquire-heading">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.15fr)] lg:gap-14">
+          <div>
+            <h2 id="enquire-heading" className="font-sans-main text-3xl font-black tracking-tight md:text-5xl">
+              Have something to promote?
+            </h2>
+            <p className="mt-4 font-sans-main text-lg leading-relaxed text-[#251f18]/70">
+              Tell us what you&apos;re promoting. We&apos;ll reply by email with a placement, a price and availability. There is no call to book, and nothing to pay to enquire.
+            </p>
+          </div>
+          <AdvertisingEnquiryForm source="work" initialPackage="unsure" idPrefix="work-inline" />
+        </div>
+      </section>
+
+      <AdvertisingEnquiryModal
+        open={openPackage !== null}
+        source="work"
+        packageId={openPackage ?? 'unsure'}
+        onClose={closeEnquiry}
+      />
+    </div>
   );
-};
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4 border-b border-[#251f18]/15 py-3 last:border-b-0 sm:flex-col sm:items-start sm:justify-start sm:gap-1 sm:border-b-0 sm:px-6 sm:py-4 sm:first:pl-0 sm:[&:not(:first-child)]:border-l">
+      <dd className="font-sans-main text-2xl font-black tracking-tight md:text-3xl">{value}</dd>
+      <dt className="text-right font-sans-main text-sm leading-snug text-[#251f18]/65 sm:text-left">{label}</dt>
+    </div>
+  );
+}
+
+function ProductRow({
+  name,
+  price,
+  priceSuffix,
+  summary,
+  points,
+  onEnquire,
+  tone = 'light',
+}: {
+  name: string;
+  price: string;
+  priceSuffix?: string;
+  summary?: string;
+  points: readonly string[];
+  onEnquire: () => void;
+  tone?: 'light' | 'dark';
+}) {
+  const dark = tone === 'dark';
+
+  return (
+    <article
+      className={`grid gap-5 border-b py-8 last:border-b-0 md:grid-cols-[12rem_minmax(0,1fr)_auto] md:items-start md:gap-10 ${dark ? 'border-white/15' : 'border-[#251f18]/15'}`}
+    >
+      <p className={`font-sans-main text-4xl font-black tracking-tight md:text-5xl ${dark ? 'text-white' : 'text-[#251f18]'}`}>
+        {price}
+        {priceSuffix ? <span className={`text-lg ${dark ? 'text-white/55' : 'text-[#251f18]/55'}`}>{priceSuffix}</span> : null}
+      </p>
+      <div>
+        <h3 className={`font-sans-main text-2xl font-black tracking-tight ${dark ? 'text-white' : 'text-[#251f18]'}`}>{name}</h3>
+        {summary ? (
+          <p className={`mt-2 font-sans-main text-base leading-relaxed ${dark ? 'text-white/75' : 'text-[#251f18]/80'}`}>{summary}</p>
+        ) : null}
+        <ul className={`mt-3 space-y-1.5 font-sans-main text-base leading-relaxed ${dark ? 'text-white/75' : 'text-[#251f18]/80'}`}>
+          {points.map((point) => (
+            <li key={point} className="flex gap-3">
+              <span className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#849bff]" aria-hidden />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        type="button"
+        onClick={onEnquire}
+        className={`${dark ? PRIMARY_ON_DARK : PRIMARY} w-full md:mt-1 md:w-auto md:self-center`}
+        aria-label={`Enquire about ${name}`}
+      >
+        Enquire
+      </button>
+    </article>
+  );
+}

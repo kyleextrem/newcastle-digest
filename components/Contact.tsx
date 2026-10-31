@@ -1,14 +1,20 @@
-import React from 'react';
-import { ExternalLink, Mail, Phone, Calendar } from 'lucide-react';
+'use client';
+
+import { useCallback, useState, type FC } from 'react';
+import Link from 'next/link';
+import { ExternalLink, Mail, Calendar } from 'lucide-react';
+import { AdvertisingEnquiryModal } from '@/components/advertising/EnquiryForm';
 
 const SUBMIT_EVENT_URL = 'https://events.newcastledigest.com/submit';
-const CAL_URL = 'https://cal.com/digest';
 const EMAIL = 'kyle@newcastledigest.com';
 
 const TALLY_EMBED_URL =
   'https://tally.so/embed/zxzkYZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
 
-export const Contact: React.FC = () => {
+export const Contact: FC = () => {
+  const [enquireOpen, setEnquireOpen] = useState(false);
+  const closeEnquiry = useCallback(() => setEnquireOpen(false), []);
+
   return (
     <section className="relative bg-[#18181e] text-white min-h-screen py-24 px-4 md:px-8 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(132,155,255,0.12),transparent_50%)] pointer-events-none" />
@@ -98,36 +104,39 @@ export const Contact: React.FC = () => {
             </div>
           </a>
 
-          {/* Give us a call */}
-          <a
-            href={CAL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-[24px] overflow-hidden bg-[#222228] border border-white/5 hover:border-[#849bff]/30 transition-all"
-          >
+          <div className="rounded-[24px] overflow-hidden bg-[#222228] border border-white/5">
             <div className="aspect-[4/3] overflow-hidden relative">
               <img
                 src="/newcastle/205091-2-09d6d7c1-47e3-48d7-84a4-672f358f231d.png"
                 alt="Newcastle city view"
-                className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover opacity-80"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#222228] via-transparent to-transparent pointer-events-none" />
             </div>
             <div className="relative p-6 md:p-8 -mt-16">
-              <div className="w-12 h-12 rounded-xl bg-[#849bff]/20 flex items-center justify-center mb-4">
-                <Phone className="w-6 h-6 text-[#849bff]" />
-              </div>
               <h3 className="font-sans-main font-black text-xl md:text-2xl uppercase tracking-tighter mb-3">
-                Give us a call
+                Advertising
               </h3>
-              <p className="font-sans-main text-white/70 text-sm md:text-base leading-snug mb-4">
-                Whether you're launching a product, promoting an event, or building brand trust with locals, we're here to help.
+              <p className="font-sans-main text-white/70 text-sm md:text-base leading-snug mb-5">
+                Put your business in front of locals who read Newcastle Digest. We reply by email.
               </p>
-              <span className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] group-hover:gap-3 transition-all">
-                Book a call <ExternalLink className="w-3.5 h-3.5" />
-              </span>
+              <div className="flex flex-col items-start gap-3">
+                <Link
+                  href="/work"
+                  className="inline-flex items-center gap-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] hover:gap-3 transition-all"
+                >
+                  See advertising options
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setEnquireOpen(true)}
+                  className="inline-flex items-center rounded-full border border-[#849bff] px-4 py-2 font-mono-main text-[10px] uppercase tracking-widest text-[#849bff] hover:bg-[#849bff] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#849bff]"
+                >
+                  Enquire
+                </button>
+              </div>
             </div>
-          </a>
+          </div>
 
           {/* Email us */}
           <a
@@ -159,6 +168,7 @@ export const Contact: React.FC = () => {
           </a>
         </div>
       </div>
+      <AdvertisingEnquiryModal open={enquireOpen} source="contact" packageId="unsure" onClose={closeEnquiry} />
     </section>
   );
 };
