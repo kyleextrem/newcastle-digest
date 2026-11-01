@@ -1,5 +1,4 @@
 import { Contact } from '@/components/Contact';
-import Script from 'next/script';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,10 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
-      <Contact />
-    </>
-  );
+  return <Contact />;
 }
