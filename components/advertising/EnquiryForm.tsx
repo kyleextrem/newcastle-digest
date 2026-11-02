@@ -1,7 +1,13 @@
 'use client';
 
 import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react';
-import { PROMOTION_GOALS, goalLabel, packageLabel, type AdvertisingPackage } from '@/lib/advertising';
+import {
+  PROMOTION_GOALS,
+  goalLabel,
+  packageLabel,
+  socialPlusAvailability,
+  type AdvertisingPackage,
+} from '@/lib/advertising';
 
 type EnquirySource = 'work' | 'contact';
 
@@ -13,22 +19,27 @@ const INPUT_CLASS =
 export function AdvertisingEnquiryForm({
   source,
   initialPackage = 'unsure',
+  initialSocialPlus = false,
   idPrefix,
   onSuccess,
 }: {
   source: EnquirySource;
   initialPackage?: AdvertisingPackage;
+  initialSocialPlus?: boolean;
   idPrefix: string;
   onSuccess?: () => void;
 }) {
   const [packageId, setPackageId] = useState<AdvertisingPackage>(initialPackage);
+  const [socialPlus, setSocialPlus] = useState(initialSocialPlus);
   const [status, setStatus] = useState<FormStatus>('idle');
   const [error, setError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+  const socialPlusOffer = socialPlusAvailability(packageId);
 
   useEffect(() => {
     setPackageId(initialPackage);
-  }, [initialPackage]);
+    setSocialPlus(initialSocialPlus);
+  }, [initialPackage, initialSocialPlus]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,6 +58,7 @@ export function AdvertisingEnquiryForm({
           businessName: data.get('businessName'),
           goal: data.get('goal'),
           packageId: data.get('packageId'),
+          socialPlus: socialPlusOffer === 'addon' ? socialPlus : false,
           details: data.get('details'),
           source,
           companyWebsite: data.get('companyWebsite'),
@@ -103,6 +115,12 @@ export function AdvertisingEnquiryForm({
         </div>
       </fieldset>
       <input type="hidden" name="packageId" value={packageId} />
+      <SocialPlusField
+        offer={socialPlusOffer}
+        packageId={packageId}
+        checked={socialPlus}
+        onChange={setSocialPlus}
+      />
       <Field id={`${idPrefix}-details`} label="Additional details">
         <textarea
           id={`${idPrefix}-details`}
@@ -140,11 +158,13 @@ export function AdvertisingEnquiryModal({
   open,
   source,
   packageId,
+  initialSocialPlus = false,
   onClose,
 }: {
   open: boolean;
   source: EnquirySource;
   packageId: AdvertisingPackage;
+  initialSocialPlus?: boolean;
   onClose: () => void;
 }) {
   const titleId = useId();
@@ -200,10 +220,66 @@ export function AdvertisingEnquiryModal({
             Close
           </button>
         </div>
-        <AdvertisingEnquiryForm source={source} initialPackage={packageId} idPrefix={`modal-${source}`} />
+        <AdvertisingEnquiryForm
+          source={source}
+          initialPackage={packageId}
+          initialSocialPlus={initialSocialPlus}
+          idPrefix={`modal-${source}`}
+        />
       </div>
     </div>
   );
+}
+
+function SocialPlusField({
+  offer,
+  packageId,
+  checked,
+  onChange,
+}: {
+  offer: ReturnType<typeof socialPlusAvailability>;
+  packageId: AdvertisingPackage;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}) {
+  switch (offer) {
+    case 'addon':
+      return (
+        <div className="space-y-2">
+          <label className="flex items-start gap-3 rounded-2xl border border-[#251f18]/10 bg-white px-4 py-3 font-sans-main text-base text-[#251f18] has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[#849bff]">
+            <input
+              type="checkbox"
+              name="socialPlus"
+              checked={checked}
+              onChange={(event) => onChange(event.target.checked)}
+              className="mt-1 h-4 w-4 accent-[#251f18]"
+            />
+            <span>Add Social+ Instagram promotion (+$150)</span>
+          </label>
+          {packageId === 'unsure' ? (
+            <p className="font-sans-main text-sm leading-relaxed text-[#251f18]/60">
+              Social+ can be added to a Newsletter Feature, a Sponsored Article, or an ongoing arrangement we agree. It does not select a package.
+            </p>
+          ) : null}
+        </div>
+      );
+    case 'included':
+      return (
+        <p className="rounded-2xl border border-[#251f18]/10 bg-white px-4 py-3 font-sans-main text-sm leading-relaxed text-[#251f18]/75">
+          One Instagram feed post is included in the Launch Package.
+        </p>
+      );
+    case 'bespoke':
+      return (
+        <p className="rounded-2xl border border-[#251f18]/10 bg-white px-4 py-3 font-sans-main text-sm leading-relaxed text-[#251f18]/75">
+          Instagram for a longer or custom partnership is priced individually, not as Social+.
+        </p>
+      );
+    default: {
+      const unreachable: never = offer;
+      return unreachable;
+    }
+  }
 }
 
 function Field({

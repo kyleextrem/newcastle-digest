@@ -39,6 +39,7 @@ const validEnquiry = {
   businessName: 'Harbour Cafe',
   goal: 'opening' as const,
   packageId: 'newsletter-feature' as const,
+  socialPlus: false,
   details: 'Opening on Beaumont Street.',
   source: 'work' as const,
 };
@@ -53,6 +54,43 @@ describe('advertising enquiry validation', () => {
   it('rejects a missing email before any other work', () => {
     const result = advertising.validateAdvertisingEnquiry({ ...validEnquiry, email: 'not-an-email' });
     assert.equal(result.ok, false);
+  });
+
+  it('records Social+ on an eligible product and leaves the product unchanged', () => {
+    const result = advertising.validateAdvertisingEnquiry({ ...validEnquiry, socialPlus: true });
+    assert.equal(result.ok, true);
+    if (result.ok) {
+      assert.equal(result.enquiry.packageId, 'newsletter-feature');
+      assert.equal(result.enquiry.socialPlus, true);
+      assert.equal(advertising.socialPlusRecord(result.enquiry.packageId, result.enquiry.socialPlus), 'Requested (+$150)');
+    }
+  });
+
+  it('treats a missing Social+ choice as not requested', () => {
+    const { socialPlus: _socialPlus, ...withoutSocialPlus } = validEnquiry;
+    const result = advertising.validateAdvertisingEnquiry(withoutSocialPlus);
+    assert.equal(result.ok, true);
+    if (result.ok) assert.equal(result.enquiry.socialPlus, false);
+  });
+
+  it('does not sell Social+ again on the Launch Package', () => {
+    const result = advertising.validateAdvertisingEnquiry({
+      ...validEnquiry,
+      packageId: 'launch-package',
+      socialPlus: true,
+    });
+    assert.equal(result.ok, false);
+    assert.equal(
+      advertising.socialPlusRecord('launch-package', false),
+      'Included with the Launch Package',
+    );
+  });
+
+  it('keeps Social+ off quarterly and custom partnerships', () => {
+    for (const packageId of ['partnership', 'campaigns'] as const) {
+      const result = advertising.validateAdvertisingEnquiry({ ...validEnquiry, packageId, socialPlus: true });
+      assert.equal(result.ok, false);
+    }
   });
 
   it('keeps the advertising option chosen with the enquiry', () => {
@@ -122,6 +160,18 @@ describe('open enquiry matching', () => {
     description: 'Option: Newsletter Feature',
   };
 
+  it('still matches the product when the deal also records Social+', () => {
+    const match = enquiry.findOpenEnquiryDeal(
+      [{ ...newsletter, description: 'Option: Newsletter Feature\nSocial+: Requested (+$150)' }],
+      {
+        pipelineId: 'pipe-1',
+        packageLabel: 'Newsletter Feature',
+        closedStageIds: new Set(['stage-closed']),
+      },
+    );
+    assert.equal(match, 'deal-open');
+  });
+
   it('reuses an open deal for the same product', () => {
     const match = enquiry.findOpenEnquiryDeal([newsletter], {
       pipelineId: 'pipe-1',
@@ -155,7 +205,41 @@ describe('open enquiry matching', () => {
   });
 });
 
+describe('internal notification', () => {
+  it('records Social+ interest beside the original product', () => {
+    const email = enquiry.internalNotificationEmail(
+      { ...validEnquiry, socialPlus: true },
+      'https://app.hubspot.com/contacts/1/record/0-3/deal-1',
+    );
+    assert.equal(email.subject, 'New advertising enquiry: Harbour Cafe — Newsletter Feature');
+    assert.match(email.text, /Advertising: Newsletter Feature/);
+    assert.match(email.text, /Social\+: Requested \(\+\$150\)/);
+  });
+});
+
 describe('submitAdvertisingEnquiry', () => {
+  it('stores Social+ on the same deal as the selected product', async () => {
+    let description = '';
+    const result = await enquiry.submitAdvertisingEnquiry(
+      { ...validEnquiry, socialPlus: true },
+      { HUBSPOT_ACCESS_TOKEN: 'token', RESEND_API_KEY: 're_test', SHOP_ADMIN_EMAILS: 'kyle@newcastledigest.com' },
+      async (input, init) => {
+        const url = String(input);
+        if (url.endsWith('/crm/v3/objects/deals')) {
+          description = JSON.parse(String(init?.body)).properties.description;
+          return json({ id: 'deal-1' });
+        }
+        if (url.endsWith('/account-info/v3/details')) return json({ portalId: 24601 });
+        if (url === 'https://api.resend.com/emails') return json({ id: 'email-1' });
+        return savedEnquiry(url, init);
+      },
+    );
+    assert.deepEqual(result, { ok: true });
+    assert.match(description, /Option: Newsletter Feature/);
+    assert.match(description, /Social\+: Requested \(\+\$150\)/);
+    assert.equal(description.includes('Social+ —'), false);
+  });
+
   it('creates a deal on the Sponsorships pipeline and only succeeds after email is accepted', async () => {
     const calls: string[] = [];
     const fetchImpl: typeof fetch = async (input, init) => {
@@ -181,6 +265,8 @@ describe('submitAdvertisingEnquiry', () => {
         assert.equal(body.properties.pipeline, 'pipe-1');
         assert.equal(body.properties.dealstage, 'stage-1');
         assert.equal(body.properties.dealname, 'Harbour Cafe — Newsletter Feature');
+        assert.match(body.properties.description, /^Option: Newsletter Feature$/m);
+        assert.match(body.properties.description, /Social\+: Not requested/);
         assert.equal(body.properties.amount, undefined);
         assert.equal(body.properties.hubspot_owner_id, undefined);
         assert.equal(body.associations[0].to.id, 'contact-1');
@@ -272,6 +358,7 @@ describe('submitAdvertisingEnquiry', () => {
     assert.match(internal?.text ?? '', /Contact: Alex Reader/);
     assert.match(internal?.text ?? '', /Email: alex@example.com/);
     assert.match(internal?.text ?? '', /Advertising: Newsletter Feature/);
+    assert.match(internal?.text ?? '', /Social\+: Not requested/);
     assert.match(internal?.text ?? '', /Promoting: A new opening or launch/);
     assert.match(internal?.text ?? '', /Notes: Opening on Beaumont Street\./);
     assert.match(internal?.text ?? '', /https:\/\/app\.hubspot\.com\/contacts\/24601\/record\/0-3\/deal-1/);

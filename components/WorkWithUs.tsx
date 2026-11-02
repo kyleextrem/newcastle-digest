@@ -1,9 +1,11 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { Instagram } from 'lucide-react';
 import { AdvertisingEnquiryForm, AdvertisingEnquiryModal } from '@/components/advertising/EnquiryForm';
 import { EditorialExamples } from '@/components/advertising/EditorialExamples';
-import { FEATURED_EVENT_URL, type AdvertisingPackage } from '@/lib/advertising';
+import { FEATURED_EVENT_URL, LAUNCH_PACKAGE_POINTS, SOCIAL_PLUS, type AdvertisingPackage } from '@/lib/advertising';
+import { INSTAGRAM_URL } from '@/lib/site';
 
 const SHELL = 'mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8';
 const PRIMARY =
@@ -12,8 +14,11 @@ const PRIMARY_ON_DARK =
   'inline-flex items-center justify-center rounded-full bg-[#849bff] px-6 py-3 font-mono-main text-[10px] uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-[#251f18] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#849bff]';
 
 export function WorkWithUs() {
-  const [openPackage, setOpenPackage] = useState<AdvertisingPackage | null>(null);
-  const closeEnquiry = useCallback(() => setOpenPackage(null), []);
+  const [enquiry, setEnquiry] = useState<{ packageId: AdvertisingPackage; socialPlus: boolean } | null>(null);
+  const closeEnquiry = useCallback(() => setEnquiry(null), []);
+  const openEnquiry = useCallback((packageId: AdvertisingPackage, socialPlus = false) => {
+    setEnquiry({ packageId, socialPlus });
+  }, []);
 
   return (
     <div className="bg-[#faf9f6] text-[#251f18]">
@@ -26,7 +31,7 @@ export function WorkWithUs() {
           <span className="mt-1 block">Get your business in front of it.</span>
         </h1>
         <p className="mt-5 max-w-2xl font-sans-main text-lg leading-relaxed text-[#251f18]/75 md:text-xl">
-          Reach local readers through Newcastle Digest, the weekly newsletter covering what&apos;s happening around town.
+          Reach locals through Newcastle Digest&apos;s Wednesday newsletter and on Instagram. The two audiences are counted separately.
         </p>
         <a
           href="#advertising"
@@ -36,8 +41,8 @@ export function WorkWithUs() {
         </a>
         <dl className="mt-8 grid grid-cols-1 border-y border-[#251f18]/15 sm:grid-cols-3">
           <Stat value="7,500+" label="Subscribers" />
+          <Stat value="8,000+" label="Instagram followers" href={INSTAGRAM_URL} />
           <Stat value="60%" label="Average open rate" />
-          <Stat value="Wednesday" label="Weekly publication" />
         </dl>
       </header>
 
@@ -64,7 +69,7 @@ export function WorkWithUs() {
               '80–120 words written by Newcastle Digest',
               'Image, branding and link to the advertiser',
             ]}
-            onEnquire={() => setOpenPackage('newsletter-feature')}
+            onEnquire={() => openEnquiry('newsletter-feature')}
           />
           <ProductRow
             name="Sponsored Article"
@@ -75,19 +80,14 @@ export function WorkWithUs() {
               'Promoted in one newsletter',
               'Backlink to the advertiser',
             ]}
-            onEnquire={() => setOpenPackage('sponsored-article')}
+            onEnquire={() => openEnquiry('sponsored-article')}
           />
           <ProductRow
             name="Launch Package"
             price="$600"
-            points={[
-              'Four-week campaign',
-              'One sponsored newsletter feature',
-              'Supporter recognition across 4–5 editions',
-              'One sponsored Journal article',
-              'Priority scheduling',
-            ]}
-            onEnquire={() => setOpenPackage('launch-package')}
+            summary="Four weeks across the newsletter, Journal and Instagram. The post uses images you supply. We write the caption and publish it."
+            points={LAUNCH_PACKAGE_POINTS}
+            onEnquire={() => openEnquiry('launch-package')}
           />
         </div>
         <p className="mt-8 font-sans-main text-base leading-relaxed text-[#251f18]/75">
@@ -101,12 +101,56 @@ export function WorkWithUs() {
           Planning something larger or unusual?{' '}
           <button
             type="button"
-            onClick={() => setOpenPackage('campaigns')}
+            onClick={() => openEnquiry('campaigns')}
             className="font-bold text-[#251f18] underline decoration-[#849bff] underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#849bff]"
           >
             Enquire about a custom campaign.
           </button>
         </p>
+      </section>
+
+      <section id="social-plus" className={`${SHELL} scroll-mt-28 border-t border-[#251f18]/15 pb-12 md:pb-16`} aria-labelledby="social-plus-heading">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="font-mono-main text-[11px] uppercase tracking-[0.28em] text-[#849bff]">Optional add-on</p>
+            <h2 id="social-plus-heading" className="mt-3 font-sans-main text-2xl font-black tracking-tight md:text-3xl">
+              Take your promotion further with Social+.
+            </h2>
+            <p className="mt-3 font-sans-main text-base leading-relaxed text-[#251f18]/75">
+              Add a dedicated Instagram post or carousel to your Newcastle Digest campaign for $150.
+            </p>
+          </div>
+          <p className="font-sans-main text-3xl font-black tracking-tight">+$150</p>
+        </div>
+        <p className="mt-4 flex items-center gap-2 font-sans-main text-base text-[#251f18]/80">
+          <Instagram className="h-4 w-4 text-[#849bff]" aria-hidden />
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold underline decoration-[#849bff] underline-offset-4"
+          >
+            8,000+ Instagram followers
+          </a>
+        </p>
+        <ul className="mt-4 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
+          {SOCIAL_PLUS.inclusions.map((point) => (
+            <li key={point} className="flex gap-3 font-sans-main text-base leading-relaxed text-[#251f18]/80">
+              <span className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#849bff]" aria-hidden />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 max-w-3xl font-sans-main text-sm leading-relaxed text-[#251f18]/65">
+          Available with a Newsletter Feature, a Sponsored Article, or an ongoing arrangement we agree. The Launch Package already includes one post. Photography, on-site shoots and video are quoted separately. Paid posts are labelled as advertising.
+        </p>
+        <button
+          type="button"
+          onClick={() => openEnquiry('unsure', true)}
+          className={`${PRIMARY} mt-5`}
+        >
+          Add Social+ to an enquiry
+        </button>
       </section>
 
       <section id="partnerships" className="scroll-mt-28 bg-[#251f18] text-[#faf9f6]" aria-labelledby="partnerships-heading">
@@ -129,7 +173,7 @@ export function WorkWithUs() {
                 'Sponsorship recognition in the corresponding weekly newsletter section',
                 'Category exclusivity during the sponsorship period',
               ]}
-              onEnquire={() => setOpenPackage('category-sponsorship')}
+              onEnquire={() => openEnquiry('category-sponsorship')}
             />
             <ProductRow
               tone="dark"
@@ -141,7 +185,7 @@ export function WorkWithUs() {
                 'Supporter recognition in every edition during that month',
                 'Priority scheduling',
               ]}
-              onEnquire={() => setOpenPackage('monthly-partner')}
+              onEnquire={() => openEnquiry('monthly-partner')}
             />
           </div>
           <div className="mt-2 flex flex-col gap-5 border-t border-white/15 pt-8 md:flex-row md:items-center md:justify-between">
@@ -151,7 +195,7 @@ export function WorkWithUs() {
                 Longer arrangements are available, with pricing on enquiry.
               </p>
             </div>
-            <button type="button" onClick={() => setOpenPackage('partnership')} className={`${PRIMARY_ON_DARK} w-full shrink-0 md:w-auto`}>
+            <button type="button" onClick={() => openEnquiry('partnership')} className={`${PRIMARY_ON_DARK} w-full shrink-0 md:w-auto`}>
               Enquire about a longer partnership
             </button>
           </div>
@@ -173,20 +217,38 @@ export function WorkWithUs() {
       </section>
 
       <AdvertisingEnquiryModal
-        open={openPackage !== null}
+        open={enquiry !== null}
         source="work"
-        packageId={openPackage ?? 'unsure'}
+        packageId={enquiry?.packageId ?? 'unsure'}
+        initialSocialPlus={enquiry?.socialPlus ?? false}
         onClose={closeEnquiry}
       />
     </div>
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+function Stat({ value, label, href }: { value: string; label: string; href?: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4 border-b border-[#251f18]/15 py-3 last:border-b-0 sm:flex-col sm:items-start sm:justify-start sm:gap-1 sm:border-b-0 sm:px-6 sm:py-4 sm:first:pl-0 sm:[&:not(:first-child)]:border-l">
-      <dd className="font-sans-main text-2xl font-black tracking-tight md:text-3xl">{value}</dd>
-      <dt className="text-right font-sans-main text-sm leading-snug text-[#251f18]/65 sm:text-left">{label}</dt>
+      <dd className="font-sans-main text-2xl font-black tracking-tight md:text-3xl">
+        {href ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="8,000+ Instagram followers. Opens the Newcastle Digest Instagram profile."
+            className="underline decoration-transparent underline-offset-4 hover:decoration-[#849bff]"
+          >
+            {value}
+          </a>
+        ) : (
+          value
+        )}
+      </dd>
+      <dt className="flex items-center gap-1.5 text-right font-sans-main text-sm leading-snug text-[#251f18]/65 sm:text-left">
+        {href ? <Instagram className="h-3.5 w-3.5 shrink-0 text-[#849bff]" aria-hidden /> : null}
+        {label}
+      </dt>
     </div>
   );
 }

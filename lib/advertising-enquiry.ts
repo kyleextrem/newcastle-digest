@@ -5,6 +5,7 @@ import {
   firstNameFrom,
   goalLabel,
   packageLabel,
+  socialPlusRecord,
   type AdvertisingEnquiryInput,
 } from '@/lib/advertising';
 import { parseAdminEmails } from '@/lib/shop-admin-policy';
@@ -77,6 +78,7 @@ export function internalNotificationEmail(
     `Contact: ${enquiry.name}`,
     `Email: ${enquiry.email}`,
     `Advertising: ${packageLabel(enquiry.packageId)}`,
+    `Social+: ${socialPlusRecord(enquiry.packageId, enquiry.socialPlus)}`,
     `Promoting: ${goalLabel(enquiry.goal)}`,
     `Notes: ${enquiry.details.trim() || 'None'}`,
     `HubSpot deal: ${dealUrl ?? 'Saved, but the deal link is unavailable.'}`,
@@ -448,6 +450,7 @@ function dealDescription(enquiry: AdvertisingEnquiryInput): string {
   return [
     'Newcastle Digest advertising enquiry',
     `Option: ${packageLabel(enquiry.packageId)}`,
+    `Social+: ${socialPlusRecord(enquiry.packageId, enquiry.socialPlus)}`,
     `Promoting: ${goalLabel(enquiry.goal)}`,
     `Business: ${enquiry.businessName}`,
     `Name: ${enquiry.name}`,

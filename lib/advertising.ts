@@ -25,9 +25,31 @@ export type AdvertisingEnquiryInput = {
   businessName: string;
   goal: PromotionGoal;
   packageId: AdvertisingPackage;
+  socialPlus: boolean;
   details: string;
   source: 'work' | 'contact';
 };
+
+export const LAUNCH_PACKAGE_POINTS = [
+  'One sponsored feature in a Wednesday newsletter',
+  'Supporter mentions across 4–5 newsletter editions',
+  'One sponsored Journal article',
+  'One dedicated Instagram feed post or carousel',
+  'Priority scheduling',
+] as const;
+
+export const SOCIAL_PLUS = {
+  name: 'Social+',
+  priceLabel: '+$150',
+  description: "Extend your promotion to Newcastle Digest's Instagram audience with a dedicated feed post or carousel.",
+  inclusions: [
+    'One dedicated Instagram feed post or carousel',
+    'Caption written by Newcastle Digest',
+    'Business tagged in the published post',
+    'Relevant link shared through Instagram Stories where practical',
+    'Advertiser-supplied photography or graphics',
+  ],
+} as const;
 
 const LIMITS = {
   name: 100,
@@ -112,7 +134,7 @@ export const ADVERTISING_OFFERS = [
       'We’ll reply with a plan and a price.',
     ],
     inclusions: [
-      'Launch Package, $600 over four weeks. One feature, a supporter line across four or five editions, one sponsored Journal article, and priority scheduling.',
+      'Launch Package, $600 over four weeks. One sponsored feature in a Wednesday newsletter, supporter mentions across 4–5 newsletter editions, one sponsored Journal article, one dedicated Instagram feed post or carousel, and priority scheduling. The Instagram post uses images the advertiser supplies. Newcastle Digest writes the caption and publishes it. The post is labelled as advertising. No photography session, video or Reel.',
       'Custom Engagement, tailored quote. A bigger launch, a series, or a mix of newsletter, Journal and events. We reply with a plan and a price.',
     ],
   },
@@ -140,6 +162,45 @@ export function packageLabel(packageId: AdvertisingPackage): string {
       return 'Not sure yet';
     default: {
       const unreachable: never = packageId;
+      return unreachable;
+    }
+  }
+}
+
+export type SocialPlusAvailability = 'addon' | 'included' | 'bespoke';
+
+export function socialPlusAvailability(packageId: AdvertisingPackage): SocialPlusAvailability {
+  switch (packageId) {
+    case 'newsletter-feature':
+    case 'sponsored-article':
+    case 'category-sponsorship':
+    case 'monthly-partner':
+    case 'ongoing':
+    case 'unsure':
+      return 'addon';
+    case 'launch-package':
+      return 'included';
+    case 'partnership':
+    case 'campaigns':
+      return 'bespoke';
+    default: {
+      const unreachable: never = packageId;
+      return unreachable;
+    }
+  }
+}
+
+export function socialPlusRecord(packageId: AdvertisingPackage, requested: boolean): string {
+  const availability = socialPlusAvailability(packageId);
+  switch (availability) {
+    case 'included':
+      return 'Included with the Launch Package';
+    case 'bespoke':
+      return 'Not part of Social+. Instagram for this option is priced individually.';
+    case 'addon':
+      return requested ? 'Requested (+$150)' : 'Not requested';
+    default: {
+      const unreachable: never = availability;
       return unreachable;
     }
   }
@@ -184,6 +245,7 @@ export function validateAdvertisingEnquiry(
   const packageId = readString(body.packageId);
   const details = readString(body.details);
   const source = readString(body.source);
+  const socialPlus = readSocialPlus(body.socialPlus);
 
   if (!name || !email || !businessName || !goal || !packageId) {
     return { ok: false, error: 'Name, email, business name and what you want to promote are required.' };
@@ -214,6 +276,14 @@ export function validateAdvertisingEnquiry(
     return { ok: false, error: 'Check the form and try again.' };
   }
 
+  if (socialPlus === null) {
+    return { ok: false, error: 'Check the form and try again.' };
+  }
+
+  if (socialPlus && socialPlusAvailability(packageId) !== 'addon') {
+    return { ok: false, error: 'Social+ can be added to a Newsletter Feature, a Sponsored Article, or an ongoing arrangement.' };
+  }
+
   return {
     ok: true,
     enquiry: {
@@ -222,6 +292,7 @@ export function validateAdvertisingEnquiry(
       businessName,
       goal,
       packageId,
+      socialPlus,
       details,
       source,
     },
@@ -230,4 +301,10 @@ export function validateAdvertisingEnquiry(
 
 function readString(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
+}
+
+function readSocialPlus(value: unknown): boolean | null {
+  if (value === undefined || value === null || value === false) return false;
+  if (value === true) return true;
+  return null;
 }
